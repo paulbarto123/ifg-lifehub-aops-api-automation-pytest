@@ -1,0 +1,55 @@
+Search Proposal Corpo
+
+curl --location --globoff '{{host-core}}/v2/pas/organization-proposal/search' \
+--header 'apiKey: {{apiKey-core}}' \
+--header 'Content-Type: application/json' \
+--data '{
+    "organizationProposalNumber": "042025000070"
+}'
+
+Post-res script:
+
+let response = pm.response.json();
+
+const excludedKeys = ["id", "createdBy", "createdAt", "updatedBy", "updatedAt"];
+
+function cleanAndFlag(obj) {
+    if (Array.isArray(obj)) {
+        return obj.map(cleanAndFlag);
+    }
+
+    if (obj && typeof obj === "object") {
+        let newObj = {};
+
+        Object.keys(obj).forEach(key => {
+            if (!excludedKeys.includes(key)) {
+                newObj[key] = cleanAndFlag(obj[key]);
+            }
+        });
+
+        if ("value" in newObj && !("flag" in newObj)) {
+            newObj.flag = "false";
+        }
+
+        return newObj;
+    }
+
+    return obj;
+}
+
+// =========================
+// VALIDASI STRUKTUR RESPONSE
+// =========================
+if (response?.data?.data?.length > 0) {
+    let firstData = response.data.data[0];
+
+    let corpoData = {
+        listOrganizationProposalVariable: cleanAndFlag(firstData.listOrganizationProposalVariable || []),
+        listOrganizationProposalBenefit: cleanAndFlag(firstData.listOrganizationProposalBenefit || []),
+        listOrganizationProposalRelation: cleanAndFlag(firstData.listOrganizationProposalRelation || [])
+    };
+
+    pm.environment.set("corpoProposalData", JSON.stringify(corpoData, null, 2));
+} else {
+    console.warn("⚠️ Response structure not as expected or empty data array.");
+}

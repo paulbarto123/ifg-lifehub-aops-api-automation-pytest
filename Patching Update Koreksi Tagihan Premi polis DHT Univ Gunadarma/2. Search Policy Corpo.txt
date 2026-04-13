@@ -1,0 +1,79 @@
+Search Policy Corpo
+
+curl --location --globoff '{{host-core}}/v2/pas/organization-policies/search' \
+--header 'apiKey: {{apiKey-core}}' \
+--header 'Content-Type: application/json' \
+--data '{
+    "organizationPolicyNumber": "910625040"
+}'
+
+Post-res script:
+
+let response = pm.response.json();
+
+let data0 = response?.data?.data?.[0];
+
+if (!data0) {
+    console.warn("Response structure not as expected.");
+    return;
+}
+
+pm.environment.set("orgPolicyId", data0.id);
+pm.environment.set("orgProposalId", data0.organizationProposalId);
+pm.environment.set("orgPolicyNumber", data0.organizationPolicyNumber);
+pm.environment.set("organizationIdAlter", data0.organizationId);
+
+// =========================
+// SAVE OLD DATA (RAW)
+// =========================
+let OldData = {
+    listOrganizationPolicyVariable: data0.listOrganizationPolicyVariable || [],
+    listPolicyCoverage: data0.listOrganizationPolicyCoverage || [],
+    listPolicyRelation: data0.listOrganizationPolicyRelation || [],
+    listMaterialFact: data0.listMaterialFact || [],
+    listCostVariable: data0.listCostVariable || []
+};
+
+pm.environment.set("OldData", JSON.stringify(OldData));
+
+let listRelation = data0.listOrganizationPolicyRelation;
+
+if (Array.isArray(listRelation)) {
+    listRelation.forEach(item => {
+        if (item.role && item.personCif) {
+            pm.environment.set(`personCif${item.role}`, item.personCif);
+        }
+    });
+}
+
+const excludedKeys = ["id", "createdBy", "createdAt", "updatedBy", "updatedAt"];
+
+function cleanAndFlag(obj) {
+    if (Array.isArray(obj)) {
+        return obj.map(cleanAndFlag);
+    }
+
+    if (obj && typeof obj === "object") {
+        let newObj = {};
+
+        Object.keys(obj).forEach(key => {
+            if (!excludedKeys.includes(key)) {
+                newObj[key] = cleanAndFlag(obj[key]);
+            }
+        });
+        if ("value" in newObj && !("flag" in newObj)) {
+            newObj.flag = "false";
+        }
+
+        return newObj;
+    }
+
+    return obj;
+}
+
+let corpoPolicyData = {
+    listMaterialFact: cleanAndFlag(data0.listMaterialFact || []),
+    listCostVariable: cleanAndFlag(data0.listCostVariable || [])
+};
+
+pm.environment.set("corpoPolicyData", JSON.stringify(corpoPolicyData));

@@ -1,0 +1,182 @@
+Insert Member Major Alteration
+
+Script
+curl --location --globoff '{{host-v2}}/v1/ao-workflow-policy-corporate/major-alteration/general-transaction-member' \
+--header 'apiKey: {{apiKey-v2}}' \
+--header 'Content-Type: application/json' \
+--data '{
+    "organizationMember": {
+        "referenceNo": "{{orgPolicyNumber}}",
+        "transactionId": "{{transactionIdAlter}}",
+        "totalMember": "1",
+        "totalPage": "1",
+        "page": "1",
+        "totalInPage": "1",
+        "listOfMember": [
+            {
+                "memberId": "{{guid}}",
+                "memberReferenceNo": "{{proposalNumber}}",
+                "memberReferenceType": "PROPOSAL_NUMBER",
+                "taskName": "SUBMIT_MEMBER_PROPOSAL",
+                "taskStatus": "",
+                "details": {
+                    "PROPOSAL_NUMBER": "{{proposalNumber}}",
+                    "PROPOSAL_ID": "{{proposalIdOldMember}}",
+                    "POLICY_ID": "{{policyIdOldMember}}", 
+                    "POLICY_NUMBER": "{{policyNumberOldMember}}",
+                    "MEMBER_PROPOSAL": "",
+                    "ID_CARD": "{{oldIdCard}}",
+                    "NAME": "{{oldPersonalName}}",
+                    "DOB": "{{oldDob}}",
+                    "PAYMENT_METHOD": "",
+                    "INSURED_JOB": "{{insuredJob}}",
+                    "TYPE_OF_INSURANCE": "",
+                    "INSURANCE_COVERAGE_AREA": "",
+                    "INSURED_EMAIL": "{{insuredEmail}}",
+                    "PLAN_FEE": "",
+                    "SUM_INSURED": "0",
+                    "AML_STATUS": "",
+                    "RISK_STATUS": "",
+                    "TASK_ACTOR": "",
+                    "STATUS": "",
+                    "PREMI_INSURED": "",
+                    "DECISION": {
+                        "DECISION_POS_STATUS": "",
+                        "DECISION_POS_REMARKS": "",
+                        "DECISION_POS_REASON": "",
+                        "DECISION_FRAUD_HEAD_REASON": "",
+                        "DECISION_FRAUD_STAFF_STATUS": "",
+                        "DECISION_FRAUD_STAFF_REMARKS": "",
+                        "DECISION_UW_REASON": "",
+                        "DECISION_UW_STATUS": "",
+                        "DECISION_UW_REMARKS": ""
+                    },
+                    "SUBMISSION_PROPOSAL_MEMBER": {
+                        "product": {
+                            "type": "CORPORATE",
+                            "planCode": "01",
+                            "eventCode": null,
+                            "subsPrice": 0,
+                            "productCode": "106"
+                        },
+                        "companyId": null,
+                        {{memberDataNew}},
+                        "proposalDatetime": "{{issuedDate}}",
+                        "proposalAccountInterestFactor": null
+                    },
+                    "ALTERATION_TYPE": "",
+                    "OLD_DATA": {
+                        "policyInformation": {
+                            "listPolicyCoverage": [],
+                            "listPolicyRelation": [],
+                            "listPolicyVariable": []
+                        },
+                        "personalInformation": {
+                            "personCif": "{{personCifIN}}",
+                            "idCardNumber": "{{oldIdCard}}",
+                            "name": "{{oldPersonalName}}",
+                            "dob": "{{oldDob}}"
+                        }
+                    },
+                    "SUBMISSION_PERSONAL_INFORMATION": {
+                        "personCif": "{{personCifIN}}",
+                        "idCardNumber": "{{oldIdCard}}",
+                        "name": "{{oldPersonalName}}",
+                        "dob": "{{oldDob}}"
+                    },
+                    "LIST_SUBMISSION_DOCUMENT": {
+                        "documentName": "",
+                        "documentUrl": ""
+                    }
+                }
+            }
+        ]
+    }
+}'
+
+Pre-req script:
+
+let memberData = JSON.parse(pm.variables.get("memberData") || "{}");
+
+let recurringPremiumValue = pm.variables.get("recurringPremiumValue");
+
+const updates = {
+    listMaterialFact: {
+        "RECURRING_PREMIUM": {
+            updateAll: {
+                value: recurringPremiumValue?.toString(),
+                flag: true
+            }
+        }
+    }
+};
+
+Object.entries(updates).forEach(([listName, updateMap]) => {
+
+    let listData = memberData[listName];
+
+    if (!Array.isArray(listData)) {
+        console.warn(`${listName} not found or not an array in memberData`);
+        return;
+    }
+
+    Object.entries(updateMap).forEach(([code, newValue]) => {
+
+        // ===== Update ALL entries with same code =====
+        if (newValue?.updateAll) {
+
+            console.log(`[${listName}] Updating ALL '${code}' values`);
+
+            listData.forEach(item => {
+                if (item.code === code) {
+                    Object.assign(item, newValue.updateAll);
+                }
+            });
+
+            return;
+        }
+
+        // ===== Default Update / Insert =====
+        let target = listData.find(item => item.code === code);
+
+        if (target) {
+            console.log(`[${listName}] Updating ${code}`, target, "→", newValue);
+            Object.assign(target, newValue);
+        } else {
+            console.warn(`[${listName}] Code '${code}' not found. Creating new entry.`);
+            listData.push({
+                code,
+                ...newValue
+            });
+        }
+
+    });
+
+    memberData[listName] = listData;
+});
+
+
+// =========================
+// SAVE RESULT
+// =========================
+pm.variables.set("memberDataNewRaw", JSON.stringify(memberData));
+
+const flattened = Object.entries(memberData)
+    .map(([key, value]) => `"${key}": ${JSON.stringify(value, null, 2)}`)
+    .join(",\n");
+
+pm.variables.set("memberDataNew", flattened);
+
+console.log("All updates applied successfully to memberData:", updates);
+
+
+// =========================
+// SUM INSURED
+// =========================
+let listProposalVariable = memberData.listProposalVariable || [];
+
+let sumInsuredItem = listProposalVariable.find(v => v.code === "SUM_INSURED");
+
+if (sumInsuredItem) {
+    pm.variables.set("sumInsured", sumInsuredItem.value);
+}

@@ -1,0 +1,44 @@
+EKYC INFO
+
+curl --location --globoff '{{host-ifgid}}/api/v6/ekyc/data/getEkycInfo' \
+--header 'channelId: e0f175d4-6aa0-4e20-916d-56318a28dd11' \
+--header 'apiKey: cKTZHYVVJab2Kxk69wqVsSLmlCHIbkHp' \
+--header 'Content-Type: application/json' \
+--data '{
+    "ekycId": "{{personCifIN}}"
+}'
+
+Post-res script:
+
+let response = pm.response.json();
+
+if (response && response.data && response.data.length > 0) {
+    let data = response.data[0];
+
+    let oldIdCard = data.idCard?.idCardNo || "";
+    let oldPersonalName = data.idCard?.name || "";
+    let oldDob = data.idCard?.dob || "";
+    let insuredJob = data.jobs?.[0]?.jobCategory || "";
+
+    // Cari contact bertipe EMAIL
+    let emailContact = Array.isArray(data.contacts)
+        ? data.contacts.find(c => c.type === "EMAIL")
+        : null;
+
+    if (emailContact && emailContact.value) {
+        pm.variables.set("insuredEmail", emailContact.value);
+    }
+    pm.variables.set("oldIdCard", oldIdCard);
+    pm.variables.set("oldPersonalName", oldPersonalName);
+    pm.variables.set("oldDob", oldDob);
+    pm.variables.set("insuredJob", insuredJob);
+    console.log({
+        oldIdCard,
+        oldPersonalName,
+        oldDob,
+        insuredJob,
+        insuredEmail: emailContact?.value || ""
+    });
+} else {
+    console.error("❌ Response structure not as expected:", response);
+}

@@ -1,0 +1,16 @@
+Submission
+
+curl --location --globoff '{{host-v2}}/v1/ao-workflow-policy-corporate/major-alteration' \
+--header 'apiKey: {{apiKey-v2}}' \
+--header 'Content-Type: application/json' \
+--data '{
+    "submissionId": "{{SUBMISSION_ID}}", // new uuid
+    "transactionId": "{{transactionIdAlter}}", //diambil dari response Get Detail Header
+    "transactionType": "lifeforce-ps-major-alteration",
+    "submissionDate": "{{issuedDate}}", //current date
+    "submissionTotalMember":"1",
+    "organizationPolicyId": "{{orgPolicyId}}",
+    "organizationPolicyNumber": "{{orgPolicyNumber}}",    
+    "organizationId": "{{organizationIdAlter}}",
+    "accountType": "INDIVIDUAL_ACCOUNT"
+}'

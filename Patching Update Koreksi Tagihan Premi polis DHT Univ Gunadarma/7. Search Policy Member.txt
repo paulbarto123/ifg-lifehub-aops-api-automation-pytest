@@ -1,0 +1,25 @@
+Search Policy Member
+
+curl --location --globoff '{{host-core}}/v2/pas/policies/search' \
+--header 'apiKey: {{apiKey-core}}' \
+--header 'Content-Type: application/json' \
+--data '{
+    "policyNumber": "{{policyNumber}}"
+    
+}'
+
+Post-res script:
+
+let response = pm.response.json()
+
+let policyId = response.data.policyList[0].id
+let policyNumber = response.data.policyList[0].policyNumber
+let proposalId = response.data.policyList[0].proposalId
+
+pm.variables.set('policyIdOldMember',policyId)
+pm.variables.set('policyNumberOldMember',policyNumber)
+pm.variables.set('proposalIdOldMember', proposalId)
+
+console.log('Policy ID: ', policyId)
+console.log('Policy Number: ', policyNumber)
+console.log('Proposal ID: ', proposalId)

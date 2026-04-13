@@ -1,0 +1,191 @@
+Insert Header Corporate
+
+
+Pre-req script:
+
+const submissionId = pm.variables.replaceIn('{{$guid}}');
+pm.environment.set('SUBMISSION_ID', submissionId);
+
+let proposalData = JSON.parse(pm.environment.get("corpoProposalData") || "{}");
+let policyData = JSON.parse(pm.environment.get("corpoPolicyData") || "{}");
+
+let combinedData = {
+    ...proposalData,
+    ...policyData
+};
+
+const updates = {};
+
+// =========================
+// APPLY UPDATES
+// =========================
+Object.entries(updates).forEach(([listName, updateMap]) => {
+    let listData = combinedData[listName];
+
+    if (!Array.isArray(listData)) {
+        console.warn(`⚠️ '${listName}' not found or not an array in combinedData`);
+        return;
+    }
+
+    Object.entries(updateMap).forEach(([code, newValue]) => {
+        let target = listData.find(item => item.code === code);
+
+        if (target) {
+            console.log(`[${listName}] Updating ${code}`, target, "→", newValue);
+            Object.assign(target, newValue);
+        } else {
+            console.warn(`[${listName}] Code '${code}' not found. Creating new entry.`);
+            listData.push({
+                code,
+                ...newValue
+            });
+        }
+    });
+
+    combinedData[listName] = listData;
+});
+
+pm.environment.set("combinedDataRaw", JSON.stringify(combinedData, null, 2));
+
+const flattened = Object.entries(combinedData)
+    .map(([key, value]) => `"${key}": ${JSON.stringify(value, null, 2)}`)
+    .join(",\n");
+
+pm.environment.set("proposalDataNew", flattened);
+
+// console.log("Combined and updated data saved:", combinedData);
+
+
+
+curl --location --globoff '{{host-v2}}/v1/ao-workflow-policy-corporate/major-alteration/general-transaction-header' \
+--header 'apiKey: {{apiKey-v2}}' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "referenceNo": "{{orgPolicyNumber}}",
+    "referenceType": "ORGANIZATION_POLICY_NUMBER",
+    "transactionType": "lifeforce-ps-major-alteration",
+    "workflow": "major_alteration_corporate",
+    "instanceId": "",
+    "status": "",
+    "details": {
+        "SUBMISSION_ID": "{{SUBMISSION_ID}}",
+        "TOTAL_MEMBER": "1",
+        "SUBMISSION_DATE": "{{issuedDate}}",
+        "ORGANIZATION_POLICY_ID": "{{orgPolicyId}}",
+        "ORGANIZATION_PROPOSAL_ID": "{{orgProposalId}}",
+        "IS_REFUND_PREMIUM": "false",
+        "ACCOUNT_TYPE": "INDIVIDUAL_ACCOUNT",
+        "ALTERATION_TYPE": "PREMIUM_COVER",
+        "SUBMISSION_DOCUMENTS": [
+            {
+            }
+        ],
+        "OLD_DATA": {{OldData}},
+        "SUBMISSION_PROPOSAL_CORPORATE": {
+            {{proposalDataNew}},
+            "listOrganizationProposalRate": [],
+            "listAdditionalParam": [
+                {
+                    "code": "SUBMISSION_DATE",
+                    "type": "Date",
+                    "value": "{{issuedDate}}"
+                },
+                {
+                    "code": "TRANSACTION_ID",
+                    "type": "String",
+                    "value": "{{transactionIdAlter}}"
+                },
+                {
+                    "code": "SUBMISSION_ID",
+                    "type": "String",
+                    "value": "{{SUBMISSION_ID}}"
+                },
+                {
+                    "code": "PLAN_CODE",
+                    "type": "String",
+                    "value": "01"
+                },
+                {
+                    "code": "SOURCE_OF_FUND",
+                    "type": "String",
+                    "value": "KAS"
+                },
+                {
+                    "code": "AGENT_NAME",
+                    "type": "String",
+                    "value": "Agus Sugianto"
+                },
+                {
+                    "code": "AGENT_EMAIL",
+                    "type": "String",
+                    "value": "agus.sugianto@ifg-life.id"
+                },
+                {
+                    "code": "AGENT_PHONE",
+                    "type": "String",
+                    "value": "+6282109098882"
+                },
+                {
+                    "code": "AGENT_OFFICE",
+                    "type": "String",
+                    "value": "11"
+                },
+                {
+                    "code": "ACCOUNT_TYPE",
+                    "type": "String",
+                    "value": "INDIVIDUAL_ACCOUNT"
+                },
+                {
+                    "code": "SOURCE_OF_FUND_PH",
+                    "type": "String",
+                    "value": ""
+                },
+                {
+                    "code": "SOURCE_OF_FUND_IN",
+                    "type": "String",
+                    "value": ""
+                },
+                {
+                    "code": "RELATIONSHIP_PH",
+                    "type": "String",
+                    "value": "EMPLOYEE"
+                },
+                {
+                    "code": "PY_PURPOSE_INSURANCE",
+                    "type": "String",
+                    "value": ""
+                },
+                {
+                    "code": "PY_PURPOSE_INSURANCE_OTHER",
+                    "type": "String",
+                    "value": ""
+                },
+                {
+                    "code": "PAYMENT_SCHEMA",
+                    "type": "String",
+                    "value": "0bf01005-1034-487c-bb59-cdccea2dc232"
+                },
+                {
+                    "code": "RECURRING_PERIOD",
+                    "type": "String",
+                    "value": "1"
+                },
+                {
+                    "code": "PAYMENT_SCHEMA_DESC",
+                    "type": "String",
+                    "value": "CNC"
+                },
+                {
+                    "code": "RECURRING_PRECISION",
+                    "type": "String",
+                    "value": "MONTHS"
+                },
+                {
+                    "code": "PLAN_FEE",
+                    "type": "String",
+                    "value": "25530000"
+                }
+            ]
+        }
+    }
+}'

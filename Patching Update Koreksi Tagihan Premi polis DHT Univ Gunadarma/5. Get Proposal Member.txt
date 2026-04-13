@@ -1,0 +1,70 @@
+Get Proposal Member
+
+curl --location --globoff '{{host-core}}/v2/pas/proposals/proposal-number/{{proposalNumber}}' \
+--header 'apiKey: {{apiKey-core}}' \
+--data ''
+
+Post-res script:
+
+let response = pm.response.json();
+
+const excludedKeys = ["id", "createdBy", "createdAt", "updatedBy", "updatedAt"];
+
+function cleanAndFlag(obj) {
+    if (Array.isArray(obj)) {
+        return obj.map(cleanAndFlag);
+    }
+
+    if (obj && typeof obj === "object") {
+        let newObj = {};
+
+        Object.keys(obj).forEach(key => {
+            if (!excludedKeys.includes(key)) {
+                newObj[key] = cleanAndFlag(obj[key]);
+            }
+        });
+        if ("value" in newObj && !("flag" in newObj)) {
+            newObj.flag = "false";
+        }
+
+        return newObj;
+    }
+
+    return obj;
+}
+
+if (response?.data) {
+    let data = response.data;
+
+    let memberData = {
+        listProposalVariable: cleanAndFlag(data.listProposalVariable || []),
+        listProposalBenefit: cleanAndFlag(data.listProposalBenefit || []),
+        listProposalRelation: cleanAndFlag(data.listProposalRelation || []),
+        listMaterialFact: cleanAndFlag(data.listMaterialFact || []),
+        listCostVariable: cleanAndFlag(data.listCostVariable || [])
+    };
+
+    pm.variables.set("memberData", JSON.stringify(memberData, null, 2));
+} else {
+    console.warn("Response structure not as expected. Cannot save memberData.");
+}
+
+let listRelation = response?.data?.listProposalRelation;
+
+if (Array.isArray(listRelation) && listRelation.length > 0) {
+    let relationMap = Object.fromEntries(
+        listRelation
+            .filter(item => item.role && item.personCIF)
+            .map(item => [item.role, item.personCIF])
+    );
+
+    ["IN"].forEach(role => {
+        if (relationMap[role]) {
+            pm.environment.set(`personCif${role}`, relationMap[role]);
+        }
+    });
+
+    console.log("personCif environment variables set:", relationMap);
+} else {
+    console.warn("listProposalRelation not found or not an array");
+}

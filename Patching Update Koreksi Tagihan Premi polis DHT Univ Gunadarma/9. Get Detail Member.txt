@@ -1,0 +1,31 @@
+Get Detail Member
+
+curl --location --globoff '{{host-v2}}/lifehub/public/api/v1/general-transaction/transaction-member/list' \
+--header 'apiKey: {{apiKey-v2}}' \
+--header 'Content-Type: application/json' \
+--data '{
+  "page" : 1,
+  "limit" : 320,
+  "transactionId" : "{{transactionIdAlter}}",
+
+  "filter" : []
+}'
+
+Post-res script:
+
+let response = pm.response.json();
+
+if (response && Array.isArray(response.data)) {
+    let idArray = response.data
+        .map(item => item.id)
+        .filter(id => !!id);
+
+    let formattedIds = JSON.stringify(idArray);
+
+    // Simpan ke environment
+    pm.environment.set("memberId", formattedIds);
+
+    console.log("Saved ID array to environment:", formattedIds);
+} else {
+    console.warn("Response.data is not an array or missing:", response);
+}

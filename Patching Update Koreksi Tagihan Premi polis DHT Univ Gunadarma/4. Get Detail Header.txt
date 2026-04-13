@@ -1,0 +1,23 @@
+Get Detail Header
+
+curl --location --globoff '{{host-v2}}/lifehub/public/api/v1/general-transaction/transaction/list' \
+--header 'apiKey: {{apiKey-v2}}' \
+--header 'Content-Type: application/json' \
+--data '{
+    "page": 1,
+    "limit": 50,
+    "referenceNo": "{{orgPolicyNumber}}",
+    "filter": [
+        {
+            "code": "SUBMISSION_ID",
+            "value": "{{SUBMISSION_ID}}"
+        }
+    ],
+    "codes": []
+}'
+
+Post-res script:
+
+let response = pm.response.json();
+
+pm.environment.set('transactionIdAlter', response.data[0].id)
