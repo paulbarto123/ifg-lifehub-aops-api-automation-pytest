@@ -1,0 +1,89 @@
+{
+  "info": {
+    "_postman_id": "34e31992-d53d-4166-a62b-3836dbf85e0c",
+    "name": "()16- Reinstatement Payload",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "46870646"
+  },
+  "item": [
+    {
+      "name": "Billing search",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "AXBJVtacQkg9vOVjurl1qJXPwHIC9Nh3"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"billingTypeId\":  \"fe1bc3d3-0dbc-4f31-963e-e17a8bf1a7b3\", // dari master codify RECURING\n    \"organizationRefId\": \"b9123be7-b485-4afb-9eea-a4af0f813de6\",\n    \"organizationRefType\": \"ORGANIZATION_PROPOSAL_ID\",\n    \"page\": 0,\n    \"size\": 10\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api-core-dev.ifg-life.id/v1/pas/billing/search",
+          "protocol": "https",
+          "host": [
+            "api-core-dev",
+            "ifg-life",
+            "id"
+          ],
+          "path": [
+            "v1",
+            "pas",
+            "billing",
+            "search"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Billing Type",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "AXBJVtacQkg9vOVjurl1qJXPwHIC9Nh3"
+          }
+        ],
+        "url": {
+          "raw": "https://api-core-dev.ifg-life.id/v1/pas/meta/master-codify?code=RECURRING&informationType=BILLING_TYPE",
+          "protocol": "https",
+          "host": [
+            "api-core-dev",
+            "ifg-life",
+            "id"
+          ],
+          "path": [
+            "v1",
+            "pas",
+            "meta",
+            "master-codify"
+          ],
+          "query": [
+            {
+              "key": "code",
+              "value": "RECURRING"
+            },
+            {
+              "key": "informationType",
+              "value": "BILLING_TYPE"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

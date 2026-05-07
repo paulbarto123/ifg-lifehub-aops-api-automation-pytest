@@ -1,0 +1,377 @@
+{
+  "info": {
+    "_postman_id": "a561d458-ee9e-43de-a2c8-55952adafab7",
+    "name": "()04-Patching Surrender CLI MANTAP",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "46870646"
+  },
+  "item": [
+    {
+      "name": "STEP 1 - Update Status SURRENDER",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apiKey",
+            "value": "{{api_key_core}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"policyId\": \"{{policyId}}\", //policyId\r\n    \"status\": \"INFORCE\",\r\n    \"actionCode\": \"SUBMITTED\",\r\n    \"updatedBy\": \"{{CR-<XXXX>}}\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url_core}}/v2/pas/policies/status",
+          "host": [
+            "{{base_url_core}}"
+          ],
+          "path": [
+            "v2",
+            "pas",
+            "policies",
+            "status"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "STEP 2 - Update List Coverage",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apiKey",
+            "value": "{{api_key_core}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"listPolicyCoverage\": [\n        {\n            \"id\": \"363b89e6-2c4b-4e17-a602-16f641f86e07\",\n            \"code\": \"DEATH_ACCIDENT\",\n            \"type\": \"BENEFIT\",\n            \"benefit\": 1569900000,\n            \"premium\": 0,\n            \"startCoverage\": \"2024-09-04 15:27:00\",\n            \"endCoverage\": \"2025-11-17 10:09:00\",\n            \"planCode\": \"04\",\n            \"status\": \"INACTIVE\",\n            \"coveragePrecision\": null,\n            \"level\": null,\n            \"currency\": null,\n            \"usageLimit\": null,\n            \"usagePrecision\": null,\n            \"benefitLimitType\": null,\n            \"createdBy\": \"BPMN_UW\",\n            \"createdAt\": \"2024-08-26 15:27:24\",\n            \"updatedBy\": \"{{CR-<XXXX>}}\",\n            \"updatedAt\": \"2026-04-15 14:30:46\",\n            \"extraValue\": 0,\n            \"parentId\": null,\n            \"claimMethod\": null,\n            \"sub\": null,\n            \"listPolicyRate\": null,\n            \"listPolicyTermCondition\": null\n        },\n        {\n            \"id\": \"faa4b72f-64b4-45dc-a426-f054ded4b57c\",\n            \"code\": \"EXTRA_PREMIUM\",\n            \"type\": \"EXTRA_PREMIUM\",\n            \"benefit\": 0,\n            \"premium\": 0,\n            \"startCoverage\": \"2024-09-04 15:27:00\",\n            \"endCoverage\": \"2025-11-17 10:09:00\",\n            \"planCode\": \"04\",\n            \"status\": \"INACTIVE\",\n            \"coveragePrecision\": null,\n            \"level\": null,\n            \"currency\": null,\n            \"usageLimit\": null,\n            \"usagePrecision\": null,\n            \"benefitLimitType\": null,\n            \"createdBy\": \"BPMN_UW\",\n            \"createdAt\": \"2024-08-26 15:27:24\",\n            \"updatedBy\": \"{{CR-<XXXX>}}\",\n            \"updatedAt\": \"2026-04-15 14:30:46\",\n            \"extraValue\": 0,\n            \"parentId\": null,\n            \"claimMethod\": null,\n            \"sub\": null,\n            \"listPolicyRate\": null,\n            \"listPolicyTermCondition\": null\n        },\n        {\n            \"id\": \"ccfe37bc-1537-4de7-b042-9a8f708d383f\",\n            \"code\": \"MAIN_PREMIUM\",\n            \"type\": \"PREMIUM\",\n            \"benefit\": 0,\n            \"premium\": 2686099,\n            \"startCoverage\": \"2024-09-04 15:27:00\",\n            \"endCoverage\": \"2025-11-17 10:09:00\",\n            \"planCode\": \"04\",\n            \"status\": \"INACTIVE\",\n            \"coveragePrecision\": null,\n            \"level\": null,\n            \"currency\": null,\n            \"usageLimit\": null,\n            \"usagePrecision\": null,\n            \"benefitLimitType\": null,\n            \"createdBy\": \"BPMN_UW\",\n            \"createdAt\": \"2024-08-26 15:27:24\",\n            \"updatedBy\": \"{{CR-<XXXX>}}\",\n            \"updatedAt\": \"2026-04-15 14:30:46\",\n            \"extraValue\": 0,\n            \"parentId\": null,\n            \"claimMethod\": null,\n            \"sub\": null,\n            \"listPolicyRate\": null,\n            \"listPolicyTermCondition\": null\n        },\n        {\n            \"id\": \"6810a349-e104-434c-80a0-ea4a4a71eb68\",\n            \"code\": \"NATURAL_DEATH\",\n            \"type\": \"BENEFIT\",\n            \"benefit\": 1569900000,\n            \"premium\": 0,\n            \"startCoverage\": \"2024-09-04 15:27:00\",\n            \"endCoverage\": \"2025-11-17 10:09:00\",\n            \"planCode\": \"04\",\n            \"status\": \"INACTIVE\",\n            \"coveragePrecision\": null,\n            \"level\": null,\n            \"currency\": null,\n            \"usageLimit\": null,\n            \"usagePrecision\": null,\n            \"benefitLimitType\": null,\n            \"createdBy\": \"BPMN_UW\",\n            \"createdAt\": \"2024-08-26 15:27:25\",\n            \"updatedBy\": \"{{CR-<XXXX>}}\",\n            \"updatedAt\": \"2026-04-15 14:30:46\",\n            \"extraValue\": 0,\n            \"parentId\": null,\n            \"claimMethod\": null,\n            \"sub\": null,\n            \"listPolicyRate\": null,\n            \"listPolicyTermCondition\": null\n        },\n        {\n            \"id\": \"91ec3b58-5a77-4615-b42d-59bf724b25de\",\n            \"code\": \"SURRENDER_VALUE\",\n            \"type\": \"SURRENDER_BENEFIT\",\n            \"benefit\": 600000000,\n            \"premium\": 0,\n            \"startCoverage\": \"2024-09-04 15:27:00\",\n            \"endCoverage\": \"2025-11-17 10:09:00\",\n            \"planCode\": \"04\",\n            \"status\": \"INACTIVE\",\n            \"coveragePrecision\": null,\n            \"level\": null,\n            \"currency\": null,\n            \"usageLimit\": null,\n            \"usagePrecision\": null,\n            \"benefitLimitType\": null,\n            \"createdBy\": \"BPMN_UW\",\n            \"createdAt\": \"2024-08-26 15:27:25\",\n            \"updatedBy\": \"{{CR-<XXXX>}}\",\n            \"updatedAt\": \"2026-04-15 14:30:46\",\n            \"extraValue\": 0,\n            \"parentId\": null,\n            \"claimMethod\": null,\n            \"sub\": null,\n            \"listPolicyRate\": null,\n            \"listPolicyTermCondition\": null\n        }\n    ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url_core}}/v2/pas/policies/coverage/{{policyId}}",
+          "host": [
+            "{{base_url_core}}"
+          ],
+          "path": [
+            "v2",
+            "pas",
+            "policies",
+            "coverage",
+            "{{policyId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "STEP 3 - Update Policy Relation",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apiKey",
+            "value": "{{api_key_core}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"listPolicyRelation\": [\n        {\n            \"id\": \"7f950c36-168a-4e4a-9416-445de85e5eae\",\n            \"personCIF\": \"c2824a85-4247-4c9a-ae87-4a40cef34c91\",\n            \"policyBeneficiary\": null,\n            \"policySubstandard\": [],\n            \"policyExclusion\": [],\n            \"listPolicyCoverage\": null,\n            \"role\": \"PH\",\n            \"startDate\": \"2025-08-05 00:00:00\",\n            \"endDate\": \"{{surrenderDate}}\",\n            \"status\": \"INACTIVE\",\n            \"createdBy\": \"CR-6091\",\n            \"createdAt\": \"2025-12-06T01:25:39.278532\",\n            \"updatedBy\": \"{{CR-<XXXX>}}\",\n            \"updatedAt\": null\n        },\n        {\n            \"id\": \"d78c3da7-a9bb-400c-998f-eb30a8b23103\",\n            \"personCIF\": \"c2824a85-4247-4c9a-ae87-4a40cef34c91\",\n            \"policyBeneficiary\": null,\n            \"policySubstandard\": [],\n            \"policyExclusion\": [],\n            \"listPolicyCoverage\": null,\n            \"role\": \"IN\",\n            \"startDate\": \"2025-08-05 00:00:00\",\n            \"endDate\": \"{{surrenderDate}}\",\n            \"status\": \"INACTIVE\",\n            \"createdBy\": \"CR-6091\",\n            \"createdAt\": \"2025-12-06T01:25:39.280763\",\n            \"updatedBy\": \"{{CR-<XXXX>}}\",\n            \"updatedAt\": null\n        },\n        {\n            \"id\": \"82a11714-b832-4a9f-86e9-52489287b2d7\",\n            \"personCIF\": \"558da0f3-eb63-4e32-9916-7e3bdd6d168b\",\n            \"policyBeneficiary\": null,\n            \"policySubstandard\": [],\n            \"policyExclusion\": [],\n            \"listPolicyCoverage\": null,\n            \"role\": \"PY\",\n            \"startDate\": \"2025-08-05 00:00:00\",\n            \"endDate\": \"{{surrenderDate}}\",\n            \"status\": \"INACTIVE\",\n            \"createdBy\": \"CR-6091\",\n            \"createdAt\": \"2025-12-06T01:25:39.282653\",\n            \"updatedBy\": \"{{CR-<XXXX>}}\",\n            \"updatedAt\": null\n        }\n    ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url_core}}/v2/pas/policies/relation/{{policyId}}",
+          "host": [
+            "{{base_url_core}}"
+          ],
+          "path": [
+            "v2",
+            "pas",
+            "policies",
+            "relation",
+            "{{policyId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "STEP 4 - Insert Header",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "const res = pm.response.json();\r",
+              "const d = res?.data ?? {};\r",
+              "\r",
+              "function set(name, value, fallback = \"\") {\r",
+              "  pm.collectionVariables.set(name, value ?? fallback);\r",
+              "}\r",
+              "\r",
+              "set(\"transactionHeaderId\", d.id);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apiKey",
+            "value": "{{api_key_core}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"entityId\": \"{{personCif}}\", //ekycid/orgID\r\n    \"entityTypeId\": \"{{entityTypeIdHeader}}\", //ENTITY_TYPE = PERSON\r\n    \"transactionTypeId\": \"{{transactionTypeIdHeader}}\", //TRANSACTION_TYPE = SURRENDER\r\n    \"reference\": \"DH8.BJM/1/2026\", // No.Surat\r\n    \"referenceTypeId\": \"{{referenceTypeIdHeader}}\", //REFERENCE_TYPE = LETTER \r\n    \"referenceDate\": \"2026-01-05 00:00:00\", //Tgl Surat\r\n    \"referenceDescription\": \"PELUNASAN DIPERCEPAT\", //\"PELUNASAN DIPERCEPAT\", \r\n    \"transactionStatusId\": \"{{transactionStatusIdHeader}}\", //TRANSACTION_STATUS = APPROVE \r\n    \"numberOfParticipant\":1, \r\n    \"createdBy\": \"{{CR-<XXXX>}}\" \r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url_core}}/v1/pas/transaction-management/header",
+          "host": [
+            "{{base_url_core}}"
+          ],
+          "path": [
+            "v1",
+            "pas",
+            "transaction-management",
+            "header"
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'https://api-automation-uat.ifg-life.id/v1/pas/transaction-management/header' \\\r\n--header 'Content-Type: application/json' \\\r\n--data '{\r\n    \"entityId\": \"b493aa3d-b278-42c2-93b3-1dc23ae16b2f\", \r\n    \"entityTypeId\": \"6d3b1271-96c9-41cf-b3f0-2527555d45ee\", \r\n    \"transactionTypeId\": \"b273de2f-7108-4ad6-abf9-202b38eb402d\", \r\n    \"reference\": \"CNTH-SRT-001-20241231\", \r\n    \"referenceTypeId\": \"6662331a-dd57-44c6-94cb-98265efcc52d\", \r\n    \"referenceDate\": \"2024-10-09 06:00:00\", \r\n    \"referenceDescription\": \"TAMBAHAN PESERTA, TOPUP REQUEST DAN PREMIUM ADJUSTMENT Rana Test\", \r\n    \"transactionStatusId\": \"8c349a20-f744-466f-9d2e-0d296be67272\", \r\n    \"numberOfParticipant\":3, \r\n    \"createdBy\": \"AOPS\" \r\n}'"
+      },
+      "response": []
+    },
+    {
+      "name": "STEP 5 - Insert Event",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apiKey",
+            "value": "{{api_key_core}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"createdBy\": \"{{CR-<XXXX>}}\",\r\n    \"transactionHeaderId\": \"{{transactionHeaderId}}\",\r\n    \"eventId\": \"{{eventIdSurrender}}\", //EVENT_TYPE = SURRENDER\r\n    \"listVariable\": [\r\n        {\r\n            \"category\": \"POLICY-NUMBER\",\r\n            \"value\": \"{{policyNumber}}\"\r\n            // \"url\": \"http://bucket.s3-website-us-east-1.amazonaws.com/\",\r\n            // \"variables\": \"{\\\"request1\\\":\\\"test event\\\"}\" \r\n        }\r\n    ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url_core}}/v1/pas/transaction-management/event",
+          "host": [
+            "{{base_url_core}}"
+          ],
+          "path": [
+            "v1",
+            "pas",
+            "transaction-management",
+            "event"
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'https://api-automation-uat.ifg-life.id/v1/pas/transaction-management/event' \\\r\n--header 'Content-Type: application/json' \\\r\n--data '{\r\n    \"createdBy\": \"AOPS\",\r\n    \r\n    \"transactionHeaderId\": \"72b2f6fb-4709-415f-9412-7ed46a02e3bb\",\r\n    \"eventId\": \"8f6eab62-f132-41a4-8199-0feba1689e62\",\r\n    \"listVariable\": [\r\n        {\r\n            \"category\": \"POLICY-DOCUMENT-NUMBER\",\r\n            \"value\": \"910624106\",\r\n            \"url\": \"http://bucket.s3-website-us-east-1.amazonaws.com/\",\r\n            \"variables\": \"{\\\"request1\\\":\\\"rana test event\\\"}\" \r\n        }\r\n    ]\r\n} '"
+      },
+      "response": []
+    },
+    {
+      "name": "STEP 6 - Insert Detail",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apiKey",
+            "value": "{{api_key_core}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"createdBy\": \"{{CR-<XXXX>}}\",\r\n    \"transactionHeaderId\": \"{{transactionHeaderId}}\",\r\n    \"refId\": \"{{policyId}}\",\r\n    \"refType\": \"POLICY_ID\",\r\n    \"organizationRefId\": \"\",\r\n    \"organizationRefType\": \"\",\r\n    \"statusId\": \"{{policyStatusSurrenderId}}\", //POLICY_STATUS = SURRENDER\r\n    \"value\": 1432224,\r\n    \"currency\": \"IDR\",\r\n    \"effectiveDate\": \"{{surrenderDate}}\",\r\n    \"effectiveDateType\": \"COVERAGE_END_DATE\",\r\n    \"listVariable\": [\r\n        {\r\n            \"category\": \"POLICY-NUMBER\",\r\n            \"value\": \"{{policyNumber}}\"\r\n            // \"url\": \"http://bucket.s3-website-us-east-1.amazonaws.com/\",\r\n            // \"variables\": \"{\\\"request1\\\":\\\"rana trx detail\\\"}\" \r\n        }\r\n    ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url_core}}/v1/pas/transaction-management/detail",
+          "host": [
+            "{{base_url_core}}"
+          ],
+          "path": [
+            "v1",
+            "pas",
+            "transaction-management",
+            "detail"
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'https://api-automation-uat.ifg-life.id/v1/pas/transaction-management/detail' \\\r\n--header 'Content-Type: application/json' \\\r\n--data '{\r\n    \"createdBy\": \"AOPS\",\r\n    \r\n    \"transactionHeaderId\": \"e015d575-c6ff-4a83-b67d-18924446d8ac\",\r\n    \"refId\": \"432c1555-99e4-4f58-9ee5-fc3c95d51cad\",\r\n    \"refType\": \"POLICY_ID\",\r\n    \"organizationRefNumber\": \"\",\r\n    \"organizationRefType\": \"\",\r\n    \"statusId\": \"1e3b7e7e-7bd1-4f46-a6d7-88aa13f7feb3\",\r\n    \"value\": 0.0,\r\n    \"currency\": \"IDR\",\r\n    \"effectiveDate\": \"2024-12-31 06:00:00\",\r\n    \"effectiveDateType\": \"COVERAGE_END_DATE\",\r\n    \"listVariable\": [\r\n        {\r\n            \"category\": \"POLICY-DOCUMENT-NUMBER\",\r\n            \"value\": \"900223000004901\",\r\n            \"url\": \"http://bucket.s3-website-us-east-1.amazonaws.com/\",\r\n            \"variables\": \"{\\\"request1\\\":\\\"rana trx detail\\\"}\" \r\n        }\r\n    ]\r\n}'"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Master Codify",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "{{api_key_core}}"
+          }
+        ],
+        "url": {
+          "raw": "https://api-core.ifg-life.id/v1/pas/meta/master-codify?informationType=POLICY_STATUS&code=SURRENDER",
+          "protocol": "https",
+          "host": [
+            "api-core",
+            "ifg-life",
+            "id"
+          ],
+          "path": [
+            "v1",
+            "pas",
+            "meta",
+            "master-codify"
+          ],
+          "query": [
+            {
+              "key": "informationType",
+              "value": "POLICY_STATUS"
+            },
+            {
+              "key": "code",
+              "value": "SURRENDER"
+            }
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'https://api-core-uat.ifg-life.id/v1/pas/meta/master-codify?informationType=TRANSACTION_STATUS&code=APPROVED' \\\r\n--header 'apiKey: AXBJVtacQkg9vOVjurl1qJXPwHIC9Nh3'"
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "entityTypeIdHeader",
+      "value": "d6ba6c9d-0020-4c73-af6f-9ac520aaeaab"
+    },
+    {
+      "key": "transactionTypeIdHeader",
+      "value": "6db43262-e75d-4cf7-8513-e2423f9de66f"
+    },
+    {
+      "key": "transactionStatusIdHeader",
+      "value": "dd6b3ee5-6be2-48c9-8a71-e216c84ad49e"
+    },
+    {
+      "key": "transactionHeaderId",
+      "value": "\"\""
+    },
+    {
+      "key": "referenceTypeIdHeader",
+      "value": "1e8f73e4-b05a-4f7f-9286-a0a1d63438b1"
+    },
+    {
+      "key": "eventIdSurrender",
+      "value": "8cced395-5d36-4427-a9e1-14dfbeef6f09"
+    },
+    {
+      "key": "surrenderDate",
+      "value": "2026-01-02 00:00:00"
+    },
+    {
+      "key": "policyId",
+      "value": "89bd2367-9d21-4e44-8b0f-f5f21044f584"
+    },
+    {
+      "key": "policyNumber",
+      "value": "9108250000116858"
+    },
+    {
+      "key": "policyStatusSurrenderId",
+      "value": "714601e8-6db0-4406-8f93-0108330bef46"
+    },
+    {
+      "key": "personCif",
+      "value": "c2824a85-4247-4c9a-ae87-4a40cef34c91"
+    }
+  ]
+}

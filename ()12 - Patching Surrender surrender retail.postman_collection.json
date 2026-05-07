@@ -1,0 +1,102 @@
+{
+  "info": {
+    "_postman_id": "c75e941b-9c62-41d9-810b-03bf6eba4f38",
+    "name": "()12 - Patching Surrender surrender retail",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "46870646"
+  },
+  "item": [
+    {
+      "name": "Update status - coverage - relation - invoice",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "const uuid = crypto.randomUUID();  // Postman v10+ supports crypto\r",
+              "pm.collectionVariables.set(\"submissionId\", uuid);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apikey",
+            "value": "{{api_key_automation}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"policyNumber\": \"800425000176977\",\n    \"reason\": \"Sudah memiliki asuransi lain\",\n    \"submissionDate\": \"2025-12-30 00:00:00\",\n    \"submissionId\": \"{{submissionId}}\", // random UUID\n    \"totalRefundPremi\": 0,\n    \"bankAccount\": {\n        \"bankName\": \"\",\n        \"bankCode\": \"\",\n        \"accountHolderName\": \"\",\n        \"accountNo\": \"\"\n    },\n    \"document\": [\n       {\n           \"type\": \"\",\n           \"link\": \"\"\n       }\n   ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/v1/ao-workflow-policy-retail/surrender",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v1",
+            "ao-workflow-policy-retail",
+            "surrender"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "submissionId",
+      "value": " "
+    }
+  ]
+}

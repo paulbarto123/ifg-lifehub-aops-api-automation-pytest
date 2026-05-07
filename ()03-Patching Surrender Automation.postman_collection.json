@@ -1,0 +1,238 @@
+{
+  "info": {
+    "_postman_id": "77d9bfe6-a362-4280-bab1-d9afec0ac00c",
+    "name": "()03-Patching Surrender Automation",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "46870646"
+  },
+  "item": [
+    {
+      "name": "STEP 1 - Update Status SURRENDER",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apiKey",
+            "value": "{{api_key_core}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \r\n    \"policyId\": \"{{policyId}}\",  \r\n    \"status\": \"{{status}}\", \r\n    \"actionCode\": \"SUBMITTED\", \r\n    \"updatedBy\": \"{{updatedBy}}\" // akan diupdate sesuai dengan nomor CR surrender \r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url_core}}/v2/pas/policies/status",
+          "host": [
+            "{{base_url_core}}"
+          ],
+          "path": [
+            "v2",
+            "pas",
+            "policies",
+            "status"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "STEP 2 - Update List Coverage",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apiKey",
+            "value": "{{api_key_core}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"listPolicyCoverage\": [\n        {\n            \"id\": \"cf40400a-8349-4484-814a-69ecbeafe391\",\n            \"code\": \"CI_CATEGORY_1\",\n            \"type\": \"BENEFIT\",\n            \"benefit\": 105486000,\n            \"premium\": 0,\n            \"startCoverage\": \"2024-11-05 15:43:27\",\n            \"endCoverage\": \"2025-10-29 00:00:00\",\n            \"planCode\": \"01\",\n            \"status\": \"INACTIVE\",\n            \"createdBy\": \"BPMN_UW\",\n            \"createdAt\": \"2024-11-05 15:47:43\",\n            \"updatedBy\": \"CR-<XXXX>\",\n            \"updatedAt\": \"2025-10-29 12:03:04\",\n            \"extraValue\": 0,\n            \"parentId\": null,\n            \"sub\": null\n        },\n        {\n            \"id\": \"1adbd3fb-1546-48af-9e7c-142a88740836\",\n            \"code\": \"CI_CATEGORY_2\",\n            \"type\": \"BENEFIT\",\n            \"benefit\": 105486000,\n            \"premium\": 0,\n            \"startCoverage\": \"2024-11-05 15:43:27\",\n            \"endCoverage\": \"2025-10-29 00:00:00\",\n            \"planCode\": \"01\",\n            \"status\": \"INACTIVE\",\n            \"createdBy\": \"BPMN_UW\",\n            \"createdAt\": \"2024-11-05 15:47:43\",\n            \"updatedBy\": \"CR-<XXXX>\",\n            \"updatedAt\": \"2025-10-29 12:03:04\",\n            \"extraValue\": 0,\n            \"parentId\": null,\n            \"sub\": null\n        },\n        {\n            \"id\": \"1ad2ce38-a016-4aa1-ab00-c74d942ee955\",\n            \"code\": \"CI_CATEGORY_3\",\n            \"type\": \"BENEFIT\",\n            \"benefit\": 105486000,\n            \"premium\": 0,\n            \"startCoverage\": \"2024-11-05 15:43:27\",\n            \"endCoverage\": \"2025-10-29 00:00:00\",\n            \"planCode\": \"01\",\n            \"status\": \"INACTIVE\",\n            \"createdBy\": \"BPMN_UW\",\n            \"createdAt\": \"2024-11-05 15:47:43\",\n            \"updatedBy\": \"CR-<XXXX>\",\n            \"updatedAt\": \"2025-10-29 12:03:04\",\n            \"extraValue\": 0,\n            \"parentId\": null,\n            \"sub\": null\n        },\n        {\n            \"id\": \"98f568b8-9f1b-4bd5-8b2f-c583cb053418\",\n            \"code\": \"CI_CATEGORY_4\",\n            \"type\": \"BENEFIT\",\n            \"benefit\": 105486000,\n            \"premium\": 0,\n            \"startCoverage\": \"2024-11-05 15:43:27\",\n            \"endCoverage\": \"2025-10-29 00:00:00\",\n            \"planCode\": \"01\",\n            \"status\": \"INACTIVE\",\n            \"createdBy\": \"BPMN_UW\",\n            \"createdAt\": \"2024-11-05 15:47:43\",\n            \"updatedBy\": \"CR-<XXXX>\",\n            \"updatedAt\": \"2025-10-29 12:03:04\",\n            \"extraValue\": 0,\n            \"parentId\": null,\n            \"sub\": null\n        },\n        {\n            \"id\": \"434edea4-2383-4bfc-8ba7-a950fee1b4d6\",\n            \"code\": \"CI_CATEGORY_5\",\n            \"type\": \"BENEFIT\",\n            \"benefit\": 105486000,\n            \"premium\": 0,\n            \"startCoverage\": \"2024-11-05 15:43:27\",\n            \"endCoverage\": \"2025-10-29 00:00:00\",\n            \"planCode\": \"01\",\n            \"status\": \"INACTIVE\",\n            \"createdBy\": \"BPMN_UW\",\n            \"createdAt\": \"2024-11-05 15:47:43\",\n            \"updatedBy\": \"CR-<XXXX>\",\n            \"updatedAt\": \"2025-10-29 12:03:04\",\n            \"extraValue\": 0,\n            \"parentId\": null,\n            \"sub\": null\n        },\n        {\n            \"id\": \"3a3cbc9a-769f-46d3-906c-8b08e8f6d1b7\",\n            \"code\": \"MAIN_PREMIUM\",\n            \"type\": \"PREMIUM\",\n            \"benefit\": 0,\n            \"premium\": 50000,\n            \"startCoverage\": \"2024-11-05 15:43:27\",\n            \"endCoverage\": \"2025-10-29 00:00:00\",\n            \"planCode\": \"01\",\n            \"status\": \"INACTIVE\",\n            \"createdBy\": \"BPMN_UW\",\n            \"createdAt\": \"2024-11-05 15:47:43\",\n            \"updatedBy\": \"CR-<XXXX>\",\n            \"updatedAt\": \"2025-10-29 12:03:04\",\n            \"extraValue\": 0,\n            \"parentId\": null,\n            \"sub\": null\n        }\n    ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url_core}}/v2/pas/policies/coverage/{{policyId}}",
+          "host": [
+            "{{base_url_core}}"
+          ],
+          "path": [
+            "v2",
+            "pas",
+            "policies",
+            "coverage",
+            "{{policyId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "STEP 3 - Update Policy Relation",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apiKey",
+            "value": "{{api_key_core}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"listPolicyRelation\": [\n        {\n            \"id\": \"8660130c-baad-46da-87b5-3f6439901a17\",\n            \"personCif\": \"55c555cb-7fb6-4528-9306-be3e69bb3c01\",\n            \"policyBeneficiary\": null,\n            \"policySubstandard\": [],\n            \"policyExclusion\": [],\n            \"role\": \"PH\",\n            \"startDate\": \"2024-11-05 15:43:27\",\n            \"endDate\": \"2025-10-29 00:00:00\",\n            \"status\": \"INACTIVE\",\n            \"createdBy\": \"BPMN_UW\",\n            \"createdAt\": \"2024-11-05T15:47:43.518064\",\n            \"updatedBy\": \"CR-<XXXX>\",\n            \"updatedAt\": \"2025-10-29T12:03:04.69391\"\n        },\n        {\n            \"id\": \"e12a4ccc-13dd-4a41-a680-1b655cca023a\",\n            \"personCif\": \"55c555cb-7fb6-4528-9306-be3e69bb3c01\",\n            \"policyBeneficiary\": null,\n            \"policySubstandard\": [],\n            \"policyExclusion\": [],\n            \"role\": \"PY\",\n            \"startDate\": \"2024-11-05 15:43:27\",\n            \"endDate\": \"2025-10-29 00:00:00\",\n            \"status\": \"INACTIVE\",\n            \"createdBy\": \"BPMN_UW\",\n            \"createdAt\": \"2024-11-05T15:47:43.519545\",\n            \"updatedBy\": \"CR-<XXXX>\",\n            \"updatedAt\": \"2025-10-29T12:03:04.703682\"\n        },\n        {\n            \"id\": \"57d90dc0-ca45-4bdc-9302-d7ddeb1a13cf\",\n            \"personCif\": \"55c555cb-7fb6-4528-9306-be3e69bb3c01\",\n            \"policyBeneficiary\": null,\n            \"policySubstandard\": [],\n            \"policyExclusion\": [],\n            \"role\": \"IN\",\n            \"startDate\": \"2024-11-05 15:43:27\",\n            \"endDate\": \"2025-10-29 00:00:00\",\n            \"status\": \"INACTIVE\",\n            \"createdBy\": \"BPMN_UW\",\n            \"createdAt\": \"2024-11-05T15:47:43.520419\",\n            \"updatedBy\": \"CR-<XXXX>\",\n            \"updatedAt\": \"2025-10-29T12:03:04.708322\"\n        },\n        {\n            \"id\": \"4fb70cab-69c2-426f-a31b-bf2de7540a95\",\n            \"personCif\": \"4abfd7aa-ef51-4967-b946-b78a2723dab7\",\n            \"policyBeneficiary\": {\n                \"id\": \"e267a663-332c-4223-9a1f-64956056e485\",\n                \"relationType\": \"SUAMI\",\n                \"percentage\": 100\n            },\n            \"policySubstandard\": [],\n            \"policyExclusion\": [],\n            \"role\": \"BN\",\n            \"startDate\": \"2024-11-05 15:43:27\",\n            \"endDate\": \"2025-10-29 00:00:00\",\n            \"status\": \"INACTIVE\",\n            \"createdBy\": \"BPMN_UW\",\n            \"createdAt\": \"2024-11-05T15:47:43.521408\",\n            \"updatedBy\": \"CR-<XXXX>\",\n            \"updatedAt\": \"2025-10-29T12:03:04.714855\"\n        }\n    ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url_core}}/v2/pas/policies/relation/{{policyId}}",
+          "host": [
+            "{{base_url_core}}"
+          ],
+          "path": [
+            "v2",
+            "pas",
+            "policies",
+            "relation",
+            "{{policyId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "STEP 4 - Get Billing Invoice",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "{{api_key_core}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"masterInvoiceNumber\": \"\",\r\n    \"proposalNumber\": \"\",\r\n    \"policyNumber\": \"{{policyNumber}}\",\r\n    \"payerId\": \"\",\r\n    \"status\": \"\", \r\n    \"invoiceNumber\": \"\",\r\n    \"bulkUnique\": \"\",\r\n    \"size\": 10,\r\n    \"page\": 0\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url_core}}/v1/pas/invoice/search",
+          "host": [
+            "{{base_url_core}}"
+          ],
+          "path": [
+            "v1",
+            "pas",
+            "invoice",
+            "search"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "STEP 4 - Get Billing Invoice Copy",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "{{api_key_core}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"masterInvoiceNumber\": \"\",\r\n    \"proposalNumber\": \"\",\r\n    \"policyNumber\": \"800323000009479\",\r\n    \"payerId\": \"\",\r\n    \"status\": \"\", \r\n    \"invoiceNumber\": \"\",\r\n    \"bulkUnique\": \"\",\r\n    \"size\": 10,\r\n    \"page\": 0\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url_core}}/v1/pas/invoice/search",
+          "host": [
+            "{{base_url_core}}"
+          ],
+          "path": [
+            "v1",
+            "pas",
+            "invoice",
+            "search"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "STEP 5 - Cancel Billing",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "{{api_key_core}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"invoiceNumber\": \"{{invoiceNumber}}\",\n    \"updatedBy\": \"{{updatedBy}}\" \n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api-core.ifg-life.id/v1/pas/invoice/cancel",
+          "protocol": "https",
+          "host": [
+            "api-core",
+            "ifg-life",
+            "id"
+          ],
+          "path": [
+            "v1",
+            "pas",
+            "invoice",
+            "cancel"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

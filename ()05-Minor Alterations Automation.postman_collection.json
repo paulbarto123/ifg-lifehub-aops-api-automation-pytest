@@ -1,0 +1,556 @@
+{
+  "info": {
+    "_postman_id": "59503164-e934-4463-ab2f-d9b53d79c891",
+    "name": "()05-Minor Alterations Automation",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "46870646"
+  },
+  "item": [
+    {
+      "name": "1 - Submission Header",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// Safely parse the request body (raw JSON)\r",
+              "let reqBody = {};\r",
+              "try {\r",
+              "  if (pm.request.body && pm.request.body.mode === 'raw') {\r",
+              "    reqBody = JSON.parse(pm.request.body.raw || '{}');\r",
+              "  }\r",
+              "} catch (e) {\r",
+              "  console.warn('Failed to parse request body as JSON:', e);\r",
+              "}\r",
+              "\r",
+              "// Try common possible locations for policy number.\r",
+              "// Change the paths below to match your real payload.\r",
+              "const candidates = [\r",
+              "  'referenceNo'                 // root-level\r",
+              "//   'details.referenceNo',         // under details\r",
+              "//   'details.POLICY_NUMBER',        // uppercase variant (if used)\r",
+              "];\r",
+              "\r",
+              "let referenceNo;\r",
+              "for (const path of candidates) {\r",
+              "  const val = _.get(reqBody, path);\r",
+              "  if (val !== undefined && val !== null && String(val).trim() !== '') {\r",
+              "    referenceNo = val;\r",
+              "    break;\r",
+              "  }\r",
+              "}\r",
+              "\r",
+              "if (referenceNo) {\r",
+              "  pm.collectionVariables.set('referenceNo', referenceNo);\r",
+              "  console.log('referenceNo set to collection variables:', referenceNo);\r",
+              "} else {\r",
+              "  console.warn('referenceNo not found in request body. Checked paths:', candidates);\r",
+              "  // Optional: fail the test so you notice it\r",
+              "  // pm.test('referenceNo is present in request body', function () {\r",
+              "  //   pm.expect.fail('referenceNo not found in request body');\r",
+              "  // });\r",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "{{api_key}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"referenceNo\": \"9109262179\",\n    \"referenceType\": \"ORGANIZATION_MINOR_ALTERATION\",\n    \"transactionType\": \"lifespace-ps-minor-alteration\",\n    \"workflow\": \"\",\n    \"instanceId\": \"\",\n    \"status\": \"\",\n    \"details\": {\n        \"SUBMISSION_PIC_EMAIL\": \"cp26@ifg.life.id\",\n        \"ORGANIZATION_ID\": \"792028fb-1293-4c1e-bde4-48f78b23ceb5\",\n        \"SUBMISSION_ID\": \"470ae187-2c7e-4923-9c69-98593e91be66\",\n        \"ORGANIZATION_INFORMATION_OLD\": {\n            \"organizationName\": \"CV ABADI SEJAHTERA\",\n            \"organizationType\": \"KOPERASI\",\n            \"organizationClass\": \"CV\",\n            \"organizationEstablishedCity\": \"KAB. MAGELANG\",\n            \"organizationEstablishedDate\": \"1997-01-06\"\n        },\n        \"ORGANIZATION_INFORMATION_NEW\": {\n            \"organizationName\": \"CV ABADI SEJAHTERA\",\n            \"organizationType\": \"SWASTA\",\n            \"organizationClass\": \"CV\",\n            \"organizationEstablishedCity\": \"KAB. MAGELANG\",\n            \"organizationEstablishedDate\": \"1997-01-06\"\n        },\n        \"DOCUMENT_UPLOADS\": [\n            {\n                \"type\": \"KTP\",\n                \"value\": \"https://google.com\"\n            },\n            {\n                \"type\": \"NPWP\",\n                \"value\": \"https://google.com\"\n            }\n        ],\n        \"ORGANIZATION_TAX_OLD\": {\n            \"id\": \"9445448d-f771-45ea-acb7-44b852da4861\",\n            \"tin\": \"no-npwp BARU 123\",\n            \"country\": \"WNI\",\n            \"REASONNOTIN\": \"no-reason\"\n        },\n        \"ORGANIZATION_TAX_NEW\": {\n            \"id\": null, \n            \"tin\": \"no-npwp BARU 123\",\n            \"country\": \"WNI\",\n            \"REASONNOTIN\": \"no-reason\"\n        },\n        \"ORGANIZATION_SIUP_OLD\": {\n            \"id\": \"ef85823d-46c0-49e5-a957-256340faa971\",\n            \"siupNumber\": \"1.203.255\",\n            \"siupPublishedDate\": \"2023-09-07\"\n        },\n        \"ORGANIZATION_SIUP_NEW\": {\n            \"id\": null, \n            \"siupNumber\": \"1.203.255\",\n            \"siupPublishedDate\": \"2023-09-07\"\n        },\n        \"ORGANIZATION_ADDRESS_NEW\": {\n            \"id\": \"3c1ee1e4-5ca5-45e4-805b-dc4b8a72807e\", \n            \"city\": {\n                \"code\": \"31.74\",\n                \"value\": \"KAB. MAGELANG\"\n            },\n            \"block\": \"B18\",\n            \"title\": \"HEAD QUARTER\",\n            \"rw\": \"05\",\n            \"street\": \"JL. MAGELANG KARANGTALUN NGLUWAR KAB. MAGELANG JAWA TENGAH\",\n            \"building\": \"GRAHA CIMB NIAGA LT. 5 & 6\",\n            \"district\": {\n                \"code\": \"31.74.08\",\n                \"value\": \"NGLUWARI\"\n            },\n            \"postCode\": \"11122\",\n            \"province\": {\n                \"code\": \"32\",\n                \"value\": \"JAWA TENGAH\"\n            },\n            \"subDistrict\": {\n                \"code\": \"31.74.08.1001\",\n                \"value\": \"KARANGTALUN\"\n            },\n            \"rt\": \"03\",\n            \"addressNumber\": \"30B\"\n        },\n        \"ORGANIZATION_ADDRESS_OLD\": {\n            \"id\": \"3c1ee1e4-5ca5-45e4-805b-dc4b8a72807e\", \n            \"city\": {\n                \"code\": \"31.74\",\n                \"value\": \"KAB. MAGELANG\"\n            },\n            \"block\": \"B18\",\n            \"title\": \"HEAD QUARTER\",\n            \"rw\": \"05\",\n            \"street\": \"JL. MAGELANG KARANGTALUN NGLUWAR KAB. MAGELANG JAWA TENGAH\",\n            \"building\": \"GRAHA CIMB NIAGA LT. 5 & 6\",\n            \"district\": {\n                \"code\": \"31.74.08\",\n                \"value\": \"NGLUWAR\"\n            },\n            \"postCode\": \"11122\",\n            \"province\": {\n                \"code\": \"32\",\n                \"value\": \"JAWA TENGAH\"\n            },\n            \"subDistrict\": {\n                \"code\": \"31.74.08.1001\",\n                \"value\": \"KARANGTALUN\"\n            },\n            \"rt\": \"03\",\n            \"addressNumber\": \"30B\"\n        },\n        \"ORGANIZATION_PIC_NEW\": {\n            \"ekycInfo\": {\n                \"id\": \"d3f3fbb2-a301-4020-bbe2-fb793fdb5671\",\n                \"name\": \"EEM SATRIYA GANDREVA\"\n            },\n            \"contact\": [\n                {\n                    \"id\": \"e8e236fb-78e1-42e1-86ad-4580b35f03ea\", \n                    \"type\": \"PHONE\",\n                    \"value\": \"+6285370535559\"\n                },\n                {\n                    \"id\": \"05ca7f34-2aea-4b8f-9176-0be217af9428\", \n                    \"type\": \"EMAIL\",\n                    \"value\": \"gandreva@ifg-life.id\"\n                }\n            ]\n        },\n        \"ORGANIZATION_PIC_OLD\": {\n            \"ekycInfo\": {\n                \"id\": \"d3f3fbb2-a301-4020-bbe2-fb793fdb5671\",\n                \"name\": \"M SATRIYA GANDREVA\"\n            },\n            \"contact\": [\n                {\n                    \"id\": \"e8e236fb-78e1-42e1-86ad-4580b35f03ea\", \n                    \"type\": \"PHONE\",\n                    \"value\": \"+6285370535559\"\n                },\n                {\n                    \"id\": \"05ca7f34-2aea-4b8f-9176-0be217af9428\", \n                    \"type\": \"EMAIL\",\n                    \"value\": \"gandreva@ifg-life.id\"\n                }\n            ]\n        }\n    }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/v1/ao-workflow-policy-corporate/minor-alteration/general-transaction-header",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v1",
+            "ao-workflow-policy-corporate",
+            "minor-alteration",
+            "general-transaction-header"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "1 - Submission Header - UAT",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "apiKey",
+                "value": "{{api_key}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"referenceNo\": \"910625940\", //910625940 UAT\n    \"referenceType\": \"ORGANIZATION_MINOR_ALTERATION\",\n    \"transactionType\": \"lifespace-ps-minor-alteration\",\n    \"workflow\": \"\",\n    \"instanceId\": \"\",\n    \"status\": \"\",\n    \"details\": {\n        \"SUBMISSION_PIC_EMAIL\": \"cp26@ifg.life.id\",\n        \"ORGANIZATION_ID\": \"f2b8709b-c9fb-44c9-a9de-742c2e0360f3\",\n        \"SUBMISSION_ID\": \"c4bb8150-3b13-4dd2-a41d-1f44b28396f0\",\n        \"ORGANIZATION_INFORMATION_OLD\": {\n            \"organizationName\": \"XVVALKIDO NARATAMA\",\n            \"organizationType\": \"SWASTA\",\n            \"organizationClass\": \"PERSEROAN\",\n            \"organizationEstablishedCity\": \"KOTA ADM. JAKARTA SELATAN\",\n            \"organizationEstablishedDate\": \"2025-10-24\"\n        },\n        \"ORGANIZATION_INFORMATION_NEW\": { \n            \"organizationName\": \"ZVVALKIDO NARATAMA EDIT UAT NEW\",\n            \"organizationType\": \"BUMD\",\n            \"organizationClass\": \"CV\",\n            \"organizationEstablishedCity\": \"KOTA ADM. JAKARTA SELATAN\",\n            \"organizationestablishedDate\": \"2025-10-24\"\n        },\n        \"DOCUMENT_UPLOADS\": [\n            {\n                \"type\": \"KTP\",\n                \"value\": \"https://google.com\"\n            },\n            {\n                \"type\": \"NPWP\",\n                \"value\": \"https://google.com\"\n            }\n        ],\n        \"ORGANIZATION_TAX_OLD\": {\n            \"id\": \"94336abc-2a9b-4c7e-97a3-75fe49ed597a\",\n            \"tin\": \"015778038046046\",\n            \"country\": \"WNI\",\n            \"REASONNOTIN\": \"no-reason\"\n        },\n        \"ORGANIZATION_TAX_NEW\": {\n            \"id\": null, \n            \"tin\": \"no-npwp BARU 123\",\n            \"country\": \"WNI\",\n            \"REASONNOTIN\": \"no-reason\"\n        },\n        \"ORGANIZATION_SIUP_OLD\": {\n            \"id\": \"01cffa7f-a1a6-4d3c-b8ea-6e4ad3bb6149\",\n            \"siupNumber\": \"1234567891046\",\n            \"siupPublishedDate\": null\n        },\n        \"ORGANIZATION_SIUP_NEW\": {\n            \"id\": null, \n            \"siupNumber\": \"1.203.255\",\n            \"siupPublishedDate\": \"2023-09-07\"\n        },\n        \"ORGANIZATION_ADDRESS_OLD\": {\n            \"id\": \"4150fed3-fe46-466b-b5b8-456487c0d1a0\", \n            \"city\": {\n                \"code\": \"01\",\n                \"value\": \"KAB. TAPANULI TENGAH\"\n            },\n            \"block\": \"31B\",\n            \"title\": \"HEAD QUARTER\",\n            \"rw\": \"22\",\n            \"street\": \"ZJL. TUPAREV NO.25- JAWA BARAT 45131 PANCORAN PANCORAN KOTA ADM. JAKARTA SELATAN DKI JAKARTA\",\n            \"building\": \"GRAND SLIPI TOWER LANTAI 45\",\n            \"district\": {\n                \"code\": \"12.01.01\",\n                \"value\": \"BARUS\"\n            },\n            \"postCode\": \"11111\",\n            \"province\": {\n                \"code\": \"12\",\n                \"value\": \"SUMATERA UTARA\"\n            },\n            \"subDistrict\": {\n                \"code\": \"31.74.08.1001\",\n                \"value\": null\n            },\n            \"rt\": \"22222\",\n            \"addressNumber\": \"01\"\n        },\n        \"ORGANIZATION_ADDRESS_NEW\": {\n            \"id\": \"4150fed3-fe46-466b-b5b8-456487c0d1a0\", \n            \"city\": {\n                \"code\": \"31.74\",\n                \"value\": \"KOTA ADM. JAKARTA SELATAN\"\n            },\n            \"block\": \"45A\",\n            \"title\": \"MAIN ADDRESS\",\n            \"rw\": \"24\",\n            \"street\": \"JL. SETIABUDI NO.27 JAKARTA - JAWA BARAT 45131\",\n            \"building\": \"SETIABUDI ONE BUILDING\",\n            \"district\": {\n                \"code\": \"31.74.08\",\n                \"value\": \"PANCORAN\"\n            },\n            \"postCode\": \"14112\",\n            \"province\": {\n                \"code\": \"31\",\n                \"value\": \"DKI JAKARTA\"\n            },\n            \"subDistrict\": {\n                \"code\": \"31.74.08.1001\",\n                \"value\": \"PANCORAN\"\n            },\n            \"rt\": \"35\",\n            \"addressNumber\": \"15\"\n        },\n        \"ORGANIZATION_PIC_OLD\": {\n            \"ekycInfo\": {\n                \"id\": \"40a07178-e24a-45db-a140-e3d5dca23a0c\",\n                \"name\": \"ZSATRIYA GANDREVA EDIT\"\n            },\n            \"contact\": [\n                {\n                    \"id\": \"7a9d28d7-13bb-4bdf-ad53-7406977cbb65\", \n                    \"type\": \"PHONE\",\n                    \"value\": \"+62222222222\"\n                },\n                {\n                    \"id\": \"5e6e3ad5-ad14-4b23-a357-36080deac172\", \n                    \"type\": \"EMAIL\",\n                    \"value\": \"Zgandreva.emailedit@ifg-life.id\"\n                }\n            ]\n        },\n        \"ORGANIZATION_PIC_NEW\": {\n            \"ekycInfo\": {\n                \"id\": \"40a07178-e24a-45db-a140-e3d5dca23a0c\",\n                \"name\": \"XSATRIYA GANDREVA NEW UAT\"\n            },\n            \"contact\": [\n                {\n                    \"id\": \"7a9d28d7-13bb-4bdf-ad53-7406977cbb65\", \n                    \"type\": \"PHONE\",\n                    \"value\": \"+62217940043\"\n                },\n                {\n                    \"id\": \"5e6e3ad5-ad14-4b23-a357-36080deac172\", \n                    \"type\": \"EMAIL\",\n                    \"value\": \"XgandrevaEDITUAT.email@ifg-life.id\"\n                }\n            ]\n        }\n    }\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/v1/ao-workflow-policy-corporate/minor-alteration/general-transaction-header",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v1",
+                "ao-workflow-policy-corporate",
+                "minor-alteration",
+                "general-transaction-header"
+              ]
+            }
+          },
+          "_postman_previewlanguage": "Text",
+          "header": [],
+          "cookie": [],
+          "body": ""
+        }
+      ]
+    },
+    {
+      "name": "2 - GET Header Penampung",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const response = pm.response.json();\r",
+              "if (pm.response.code === 200 && response.data && response.data.length > 0) {\r",
+              "    pm.collectionVariables.set(\"transactionId\", response.data[0].id);\r",
+              "    pm.environment.set(\"transactionId\", response.data[0].id);\r",
+              "    pm.environment.set(\"instanceId\", response.data[0].instanceId);\r",
+              "}\r",
+              "\r",
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.expect(pm.response.code).to.equal(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response body code is '2000'\", function () {\r",
+              "    const response = pm.response.json();\r",
+              "    pm.expect(response.code).to.equal(2000);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Data array is not empty\", function () {\r",
+              "    const response = pm.response.json();\r",
+              "    pm.expect(response.data).to.exist;\r",
+              "    pm.expect(response.data).to.be.an('array').that.is.not.empty;\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Total rows is greater than zero\", function () {\r",
+              "    const response = pm.response.json();\r",
+              "    pm.expect(response.totalRows).to.be.greaterThan(0);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Total pages is greater than zero\", function () {\r",
+              "    const response = pm.response.json();\r",
+              "    pm.expect(response.totalPages).to.be.greaterThan(0);\r",
+              "});\r",
+              "\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "{{api_key}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"page\": 1,\n    \"codes\": [],\n    \"limit\": 100,\n    \"filter\": [\n        {\n            \"code\": \"SUBMISSION_ID\",\n            \"value\":\"470ae187-2c7e-4923-9c69-98593e91be66\"\n            // \"code\": \"INVOICE_NUMBER\",\n            // \"value\": \"INV202501044056\"\n        }\n    ],\n    \"referenceNo\": \"{{referenceNo}}\"//\"9109262179\"\n    // \"transactionId\": \"1b97ae06-9687-414e-843c-dd58090d214e\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/lifehub/public/api/v1/general-transaction/transaction/list",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "lifehub",
+            "public",
+            "api",
+            "v1",
+            "general-transaction",
+            "transaction",
+            "list"
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'https://api-automation-dev.ifg-life.id/api/v1/general-transaction/transaction/list' \\\n\r\n--header 'apiKey: E97baCBt8SxmDcYNyd3KwbEA0giw8ElF' \\\n\r\n--header 'Content-Type: application/json' \\\n\r\n--data '{\n\r\n    \"page\":1 ,\n\r\n    \"limit\": 1,\n\r\n    \"referenceNo\": \"910724193\",\n\r\n    \"filter\": [\n\r\n        {\n\r\n            \"code\": \"SUBMISSION_ID\",\n\r\n            \"value\": \"e1ffad32-f454-414d-bbba-06fe5efeaada\"\n\r\n        }\n\r\n    ],\n\r\n    \"codes\": [\n\r\n        \"SUBMISSION_ID\"\n\r\n    ]\n\r\n}'\n "
+      },
+      "response": []
+    },
+    {
+      "name": "3 - Submission Member",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "{{api_key}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"organizationMember\": {\n        \"referenceNo\": \"{{referenceNo}}\",\n        \"transactionId\": \"{{transactionId}}\",\n        \"totalMember\": \"1\",\n        \"totalPage\": \"1\",\n        \"page\": 1,\n        \"totalInPage\": \"10\",\n        \"listOfMember\": [\n            {\n                \"memberId\": \"910625000371669\",\n                \"memberReferenceNo\": \"910625000371669\",\n                \"memberReferenceType\": \"MINOR_ALTERATION\",\n                \"taskName\": null,\n                \"taskStatus\": null,\n                \"details\": {\n                    \"TASK_ID\": \"\",\n                    \"DOB\": \"1946-02-22\",\n                    \"POB\": \"UJUNG PADANG\",\n                    \"GENDER\": \"PEREMPUAN\",\n                    \"NAME\": \"MEDCO\",\n                    \"NAME_OLD\": \"MEDCO\",\n                    \"NAME_NEW\": \"MEDCO EDIT UAT\",\n                    \"PHONE_NUMBER\": \"+62898345484\",\n                    \"PHONE_NUMBER_NEW\": \"6034045561234\",\n                    \"INSTANCE_ID_HEADER\": \"\",\n                    \"PRODUCT_NAME\": \"PRODUCT_NAME\",\n                    \"SUBMISSION_NUMBER\": \"Loan\",\n                    \"SUBMISSION_ID\": \"PRODUCT_NAME\",\n                    \"POLICY_NUMBER\": \"910625000371669\",\n                    \"PERSON_CIF\": \"PRODUCT_NAME\",\n                    \"POLICY_HOLDER_NAME\": \"PRODUCT_NAME\",\n                    \"ALTERATION_TYPE\": [\n                        \"PERSONAL_INFO\",\n                        \"ADDRESS\"\n                    ],\n                    \"ALTERATION\": \"PERSONAL_INFO, ADDRESS\",\n                    \"FORM_TYPE\": \"Minor Alteration Corporate\",\n                    \"ACTOR\": \"\",\n                    \"DETAIL_FORM\": \"\",\n                    \"STATUS\": \"OPEN\",\n                    \"DECISION\": {},\n                    \"ADDRESS_OLD\": {\n                        \"street\": \"JL SUKARNO\",\n                        \"province\": {\n                            \"code\": \"32\",\n                            \"value\": \"JAWA BARAT\"\n                        },\n                        \"city\": {\n                            \"code\": \"16\",\n                            \"value\": \"KAB. BEKASI\"\n                        },\n                        \"district\": {\n                            \"code\": \"32.75.09\",\n                            \"value\": \"JATIASIH\"\n                        },\n                        \"subDistrict\": {\n                            \"code\": \"32.75.09.1002\",\n                            \"value\": \"JATIASIH\"\n                        },\n                        \"rt\": \"03\",\n                        \"rw\": \"20\",\n                        \"postCode\": \"17432\"\n                    },\n                    \"ADDRESS_NEW\": {\n                        \"street\": \"PERUM MEKARSARI AIR MANCUR NO 334\",\n                        \"province\": {\n                            \"code\": \"32\",\n                            \"value\": \"JAWA BARAT\"\n                        },\n                        \"city\": {\n                            \"code\": \"04\",\n                            \"value\": \"KAB. BANDUNG\"\n                        },\n                        \"district\": {\n                            \"code\": \"32.04.05\",\n                            \"value\": \"CILEUNYI\"\n                        },\n                        \"subDistrict\": {\n                            \"code\": \"32.04.05.2005\",\n                            \"value\": \"CIBIRU HILIR\"\n                        },\n                        \"rt\": \"05\",\n                        \"rw\": \"24\",\n                        \"postCode\": \"17413\"\n                    },\n                    \"EKYC_ID\": \"066859ec-76cb-4e81-93a2-c528965fbc08\",\n                    \"CONTACT_OLD\": [\n                        {\n                            \"type\": \"PHONE\",\n                            \"value\": \"-\"\n                        },\n                        {\n                            \"type\": \"EMAIL\",\n                            \"value\": \"-\"\n                        }\n                    ],\n                    \"CONTACT_NEW\": [\n                        {\n                            \"type\": \"PHONE\",\n                            \"value\": \"+628776665333\"\n                        },\n                        {\n                            \"type\": \"EMAIL\",\n                            \"value\": \"TEST12345@gmail.com\"\n                        }\n                    ],\n                    \"RESIDENTIAL_ADDRESS_OLD\": {\n                        \"street\": \"JL SUKARNO\",\n                        \"province\": {\n                            \"code\": \"32\",\n                            \"value\": \"JAWA BARAT\"\n                        },\n                        \"city\": {\n                            \"code\": \"16\",\n                            \"value\": \"KAB. BEKASI\"\n                        },\n                        \"district\": {\n                            \"code\": \"32.75.10\",\n                            \"value\": \"JATISAMPURNA\"\n                        },\n                        \"subDistrict\": {\n                            \"code\": \"32.75.09.1002\",\n                            \"value\": \"JATISAMPURNA\"\n                        },\n                        \"rt\": \"03\",\n                        \"rw\": \"20\",\n                        \"postCode\": \"17432\"\n                    },\n                    \"RESIDENTIAL_ADDRESS_NEW\": {\n                        \"id\": \"\",\n                        \"title\": \"alamatrumahresi-edit\",\n                        \"street\": \"kpciekekpabuaran-edit NO 123\",\n                        \"province\": {\n                            \"code\": \"31\",\n                            \"value\": \"JAWA BARAT\"\n                        },\n                        \"city\": {\n                            \"code\": \"34.01\",\n                            \"value\": \"Kab.Pandeglang\"\n                        },\n                        \"district\": {\n                            \"code\": \"34.01.01\",\n                            \"value\": \"Kec.Majasari\"\n                        },\n                        \"subDistrict\": {\n                            \"code\": \"34.01.01.0202\",\n                            \"value\": \"Kel.Karaton\"\n                        },\n                        \"rt\": \"041\",\n                        \"rw\": \"04\",\n                        \"postCode\": \"42292\"\n                    },\n                    \"IDENTITY_CARD_NUMBER_OLD\": \"3158109219591890\",\n                    \"IDENTITY_CARD_NUMBER_NEW\": \"3158109219591890\",\n                    \"CORRESPONDENCE_ADDRESS_OLD\": {\n                        \"id\": \"e3384aab-79d9-469f-adc1-4e8c078caa73\",\n                        \"title\": \"alamatrumahcorres-edit\",\n                        \"street\": \"JL SUKARNO\",\n                        \"province\": {\n                            \"code\": \"32\",\n                            \"value\": \"JAWA BARAT\"\n                        },\n                        \"city\": {\n                            \"code\": \"16\",\n                            \"value\": \"KAB. BEKASI\"\n                        },\n                        \"district\": {\n                            \"code\": \"32.75.10\",\n                            \"value\": \"JATISAMPURNA\"\n                        },\n                        \"subDistrict\": {\n                            \"code\": \"32.75.09.1002\",\n                            \"value\": \"JATISAMPURNA\"\n                        },\n                        \"rt\": \"03\",\n                        \"rw\": \"20\",\n                        \"postCode\": \"17432\"\n                    },\n                    \"CORRESPONDENCE_ADDRESS_NEW\": {\n                        \"id\": \"e3384aab-79d9-469f-adc1-4e8c078caa73\",\n                        \"title\": \"alamatrumahcorres-edit\",\n                        \"street\": \"JALAN 123\",\n                        \"province\": {\n                            \"code\": \"34\",\n                            \"value\": \"Banten\"\n                        },\n                        \"city\": {\n                            \"code\": \"34.01\",\n                            \"value\": \"Kab.Pandeglang\"\n                        },\n                        \"district\": {\n                            \"code\": \"34.01.01\",\n                            \"value\": \"Kec.Majasari\"\n                        },\n                        \"subDistrict\": {\n                            \"code\": \"34.01.01.0202\",\n                            \"value\": \"Kel.Karaton\"\n                        },\n                        \"rt\": \"045\",\n                        \"rw\": \"013\",\n                        \"postCode\": \"45225\"\n                    },\n                    \"IDENTITY_CARD_FILE_NAME\": \"\"\n                }\n            }\n        ]\n    }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/v1/ao-workflow-policy-corporate/minor-alteration/general-transaction-employee",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v1",
+            "ao-workflow-policy-corporate",
+            "minor-alteration",
+            "general-transaction-employee"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "3 - Submission Member - UAT",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "apiKey",
+                "value": "{{api_key}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"organizationMember\": {\n        \"referenceNo\": \"910625940\",\n        \"transactionId\": \"389e1e20-049e-45ab-ad0e-826f9d3fe3a4\",\n        \"totalMember\": \"1\",\n        \"totalPage\": \"1\",\n        \"page\": 1,\n        \"totalInPage\": \"10\",\n        \"listOfMember\": [\n            {\n                \"memberId\": \"910625000371669\",\n                \"memberReferenceNo\": \"910625000371669\",\n                \"memberReferenceType\": \"MINOR_ALTERATION\",\n                \"taskName\": null,\n                \"taskStatus\": null,\n                \"details\": {\n                    \"TASK_ID\": \"\",\n                    \"DOB\": \"1946-02-22\",\n                    \"POB\": \"UJUNG PADANG\",\n                    \"GENDER\": \"PEREMPUAN\",\n                    \"NAME\": \"MEDCO\",\n                    \"NAME_OLD\": \"MEDCO\",\n                    \"NAME_NEW\": \"MEDCO EDIT UAT\",\n                    \"PHONE_NUMBER\": \"+62898345484\",\n                    \"PHONE_NUMBER_NEW\": \"6034045561234\",\n                    \"INSTANCE_ID_HEADER\": \"\",\n                    \"PRODUCT_NAME\": \"PRODUCT_NAME\",\n                    \"SUBMISSION_NUMBER\": \"Loan\",\n                    \"SUBMISSION_ID\": \"PRODUCT_NAME\",\n                    \"POLICY_NUMBER\": \"910625000371669\",\n                    \"PERSON_CIF\": \"PRODUCT_NAME\",\n                    \"POLICY_HOLDER_NAME\": \"PRODUCT_NAME\",\n                    \"ALTERATION_TYPE\": [\n                        \"PERSONAL_INFO\",\n                        \"ADDRESS\"\n                    ],\n                    \"ALTERATION\": \"PERSONAL_INFO, ADDRESS\",\n                    \"FORM_TYPE\": \"Minor Alteration Corporate\",\n                    \"ACTOR\": \"\",\n                    \"DETAIL_FORM\": \"\",\n                    \"STATUS\": \"OPEN\",\n                    \"DECISION\": {},\n                    \"ADDRESS_OLD\": {\n                        \"street\": \"JL SUKARNO\",\n                        \"province\": {\n                            \"code\": \"32\",\n                            \"value\": \"JAWA BARAT\"\n                        },\n                        \"city\": {\n                            \"code\": \"16\",\n                            \"value\": \"KAB. BEKASI\"\n                        },\n                        \"district\": {\n                            \"code\": \"32.75.09\",\n                            \"value\": \"JATIASIH\"\n                        },\n                        \"subDistrict\": {\n                            \"code\": \"32.75.09.1002\",\n                            \"value\": \"JATIASIH\"\n                        },\n                        \"rt\": \"03\",\n                        \"rw\": \"20\",\n                        \"postCode\": \"17432\"\n                    },\n                    \"ADDRESS_NEW\": {\n                        \"street\": \"PERUM MEKARSARI AIR MANCUR NO 334\",\n                        \"province\": {\n                            \"code\": \"32\",\n                            \"value\": \"JAWA BARAT\"\n                        },\n                        \"city\": {\n                            \"code\": \"04\",\n                            \"value\": \"KAB. BANDUNG\"\n                        },\n                        \"district\": {\n                            \"code\": \"32.04.05\",\n                            \"value\": \"CILEUNYI\"\n                        },\n                        \"subDistrict\": {\n                            \"code\": \"32.04.05.2005\",\n                            \"value\": \"CIBIRU HILIR\"\n                        },\n                        \"rt\": \"05\",\n                        \"rw\": \"24\",\n                        \"postCode\": \"17413\"\n                    },\n                    \"EKYC_ID\": \"066859ec-76cb-4e81-93a2-c528965fbc08\",\n                    \"CONTACT_OLD\": [\n                        {\n                            \"type\": \"PHONE\",\n                            \"value\": \"-\"\n                        },\n                        {\n                            \"type\": \"EMAIL\",\n                            \"value\": \"-\"\n                        }\n                    ],\n                    \"CONTACT_NEW\": [\n                        {\n                            \"type\": \"PHONE\",\n                            \"value\": \"+628776665333\"\n                        },\n                        {\n                            \"type\": \"EMAIL\",\n                            \"value\": \"TEST12345@gmail.com\"\n                        }\n                    ],\n                    \"RESIDENTIAL_ADDRESS_OLD\": {\n                        \"street\": \"JL SUKARNO\",\n                        \"province\": {\n                            \"code\": \"32\",\n                            \"value\": \"JAWA BARAT\"\n                        },\n                        \"city\": {\n                            \"code\": \"16\",\n                            \"value\": \"KAB. BEKASI\"\n                        },\n                        \"district\": {\n                            \"code\": \"32.75.10\",\n                            \"value\": \"JATISAMPURNA\"\n                        },\n                        \"subDistrict\": {\n                            \"code\": \"32.75.09.1002\",\n                            \"value\": \"JATISAMPURNA\"\n                        },\n                        \"rt\": \"03\",\n                        \"rw\": \"20\",\n                        \"postCode\": \"17432\"\n                    },\n                    \"RESIDENTIAL_ADDRESS_NEW\": {\n                        \"id\": \"\",\n                        \"title\": \"alamatrumahresi-edit\",\n                        \"street\": \"kpciekekpabuaran-edit NO 123\",\n                        \"province\": {\n                            \"code\": \"31\",\n                            \"value\": \"JAWA BARAT\"\n                        },\n                        \"city\": {\n                            \"code\": \"34.01\",\n                            \"value\": \"Kab.Pandeglang\"\n                        },\n                        \"district\": {\n                            \"code\": \"34.01.01\",\n                            \"value\": \"Kec.Majasari\"\n                        },\n                        \"subDistrict\": {\n                            \"code\": \"34.01.01.0202\",\n                            \"value\": \"Kel.Karaton\"\n                        },\n                        \"rt\": \"041\",\n                        \"rw\": \"04\",\n                        \"postCode\": \"42292\"\n                    },\n                    \"IDENTITY_CARD_NUMBER_OLD\": \"3158109219591890\",\n                    \"IDENTITY_CARD_NUMBER_NEW\": \"3158109219591890\",\n                    \"CORRESPONDENCE_ADDRESS_OLD\": {\n                        \"id\": \"e3384aab-79d9-469f-adc1-4e8c078caa73\",\n                        \"title\": \"alamatrumahcorres-edit\",\n                        \"street\": \"JL SUKARNO\",\n                        \"province\": {\n                            \"code\": \"32\",\n                            \"value\": \"JAWA BARAT\"\n                        },\n                        \"city\": {\n                            \"code\": \"16\",\n                            \"value\": \"KAB. BEKASI\"\n                        },\n                        \"district\": {\n                            \"code\": \"32.75.10\",\n                            \"value\": \"JATISAMPURNA\"\n                        },\n                        \"subDistrict\": {\n                            \"code\": \"32.75.09.1002\",\n                            \"value\": \"JATISAMPURNA\"\n                        },\n                        \"rt\": \"03\",\n                        \"rw\": \"20\",\n                        \"postCode\": \"17432\"\n                    },\n                    \"CORRESPONDENCE_ADDRESS_NEW\": {\n                        \"id\": \"e3384aab-79d9-469f-adc1-4e8c078caa73\",\n                        \"title\": \"alamatrumahcorres-edit\",\n                        \"street\": \"JALAN 123\",\n                        \"province\": {\n                            \"code\": \"34\",\n                            \"value\": \"Banten\"\n                        },\n                        \"city\": {\n                            \"code\": \"34.01\",\n                            \"value\": \"Kab.Pandeglang\"\n                        },\n                        \"district\": {\n                            \"code\": \"34.01.01\",\n                            \"value\": \"Kec.Majasari\"\n                        },\n                        \"subDistrict\": {\n                            \"code\": \"34.01.01.0202\",\n                            \"value\": \"Kel.Karaton\"\n                        },\n                        \"rt\": \"045\",\n                        \"rw\": \"013\",\n                        \"postCode\": \"45225\"\n                    },\n                    \"IDENTITY_CARD_FILE_NAME\": \"\"\n                }\n            }\n        ]\n    }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/v1/ao-workflow-policy-corporate/minor-alteration/general-transaction-employee",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v1",
+                "ao-workflow-policy-corporate",
+                "minor-alteration",
+                "general-transaction-employee"
+              ]
+            }
+          },
+          "_postman_previewlanguage": "Text",
+          "header": [],
+          "cookie": [],
+          "body": ""
+        }
+      ]
+    },
+    {
+      "name": "4 - GET Member Penampung",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// if (pm.response.code === 200) {\r",
+              "//     const response = pm.response.json();\r",
+              "//     let page = response.page;\r",
+              "\r",
+              "//     if (page === response.totalPages) {\r",
+              "//         page = 0;\r",
+              "//     }\r",
+              "\r",
+              "//     pm.environment.set(\"nextPage\", page + 1);\r",
+              "//     // Set applicationSubRefId if data[0].id exists\r",
+              "//     const data = response.data[0];\r",
+              "\r",
+              "//     if (response.data.length > 0) {\r",
+              "//         const applicationSubRefId = data.id;\r",
+              "//         const applicationRefId = data.transactionId;\r",
+              "//         pm.environment.set(\"applicationRefId\", applicationRefId);\r",
+              "//         pm.environment.set(\"applicationSubRefId\", applicationSubRefId);\r",
+              "\r",
+              "//         const transactionMemberDetailList = data.transactionMemberDetailList;\r",
+              "\r",
+              "//         let disbAmount = \"0\";\r",
+              "\r",
+              "//         for (let i = 0; i < transactionMemberDetailList.length; i++) {\r",
+              "//             const item = transactionMemberDetailList[i];\r",
+              "//             const isNotEmpty = item.value !== null && item.value !== undefined && item.value !== \"\";\r",
+              "\r",
+              "//             if (item.code === \"WITHDRAWAL_AMOUNT\" && isNotEmpty) {\r",
+              "//                 disbAmount = item.value;\r",
+              "//                 console.info(\"WITHDRAWAL_AMOUNT => \" + disbAmount);\r",
+              "//                 break;\r",
+              "//             }\r",
+              "//         }\r",
+              "\r",
+              "//         pm.environment.set(\"disbAmount\", disbAmount);\r",
+              "//         pm.environment.set(\"totalRows\", response.totalRows);\r",
+              "//     }\r",
+              "// }\r",
+              "\r",
+              "\r",
+              "\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "{{api_key}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"page\": 1,\r\n    \"codes\": [\r\n        // \"BILLING_ID\"\r\n    ],\r\n    \"limit\": 50,\r\n    \"filter\": [\r\n    ],\r\n    // \"transactionId\": \"1b97ae06-9687-414e-843c-dd58090d214e\"\r\n    \"transactionId\": \"1b97ae06-9687-414e-843c-dd58090d214e\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/lifehub/public/api/v1/general-transaction/transaction-member/list",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "lifehub",
+            "public",
+            "api",
+            "v1",
+            "general-transaction",
+            "transaction-member",
+            "list"
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'https://api-automation-dev.ifg-life.id/api/v1/general-transaction/transaction-member/list' \\\r\n--header 'apiKey: E97baCBt8SxmDcYNyd3KwbEA0giw8ElF' \\\r\n--header 'Content-Type: application/json' \\\r\n--data '{\r\n    \"page\": 1,\r\n    \"limit\": 100,\r\n    \"transactionId\": \"e712c884-43b9-4360-835c-93766b902c6b\",\r\n    \"filter\": [\r\n        \r\n        \r\n        \r\n        \r\n    ],\r\n    \"codes\": []\r\n}'"
+      },
+      "response": []
+    },
+    {
+      "name": "5 - Submission Member",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "{{api_key}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"transactionId\": \"76787b58-f878-48f8-938f-2c4362fc722e\",\n    \"submissionTypes\": [\n        \"ORGANIZATION\"\n        // ,\"MEMBER\"\n    ],\n    \"supportingDocuments\": [],\n    \"documentUploads\": []\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/v1/ao-workflow-policy-corporate/minor-alteration",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v1",
+            "ao-workflow-policy-corporate",
+            "minor-alteration"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Member Only - Then Submission Header is emtpy",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "{{api_key}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n \"referenceNo\": \"910625773\",\n \"referenceType\": \"ORGANIZATION_MINOR_ALTERATION\",\n \"transactionType\": \"lifespace-ps-minor-alteration\",\n \"workflow\": \"\",\n \"instanceId\": \"\",\n \"status\": \"\",\n \"details\": {\n  \"SUBMISSION_PIC_EMAIL\": \"test04@ifg.life.id\",\n  \"ORGANIZATION_ID\": \"1bf4597d-1605-4959-86d4-661816e61056\",\n  \"SUBMISSION_ID\": \"e8d361d3-4d80-48e5-939c-5fd52e04f839\",\n  \"ORGANIZATION_INFORMATION_OLD\": {},\n  \"ORGANIZATION_INFORMATION_NEW\": {},\n  \"DOCUMENT_UPLOADS\": [],\n  \"ORGANIZATION_TAX_OLD\": {},\n  \"ORGANIZATION_TAX_NEW\": {},\n  \"ORGANIZATION_SIUP_OLD\": {},\n  \"ORGANIZATION_SIUP_NEW\": {},\n  \"ORGANIZATION_ADDRESS_OLD\": {},\n  \"ORGANIZATION_ADDRESS_NEW\": {},\n  \"ORGANIZATION_PIC_OLD\": {\n   \"ekycInfo\": null,\n   \"contact\": null\n  },\n  \"ORGANIZATION_PIC_NEW\": {\n   \"ekycInfo\": null,\n   \"contact\": null\n  }\n }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/v1/ao-workflow-policy-corporate/minor-alteration/general-transaction-header",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v1",
+            "ao-workflow-policy-corporate",
+            "minor-alteration",
+            "general-transaction-header"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Resubmission - decision pending",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "{{api_key}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"processInstanceId\": \"9745e76b-dce8-4358-9535-7d15d1f598bb\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/v1/ao-workflow-policy-corporate/minor-alteration/task/decision-pending-document",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v1",
+            "ao-workflow-policy-corporate",
+            "minor-alteration",
+            "task",
+            "decision-pending-document"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get organization by policy org",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "{{api_key_core}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"organizationPolicyNumber\": \"9109262179\",//\"9106251923\",\n    \"organizationPolicyId\": \"\",\n    \"productCode\": \"\",\n    \"organizationId\": \"\",\n    \"organizationPolicyVariables\": [\n        {\n            \"code\": \"\",\n            \"value\": \"\"\n        },\n        {\n            \"code\": \"\",\n            \"value\": \"\"\n        }\n    ],\n    \"status\": \"\",\n    \"issuedDateFrom\": \"\",\n    \"issuedDateTo\": \"\",\n    \"page\": 0,\n    \"size\": 5\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url_core}}/v2/pas/organization-policies/search",
+          "host": [
+            "{{base_url_core}}"
+          ],
+          "path": [
+            "v2",
+            "pas",
+            "organization-policies",
+            "search"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "referenceNo",
+      "value": ""
+    },
+    {
+      "key": "transactionId",
+      "value": ""
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "info": {
+    "_postman_id": "5fa764d6-eb6f-4de8-9e30-bcefe83e19d5",
+    "name": "()02-Patching Surrender Automation New Workflow",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "46870646"
+  },
+  "item": [
+    {
+      "name": "(Surrender Value Not Null)Update status - coverage - relation - invoice",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apikey",
+            "value": "{{api_key}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"policyNumber\": \"800225000088591\",\n    \"reason\": \"UAT Testing 24/11/2025\",\n    \"submissionDate\": \"2025-11-24 10:00:31\",\n    \"totalRefundPremi\": 0,\n    \"bankAccount\": {\n        \"bankName\": \"BCA\",\n        \"bankCode\": \"BBBAIDJA\",\n        \"accountHolderName\": \"UAT AO PS\",\n        \"accountNo\": \"8100786761\"\n    },\n    \"document\": [\n       {\n           \"type\": \"ACCOUNT_BOOK\",\n           \"link\": \"https://google.com\"\n       }\n   ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/v1/ao-workflow-policy-retail/surrender",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v1",
+            "ao-workflow-policy-retail",
+            "surrender"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "(Surrender Value is Null)Update status - coverage - relation - invoice",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apikey",
+            "value": "{{api_key}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"policyNumber\": \"800225000371583\",\n    \"reason\": \"UAT Testing 26/11/2025\",\n    \"submissionDate\": \"2025-11-26 00:00:00\",\n    \"totalRefundPremi\": 0,\n    \"bankAccount\": {\n        \"bankName\": \"\",\n        \"bankCode\": \"\",\n        \"accountHolderName\": \"\",\n        \"accountNo\": \"\"\n    },\n    \"document\": [\n       {\n           \"type\": \"\",\n           \"link\": \"\"\n       }\n   ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/v1/ao-workflow-policy-retail/surrender",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v1",
+            "ao-workflow-policy-retail",
+            "surrender"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

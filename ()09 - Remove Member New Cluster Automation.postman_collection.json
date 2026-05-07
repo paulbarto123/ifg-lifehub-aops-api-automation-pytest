@@ -1,0 +1,685 @@
+{
+  "info": {
+    "_postman_id": "d6ab4785-801a-40e9-acab-bae2a11f2d0d",
+    "name": "()09 - Remove Member New Cluster Automation",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "46870646"
+  },
+  "item": [
+    {
+      "name": "STEP 1 - Submission Header - Remove Member",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "const uuid = crypto.randomUUID();  // Postman v10+ supports crypto\r",
+              "pm.collectionVariables.set(\"referenceNo\", uuid);\r",
+              "// const now = new Date();\r",
+              "\r",
+              "// const pad = (n) => n < 10 ? '0' + n : n;\r",
+              "\r",
+              "// const formattedDate = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;\r",
+              "\r",
+              "// pm.environment.set(\"formattedDate\", formattedDate);\r",
+              " "
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apiKey",
+            "value": "{{api_key}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"referenceNo\": \"{{referenceNo}}\", // random uuid\r\n    \"referenceType\": \"CLAIM_SUBMISSION_NO\",\r\n    \"transactionType\": \"lifespace-ps-remove-member\",\r\n    \"workflow\": \"\",\r\n    \"instanceId\": \"\",\r\n    \"status\": \"\",\r\n    \"details\": {\r\n        \"PAYLOAD_SUBMISSION\": {\r\n            \"id\": \"\",\r\n            \"transactionEventId\": \"\",\r\n            \"transactionEventNumber\": \"\",\r\n            \"policyNumber\": \"{{policyOrgNumber}}\",\r\n            \"organizationId\":\"{{policyOrgId}}\",\r\n            \"submissionDate\": \"{{submissionDate}}\",\r\n            \"status\": \"\",\r\n            \"transactionEventVariable\": [\r\n                {\r\n                    \"code\": \"PREMIUM_REFUND\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"{{premiumRefund}}\" // True or False\r\n                    // \"value\": \"FALSE\"\r\n                },\r\n                {\r\n                    \"code\": \"NO_SURAT_REFERENSI\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"{{noSuratReferensi}}\" \r\n                },\r\n                {\r\n                    \"code\": \"TANGGAL_SURAT_REFERENSI\",\r\n                    \"type\": \"date\",\r\n                    \"value\": \"{{tanggalSuratReferensi}}\"\r\n                },\r\n                {\r\n                    \"code\": \"PIC_NAME\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"{{picName}}\"\r\n                },\r\n                {\r\n                    \"code\": \"PIC_EMAIL\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"{{picEmail}}\"\r\n                },\r\n                {\r\n                    \"code\": \"PIC_PHONE_NUMBER\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"{{picPhoneNumber}}\"\r\n                },\r\n                {\r\n                    \"code\": \"PIC_POSITION\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"{{picPosition}}\"\r\n                }\r\n            ],\r\n            \"message\": \"\"\r\n        },\r\n        \"DECISION\": {}\r\n    }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v2/ao-workflow-claim/general/transaction/header",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v2",
+            "ao-workflow-claim",
+            "general",
+            "transaction",
+            "header"
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'https://api-automation-uat.ifg-life.id/api/v2/ao-workflow-claim/general/transaction/header' \\\r\n--header 'accept: application/json' \\\r\n--header 'Content-Type: application/json' \\\r\n--header 'apiKey: E97baCBt8SxmDcYNyd3KwbEA0giw8ElF' \\\r\n--data-raw '{\r\n    \"referenceNo\": \"b876cc32-73f6-465b-8fd9-08d8732ea4ab\",\r\n    \"referenceType\": \"CLAIM_SUBMISSION_NO\",\r\n    \"transactionType\": \"lifespace-ps-remove-member\",\r\n    \"workflow\": \"\",\r\n    \"instanceId\": \"\",\r\n    \"status\": \"\",\r\n    \"details\": {\r\n        \"PAYLOAD_SUBMISSION\": {\r\n            \"id\": \"\",\r\n            \"transactionEventId\": \"\",\r\n            \"transactionEventNumber\": \"\",\r\n            \"policyNumber\": \"910425857\",\r\n            \"organizationId\":\"a712bcc1-f546-45ce-ab56-4f7bee3d2409\",\r\n            \"submissionDate\": \"{{formattedDate}}\",\r\n            \"status\": \"\",\r\n            \"transactionEventVariable\": [\r\n                {\r\n                    \"code\": \"PREMIUM_REFUND\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"TRUE\"\r\n                },\r\n                {\r\n                    \"code\": \"NO_SURAT_REFERENSI\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"78374T4082023\"\r\n                },\r\n                {\r\n                    \"code\": \"TANGGAL_SURAT_REFERENSI\",\r\n                    \"type\": \"date\",\r\n                    \"value\": \"2025-04-05\"\r\n                },\r\n                {\r\n                    \"code\": \"PIC_NAME\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"Jhon Doe\"\r\n                },\r\n                {\r\n                    \"code\": \"PIC_EMAIL\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"jhondoe@mail.id\"\r\n                },\r\n                {\r\n                    \"code\": \"PIC_PHONE_NUMBER\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"0212235642\"\r\n                },\r\n                {\r\n                    \"code\": \"PIC_POSITION\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"Manager\"\r\n                }\r\n            ],\r\n            \"message\": \"\"\r\n        },\r\n        \"DECISION\": {}\r\n    }\r\n}'"
+      },
+      "response": []
+    },
+    {
+      "name": "Postman delay 5 seconds",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "{{api_key_uat_v2}}",
+            "disabled": true
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://postman-echo.com/delay/5",
+          "protocol": "https",
+          "host": [
+            "postman-echo",
+            "com"
+          ],
+          "path": [
+            "delay",
+            "5"
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'https://api-automation-v2-dev.ifg-life.id/lifehub/public/api/v1/general-transaction/transaction-member/list' \\\r\n--header 'apiKey: YfPCr603s4OyM4pMUAuHvaWIl1kmmkWq' \\\r\n--header 'Content-Type: application/json' \\\r\n--data '{\r\n    \"page\": 1,\r\n    \"limit\": 10,\r\n    \"transactionId\": \"2d0c5cf1-cd3f-44d5-8db2-6387f2e52db8\",\r\n    \"filter\": [],\r\n    \"codes\": []\r\n}'"
+      },
+      "response": []
+    },
+    {
+      "name": "STEP 2 - Get Header - Remove Member",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let responseData = pm.response.json();\r",
+              "\r",
+              "// Make sure the response contains data\r",
+              "if (responseData && responseData.data && responseData.data.length > 0) {\r",
+              "    let transaction = responseData.data[0];\r",
+              "\r",
+              "    pm.collectionVariables.set(\"transactionId\", transaction.id);\r",
+              "    pm.collectionVariables.set(\"referenceNo\", transaction.referenceNo);\r",
+              "\r",
+              "    console.log(\"Saved transactionId:\", transaction.id);\r",
+              "    console.log(\"Saved referenceNo:\", transaction.referenceNo);\r",
+              "} else {\r",
+              "    console.warn(\"No transaction data found in response.\");\r",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "{{api_key}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"page\": 1,\n    \"limit\": 1,\n    \"filter\": [],\n    \"referenceNo\": \"{{referenceNo}}\",\n     \"transactionId\":\"cd5e947b-fd8a-4053-aaff-1cce543f2257\",\n    \"codes\": [\n    ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/lifehub/public/api/v1/general-transaction/transaction/list",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "lifehub",
+            "public",
+            "api",
+            "v1",
+            "general-transaction",
+            "transaction",
+            "list"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "STEP 3 - Submission Member - Remove Member",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "accept",
+            "value": "application/json"
+          },
+          {
+            "key": "apiKey",
+            "value": "{{api_key}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"organizationMember\": {\r\n        \"transactionId\": \"{{transactionId}}\", // random uuid\r\n        \"referenceNo\": \"{{referenceNo}}\",\r\n        \"transactionType\": \"lifespace-ps-remove-member\",\r\n        \"totalMember\": \"1\",\r\n        \"totalPage\": \"1\",\r\n        \"page\": 1,\r\n        \"totalInPage\": \"1\",\r\n        \"listOfMember\": [\r\n            {\r\n                \"memberId\": \"\",\r\n                \"memberReferenceNo\": \"{{policyNumber}}\",\r\n                \"memberReferenceType\": \"POLICY_NO\",\r\n                \"taskName\": \"\",\r\n                \"taskStatus\": \"\",\r\n                \"details\": {\r\n                    \"PAYLOAD_SUBMISSION\": {\r\n                        \"id\": \"\",\r\n                        \"result\": \"\",\r\n                        \"status\": \"\",\r\n                        \"message\": \"\",\r\n                        \"certificateNo\": \"{{certificateNo}}\",\r\n                        \"policyDetail\": {\r\n                            \"cif\": \"{{cif}}\",\r\n                            \"dob\": \"{{dob}}\",\r\n                            \"nik\": \"{{nik}}\",\r\n                            \"address\": null,\r\n                            \"policyStatus\": \"INFORCE\",\r\n                            \"customerName\": \"{{customerName}}\",\r\n                            \"policyNumber\": \"{{policyNumber}}\",\r\n                            \"policyId\": \"{{policyId}}\",\r\n                            \"organizationId\": \"{{policyOrgId}}\"\r\n                        },\r\n                        \"listVariable\": [\r\n                            {\r\n                                \"code\": \"PLAN_CODE\",\r\n                                \"value\": \"{{planCode}}\" // ex. 01\r\n                            },\r\n                            {\r\n                                \"code\": \"PRODUCT_CODE\",\r\n                                \"value\": \"{{productCode}}\" // DHT = 106, PHT = 901, GLP = 104, CLI 108, LCP 103\r\n                            },\r\n                            {\r\n                                \"code\": \"CERTIFICATE_NUMBER\",\r\n                                \"value\": \"{{certificateNo}}\"\r\n                            },\r\n                            {\r\n                                \"code\": \"INCIDENT_DATE\",\r\n                                \"value\": \"{{incidentDate}}\"\r\n                            },\r\n                            {\r\n                                \"code\": \"CASH_VALUE\",\r\n                                \"value\": \"{{cashValue}}\"\r\n                            },\r\n                            {\r\n                                \"code\": \"RISK_CODE\",\r\n                                \"value\": \"{{riskCode}}\"\r\n                            },\r\n                            {\r\n                                \"code\": \"MOVEMENT_TYPE\",\r\n                                \"value\": \"{{movementType}}\"\r\n                            },\r\n                            {\r\n                                \"code\": \"REASON\",\r\n                                \"value\": \"{{reason}}\"\r\n                            },\r\n                            {\r\n                                \"code\": \"BANK_NAME\",\r\n                                \"value\": \"{{bankName}}\"\r\n                            },\r\n                            {\r\n                                \"code\": \"BANK_SWIFT_CODE\",\r\n                                \"value\": \"{{bankSwiftCode}}\"\r\n                            },\r\n                            {\r\n                                \"code\": \"BANK_ACCOUNT_NAME\",\r\n                                \"value\": \"{{bankAccountName}}\"\r\n                            },\r\n                            {\r\n                                \"code\": \"BENEFICIARY_NAME\",\r\n                                \"value\": \"{{beneficiaryName}}\"\r\n                            },\r\n                            {\r\n                                \"code\": \"BANK_ACCOUNT_NUMBER\",\r\n                                \"value\": \"{{bankAccountNumber}}\"\r\n                            },\r\n                            {\r\n                                \"code\": \"RELATION\",\r\n                                \"value\": \"{{relation}}\"\r\n                            }\r\n                        ]\r\n                    },\r\n                    // \"TANGGAL_LUNAS\" :  \"{{tanggalLunas}}\",  // ini untuk LCP dan CLI      // ini untuk LCP dan CLI pakai ISO8601 \r\n                    // \"PAID_OFF_DATE\": \"{{paidOffDate}}\", // ini untuk LCP dan CLI      // ini untuk LCP dan CLI pakai ISO8601 \r\n                    \"DOB\": \"{{dob}}\",\r\n                    \"ID_CARD\": \"{{nik}}\",\r\n                    \"NAME\": \"{{customerName}}\",\r\n                    \"CERTIFICATE\": \"{{certificateNo}}\",\r\n                    \"CERTIFICATE_NO\": \"{{certificateNo}}\",\r\n                    \"CASH_VALUE\": \"{{cashValue}}\",\r\n                    \"INCIDENT_DATE\": \"{{incidentDate}}\",\r\n                    \"RISK_CODE\": \"{{riskCode}}\",\r\n                    \"MOVEMENT_TYPE\": \"{{movementType}}\",\r\n                    \"REASON\": \"{{reason}}\",\r\n                    \"AML_CHECKING\": \"\",\r\n                    \"DECISION\": {\r\n                        \"DECISION_CLAIM_HEAD_STATUS\": \"\",\r\n                        \"DECISION_CLAIM_STAFF_STATUS\": \"\",\r\n                        \"DECISION_SCREENING_HEAD_STATUS\": \"\",\r\n                        \"DECISION_SCREENING_HEAD_REMARKS\": \"\",\r\n                        \"DECISION_SCREENING_STAFF_STATUS\": \"\",\r\n                        \"DECISION_SCREENING_STAFF_REMARKS\": \"\"\r\n                    },\r\n                    \"DOCUMENT_NEED_REVISION\": {}\r\n                }\r\n            }\r\n        ]\r\n    }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v2/ao-workflow-claim/general/transaction/member",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v2",
+            "ao-workflow-claim",
+            "general",
+            "transaction",
+            "member"
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'https://api-automation-uat.ifg-life.id/api/v2/ao-workflow-claim/general/transaction/member' \\\r\n--header 'Content-Type: application/json' \\\r\n--header 'accept: application/json' \\\r\n--header 'apiKey: E97baCBt8SxmDcYNyd3KwbEA0giw8ElF' \\\r\n--data '{\r\n    \"organizationMember\": {\r\n        \"transactionId\": \"7ae0636b-9c4f-4c73-9144-2b964935927b\",\r\n        \"referenceNo\": \"b876cc32-73f6-465b-8fd9-08d8732ea4ab\",\r\n        \"transactionType\": \"lifespace-ps-remove-member\",\r\n        \"totalMember\": \"1\",\r\n        \"totalPage\": \"1\",\r\n        \"page\": 1,\r\n        \"totalInPage\": \"1\",\r\n        \"listOfMember\": [\r\n            {\r\n                \"memberId\": \"DGA0000088327\",\r\n                \"memberReferenceNo\": \"910425000049000\",\r\n                \"memberReferenceType\": \"CERTIFICATE_NO\",\r\n                \"taskName\": \"\",\r\n                \"taskStatus\": \"\",\r\n                \"details\": {\r\n                    \"PAYLOAD_SUBMISSION\": {\r\n                        \"id\": \"\",\r\n                        \"result\": \"\",\r\n                        \"status\": \"\",\r\n                        \"message\": \"\",\r\n                        \"certificateNo\": \"91042585700000008\",\r\n                        \"policyDetail\": {\r\n                            \"cif\": \"6b5f23b5-cfa5-4a93-b6e7-f4fd238841b7\",\r\n                            \"dob\": \"1997-04-10\",\r\n                            \"nik\": \"1430639798421630\",\r\n                            \"address\": \"JAKARTA\",\r\n                            \"statusName\": \"INFORCE\",\r\n                            \"customerName\": \"DUMMY NAME 8\",\r\n                            \"policyNumber\": \"910425000049000\",\r\n                            \"policyId\":\"b31dd154-898a-437f-9f81-73e0f1ad21e9\", \r\n                            \"organizationId\":\"a712bcc1-f546-45ce-ab56-4f7bee3d2409\" \r\n                        },\r\n                        \"listVariable\": [\r\n                            {\r\n                                \"code\": \"PLAN_CODE\",\r\n                                \"value\": \"01\"\r\n                            },\r\n                            {\r\n                                \"code\": \"PRODUCT_CODE\",\r\n                                \"value\": \"104\"\r\n                            },\r\n                            {\r\n                                \"code\": \"CARD_NUMBER\",\r\n                                \"value\": \"DGA0000088327\"\r\n                            },\r\n                            {\r\n                                \"code\": \"INCIDENT_DATE\",\r\n                                \"value\": \"2025-04-04 11:03:00\"\r\n                            },\r\n                            {\r\n                                \"code\": \"CASH_VALUE\",\r\n                                \"value\": \"0\"\r\n                            },\r\n                            {\r\n                                \"code\": \"RISK_CODE\",\r\n                                \"value\": \"MATURITY\"\r\n                            },\r\n                            {\r\n                                \"code\": \"MUTATION_TYPE\",\r\n                                \"value\": \"MATURITY\" \r\n                            },\r\n                            {\r\n                                \"code\": \"REASON\",\r\n                                \"value\": \"TERMINATION\" \r\n                            },\r\n                            {\r\n                                \"code\": \"BANK_NAME\",\r\n                                \"value\": \"Mandiri\"\r\n                            },\r\n                            {\r\n                                \"code\": \"BANK_SWIFT_CODE\",\r\n                                \"value\": \"CENAIDJA\"\r\n                            },\r\n                            {\r\n                                \"code\": \"BANK_ACCOUNT_NAME\",\r\n                                \"value\": \"DUMMY NAME 8\"\r\n                            },\r\n                            {\r\n                                \"code\": \"BENEFICIARY_NAME\",\r\n                                \"value\": \"DUMMY NAME 8\"\r\n                            },\r\n                            {\r\n                                \"code\": \"BANK_ACCOUNT_NUMBER\",\r\n                                \"value\": \"1301164250\"\r\n                            },\r\n                            {\r\n                                \"code\": \"RELATION\",\r\n                                \"value\": \"Diri Sendiri\"\r\n                            }\r\n                        ]\r\n                    },\r\n                    \"DECISION\": {}\r\n                }\r\n            }\r\n        ]\r\n    }\r\n}'"
+      },
+      "response": []
+    },
+    {
+      "name": "Postman delay 20 seconds",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://postman-echo.com/delay/20",
+          "protocol": "https",
+          "host": [
+            "postman-echo",
+            "com"
+          ],
+          "path": [
+            "delay",
+            "20"
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'https://api-automation-v2-dev.ifg-life.id/lifehub/public/api/v1/general-transaction/transaction-member/list' \\\r\n--header 'apiKey: YfPCr603s4OyM4pMUAuHvaWIl1kmmkWq' \\\r\n--header 'Content-Type: application/json' \\\r\n--data '{\r\n    \"page\": 1,\r\n    \"limit\": 10,\r\n    \"transactionId\": \"2d0c5cf1-cd3f-44d5-8db2-6387f2e52db8\",\r\n    \"filter\": [],\r\n    \"codes\": []\r\n}'"
+      },
+      "response": []
+    },
+    {
+      "name": "STEP 4 - Get Member Penampung",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// Parse the response JSON\r",
+              "let response = pm.response.json();\r",
+              "\r",
+              "// Configuration\r",
+              "const maxRetries = 5;  // how many times to retry\r",
+              "const retryDelay = 3000; // milliseconds between retries\r",
+              "\r",
+              "// Use pm.collectionVariables to persist retry count between runs\r",
+              "let retryCount = pm.collectionVariables.get(\"retryCount\") || 0;\r",
+              "\r",
+              "if (response.data && Array.isArray(response.data) && response.data.length === 0) {\r",
+              "    if (retryCount < maxRetries) {\r",
+              "        retryCount++;\r",
+              "        console.log(`⚠️ Data empty. Retrying... Attempt ${retryCount}/${maxRetries}`);\r",
+              "\r",
+              "        // Save updated retry count\r",
+              "        pm.collectionVariables.set(\"retryCount\", retryCount);\r",
+              "\r",
+              "        // Schedule a retry\r",
+              "        setTimeout(() => {\r",
+              "            postman.setNextRequest(pm.info.requestName);\r",
+              "        }, retryDelay);\r",
+              "    } else {\r",
+              "        console.log(\"🚫 Max retries reached. Stopping further requests.\");\r",
+              "        pm.collectionVariables.unset(\"retryCount\");\r",
+              "    }\r",
+              "} else {\r",
+              "    console.log(\"✅ Non-empty data received. Test successful!\");\r",
+              "    // Reset retry count since data is valid\r",
+              "    pm.collectionVariables.unset(\"retryCount\");\r",
+              "}\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "{{api_key}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"page\": 1,\r\n    \"limit\": 2000,    \r\n    \"transactionId\": \"{{transactionId}}\",\r\n    \"filter\": [],\r\n    \"codes\": []\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/lifehub/public/api/v1/general-transaction/transaction-member/list",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "lifehub",
+            "public",
+            "api",
+            "v1",
+            "general-transaction",
+            "transaction-member",
+            "list"
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'https://api-automation-v2-dev.ifg-life.id/lifehub/public/api/v1/general-transaction/transaction-member/list' \\\r\n--header 'apiKey: YfPCr603s4OyM4pMUAuHvaWIl1kmmkWq' \\\r\n--header 'Content-Type: application/json' \\\r\n--data '{\r\n    \"page\": 1,\r\n    \"limit\": 10,\r\n    \"transactionId\": \"2d0c5cf1-cd3f-44d5-8db2-6387f2e52db8\",\r\n    \"filter\": [],\r\n    \"codes\": []\r\n}'"
+      },
+      "response": [
+        {
+          "name": "STEP 4 - Get Member Penampung",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "apiKey",
+                "value": "{{api_key}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"page\": 1,\r\n    \"limit\": 2000,    \r\n    \"transactionId\": \"{{transactionId}}\",\r\n    // \"transactionId\": \"a472ea9e-d09a-437f-bb2b-880b11bd2304\",\r\n    // \"transactionId\": \"0b88f524-e535-4b5c-a7ca-bdbe837dc126\",\r\n    // \"transactionId\": \"e0c31e6f-5cc4-4e51-b446-a68ca35ee4ac\",\r\n    // \"transactionId\": \"8ffe98a0-41ac-41c9-b8be-31446775ccf2\",\r\n    // \"transactionId\": \"15bc603f-e452-4376-9f3e-5ff6d4886abd\",\r\n    // \"transactionId\": \"f8ba93c2-a8a2-48a5-8640-0861a67a485c\",\r\n    // \"transactionId\": \"a572eadb-f522-4343-bb9e-6330da0e2244\",\r\n    // \"transactionId\": \"f90fda78-9435-4d66-923f-fa250ebc66fd\",\r\n    // \"transactionId\": \"f18aff8b-b7d4-4d63-a559-27b9981f685d\",\r\n    // \"transactionId\": \"216e1fb6-0d57-44a0-a348-d7cd35534c95\",\r\n    // \"transactionId\": \"9fc450cf-9640-458a-859a-d683acaabc31\",\r\n    \"filter\": [],\r\n    \"codes\": []\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/lifehub/public/api/v1/general-transaction/transaction-member/list",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "lifehub",
+                "public",
+                "api",
+                "v1",
+                "general-transaction",
+                "transaction-member",
+                "list"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "Text",
+          "header": [
+            {
+              "key": "Date",
+              "value": "Tue, 13 Jan 2026 03:49:27 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=16070400; includeSubDomains"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Content-Security-Policy",
+              "value": "frame-ancestors 'none'"
+            },
+            {
+              "key": "Via",
+              "value": "Kong"
+            },
+            {
+              "key": "X-Frame-Option",
+              "value": "DENY"
+            },
+            {
+              "key": "vary",
+              "value": "Origin"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"code\": 2000,\n    \"message\": \"Success\",\n    \"data\": [\n        {\n            \"id\": \"0000019b-b570-0a91-aa2f-0da47587054c\",\n            \"transactionId\": \"e1481899-c34b-4ea2-a37a-6db3ce7532c2\",\n            \"memberId\": \"\",\n            \"memberReferenceNo\": \"910425000343959\",\n            \"memberReferenceType\": \"POLICY_NO\",\n            \"taskName\": \"remove_member_corporate\",\n            \"taskStatus\": \"SUBMITTED\",\n            \"createdAt\": \"2026-01-13T10:39:37.490222\",\n            \"createdBy\": \"partnership-ps-remove-member\",\n            \"updatedAt\": \"2026-01-13T10:41:24.538766\",\n            \"updatedBy\": \"SYSTEM\",\n            \"transactionMemberDetailList\": [\n                {\n                    \"code\": \"DOB\",\n                    \"value\": \"13-03-1987\"\n                },\n                {\n                    \"code\": \"NAME\",\n                    \"value\": \"IDALIA COSSEM\"\n                },\n                {\n                    \"code\": \"REASON\",\n                    \"value\": \"RESIGNATION\"\n                },\n                {\n                    \"code\": \"ID_CARD\",\n                    \"value\": \"8881126640303870\"\n                },\n                {\n                    \"code\": \"DECISION\",\n                    \"value\": {\n                        \"DECISION_POS_REASON\": \"\",\n                        \"DECISION_POS_STATUS\": \"\",\n                        \"DECISION_POS_REMARKS\": \"\",\n                        \"DECISION_CLAIM_HEAD_STATUS\": \"\",\n                        \"DECISION_CLAIM_STAFF_STATUS\": \"\",\n                        \"DECISION_SCREENING_HEAD_STATUS\": \"\",\n                        \"DECISION_SCREENING_HEAD_REMARKS\": \"\",\n                        \"DECISION_SCREENING_STAFF_STATUS\": \"\",\n                        \"DECISION_SCREENING_STAFF_REMARKS\": \"\"\n                    }\n                },\n                {\n                    \"code\": \"POLICY_NO\",\n                    \"value\": \"910425000343959\"\n                },\n                {\n                    \"code\": \"RISK_CODE\",\n                    \"value\": \"SURRENDER\"\n                },\n                {\n                    \"code\": \"CASH_VALUE\",\n                    \"value\": \"\"\n                },\n                {\n                    \"code\": \"CLAIM_TYPE\",\n                    \"value\": \"Tebus\"\n                },\n                {\n                    \"code\": \"IS_ELIGIBLE\",\n                    \"value\": \"TRUE\"\n                },\n                {\n                    \"code\": \"AML_CHECKING\",\n                    \"value\": \"\"\n                },\n                {\n                    \"code\": \"PAYMENT_DATE\",\n                    \"value\": \"\"\n                },\n                {\n                    \"code\": \"INCIDENT_DATE\",\n                    \"value\": \"2025-12-12 00:00:00\"\n                },\n                {\n                    \"code\": \"MOVEMENT_TYPE\",\n                    \"value\": \"SURRENDER\"\n                },\n                {\n                    \"code\": \"TANGGAL_LUNAS\",\n                    \"value\": null\n                },\n                {\n                    \"code\": \"CERTIFICATE_NO\",\n                    \"value\": \"910425000343959\"\n                },\n                {\n                    \"code\": \"EFFECTIVE_DATE\",\n                    \"value\": \"2026-01-13\"\n                },\n                {\n                    \"code\": \"REFUND_PREMIUM\",\n                    \"value\": \"3590313725\"\n                },\n                {\n                    \"code\": \"END_WORKING_DATE\",\n                    \"value\": null\n                },\n                {\n                    \"code\": \"PAYLOAD_SUBMISSION\",\n                    \"value\": {\n                        \"id\": \"\",\n                        \"result\": \"\",\n                        \"status\": \"\",\n                        \"message\": \"\",\n                        \"listVariable\": [\n                            {\n                                \"code\": \"PLAN_CODE\",\n                                \"value\": \"01\"\n                            },\n                            {\n                                \"code\": \"PRODUCT_CODE\",\n                                \"value\": \"104\"\n                            },\n                            {\n                                \"code\": \"CERTIFICATE_NUMBER\",\n                                \"value\": \"910425000343959\"\n                            },\n                            {\n                                \"code\": \"INCIDENT_DATE\",\n                                \"value\": \"2025-12-12 00:00:00\"\n                            },\n                            {\n                                \"code\": \"CASH_VALUE\",\n                                \"value\": \"\"\n                            },\n                            {\n                                \"code\": \"RISK_CODE\",\n                                \"value\": \"SURRENDER\"\n                            },\n                            {\n                                \"code\": \"MOVEMENT_TYPE\",\n                                \"value\": \"SURRENDER\"\n                            },\n                            {\n                                \"code\": \"REASON\",\n                                \"value\": \"RESIGNATION\"\n                            },\n                            {\n                                \"code\": \"BANK_NAME\",\n                                \"value\": \"bank central asia tbk\"\n                            },\n                            {\n                                \"code\": \"BANK_SWIFT_CODE\",\n                                \"value\": \"CENAIDJA\"\n                            },\n                            {\n                                \"code\": \"BANK_ACCOUNT_NAME\",\n                                \"value\": \"TEST SUCCESS\"\n                            },\n                            {\n                                \"code\": \"BENEFICIARY_NAME\",\n                                \"value\": \"ZAINAL ABIDIN\"\n                            },\n                            {\n                                \"code\": \"BANK_ACCOUNT_NUMBER\",\n                                \"value\": \"4000529148\"\n                            },\n                            {\n                                \"code\": \"RELATION\",\n                                \"value\": \"ISTRI\"\n                            }\n                        ],\n                        \"policyDetail\": {\n                            \"cif\": \"5bdb2e6e-8fa8-43b1-bfa8-8dbc7f56c3f8\",\n                            \"dob\": \"13-03-1987\",\n                            \"nik\": \"8881126640303870\",\n                            \"address\": null,\n                            \"policyId\": \"beb3df9d-578c-4783-8a20-334dcb601730\",\n                            \"statusName\": null,\n                            \"customerName\": \"IDALIA COSSEM\",\n                            \"policyNumber\": \"910425000343959\",\n                            \"policyStatus\": \"INFORCE\",\n                            \"organizationId\": \"0782b47f-8ff6-4eb9-87b9-08e3da17edc3\"\n                        },\n                        \"certificateNo\": \"910425000343959\"\n                    }\n                },\n                {\n                    \"code\": \"SCREENING_AML_STATUS\",\n                    \"value\": \"Approve\"\n                },\n                {\n                    \"code\": \"DOCUMENT_NEED_REVISION\",\n                    \"value\": {\n                        \"listDocument\": []\n                    }\n                },\n                {\n                    \"code\": \"REFUND_PREMIUM_UPDATED\",\n                    \"value\": \"TRUE\"\n                }\n            ],\n            \"details\": null\n        },\n        {\n            \"id\": \"0000019b-b570-0a92-9baf-c5270727129e\",\n            \"transactionId\": \"e1481899-c34b-4ea2-a37a-6db3ce7532c2\",\n            \"memberId\": \"\",\n            \"memberReferenceNo\": \"910425000343966\",\n            \"memberReferenceType\": \"POLICY_NO\",\n            \"taskName\": \"remove_member_corporate\",\n            \"taskStatus\": \"SUBMITTED\",\n            \"createdAt\": \"2026-01-13T10:39:37.490578\",\n            \"createdBy\": \"partnership-ps-remove-member\",\n            \"updatedAt\": \"2026-01-13T10:41:23.61702\",\n            \"updatedBy\": \"SYSTEM\",\n            \"transactionMemberDetailList\": [\n                {\n                    \"code\": \"DOB\",\n                    \"value\": \"09-11-1987\"\n                },\n                {\n                    \"code\": \"NAME\",\n                    \"value\": \"BRIA TORTOISE\"\n                },\n                {\n                    \"code\": \"REASON\",\n                    \"value\": \"TERMINATION\"\n                },\n                {\n                    \"code\": \"ID_CARD\",\n                    \"value\": \"8881161249854790\"\n                },\n                {\n                    \"code\": \"DECISION\",\n                    \"value\": {\n                        \"DECISION_POS_REASON\": \"\",\n                        \"DECISION_POS_STATUS\": \"\",\n                        \"DECISION_POS_REMARKS\": \"\",\n                        \"DECISION_CLAIM_HEAD_STATUS\": \"\",\n                        \"DECISION_CLAIM_STAFF_STATUS\": \"\",\n                        \"DECISION_SCREENING_HEAD_STATUS\": \"\",\n                        \"DECISION_SCREENING_HEAD_REMARKS\": \"\",\n                        \"DECISION_SCREENING_STAFF_STATUS\": \"\",\n                        \"DECISION_SCREENING_STAFF_REMARKS\": \"\"\n                    }\n                },\n                {\n                    \"code\": \"POLICY_NO\",\n                    \"value\": \"910425000343966\"\n                },\n                {\n                    \"code\": \"RISK_CODE\",\n                    \"value\": \"SURRENDER\"\n                },\n                {\n                    \"code\": \"CASH_VALUE\",\n                    \"value\": \"\"\n                },\n                {\n                    \"code\": \"CLAIM_TYPE\",\n                    \"value\": \"Tebus\"\n                },\n                {\n                    \"code\": \"IS_ELIGIBLE\",\n                    \"value\": \"TRUE\"\n                },\n                {\n                    \"code\": \"AML_CHECKING\",\n                    \"value\": \"\"\n                },\n                {\n                    \"code\": \"PAYMENT_DATE\",\n                    \"value\": \"\"\n                },\n                {\n                    \"code\": \"INCIDENT_DATE\",\n                    \"value\": \"2025-12-12 00:00:00\"\n                },\n                {\n                    \"code\": \"MOVEMENT_TYPE\",\n                    \"value\": \"SURRENDER\"\n                },\n                {\n                    \"code\": \"TANGGAL_LUNAS\",\n                    \"value\": null\n                },\n                {\n                    \"code\": \"CERTIFICATE_NO\",\n                    \"value\": \"910425000343966\"\n                },\n                {\n                    \"code\": \"EFFECTIVE_DATE\",\n                    \"value\": \"2026-01-13\"\n                },\n                {\n                    \"code\": \"REFUND_PREMIUM\",\n                    \"value\": \"3590313725\"\n                },\n                {\n                    \"code\": \"END_WORKING_DATE\",\n                    \"value\": null\n                },\n                {\n                    \"code\": \"PAYLOAD_SUBMISSION\",\n                    \"value\": {\n                        \"id\": \"\",\n                        \"result\": \"\",\n                        \"status\": \"\",\n                        \"message\": \"\",\n                        \"listVariable\": [\n                            {\n                                \"code\": \"PLAN_CODE\",\n                                \"value\": \"01\"\n                            },\n                            {\n                                \"code\": \"PRODUCT_CODE\",\n                                \"value\": \"104\"\n                            },\n                            {\n                                \"code\": \"CERTIFICATE_NUMBER\",\n                                \"value\": \"910425000343966\"\n                            },\n                            {\n                                \"code\": \"INCIDENT_DATE\",\n                                \"value\": \"2025-12-12 00:00:00\"\n                            },\n                            {\n                                \"code\": \"CASH_VALUE\",\n                                \"value\": \"\"\n                            },\n                            {\n                                \"code\": \"RISK_CODE\",\n                                \"value\": \"SURRENDER\"\n                            },\n                            {\n                                \"code\": \"MOVEMENT_TYPE\",\n                                \"value\": \"SURRENDER\"\n                            },\n                            {\n                                \"code\": \"REASON\",\n                                \"value\": \"TERMINATION\"\n                            },\n                            {\n                                \"code\": \"BANK_NAME\",\n                                \"value\": \"bank central asia tbk\"\n                            },\n                            {\n                                \"code\": \"BANK_SWIFT_CODE\",\n                                \"value\": \"CENAIDJA\"\n                            },\n                            {\n                                \"code\": \"BANK_ACCOUNT_NAME\",\n                                \"value\": \"TEST SUCCESS\"\n                            },\n                            {\n                                \"code\": \"BENEFICIARY_NAME\",\n                                \"value\": \"ARICA CALRLINA\"\n                            },\n                            {\n                                \"code\": \"BANK_ACCOUNT_NUMBER\",\n                                \"value\": \"4000529148\"\n                            },\n                            {\n                                \"code\": \"RELATION\",\n                                \"value\": \"SUAMI\"\n                            }\n                        ],\n                        \"policyDetail\": {\n                            \"cif\": \"326b5fbd-cf65-4d7f-9ca2-efb4aed47c58\",\n                            \"dob\": \"09-11-1987\",\n                            \"nik\": \"8881161249854790\",\n                            \"address\": null,\n                            \"policyId\": \"0bfcc62e-ee76-4cdd-816d-1ca52803ce32\",\n                            \"statusName\": null,\n                            \"customerName\": \"BRIA TORTOISE\",\n                            \"policyNumber\": \"910425000343966\",\n                            \"policyStatus\": \"INFORCE\",\n                            \"organizationId\": \"0782b47f-8ff6-4eb9-87b9-08e3da17edc3\"\n                        },\n                        \"certificateNo\": \"910425000343966\"\n                    }\n                },\n                {\n                    \"code\": \"SCREENING_AML_STATUS\",\n                    \"value\": \"Approve\"\n                },\n                {\n                    \"code\": \"DOCUMENT_NEED_REVISION\",\n                    \"value\": {\n                        \"listDocument\": []\n                    }\n                },\n                {\n                    \"code\": \"REFUND_PREMIUM_UPDATED\",\n                    \"value\": \"TRUE\"\n                }\n            ],\n            \"details\": null\n        },\n        {\n            \"id\": \"0000019b-b570-0a93-bb96-607655ef6876\",\n            \"transactionId\": \"e1481899-c34b-4ea2-a37a-6db3ce7532c2\",\n            \"memberId\": \"\",\n            \"memberReferenceNo\": \"910425000344008\",\n            \"memberReferenceType\": \"POLICY_NO\",\n            \"taskName\": \"remove_member_corporate\",\n            \"taskStatus\": \"SUBMITTED\",\n            \"createdAt\": \"2026-01-13T10:39:37.491355\",\n            \"createdBy\": \"partnership-ps-remove-member\",\n            \"updatedAt\": \"2026-01-13T10:41:25.002594\",\n            \"updatedBy\": \"SYSTEM\",\n            \"transactionMemberDetailList\": [\n                {\n                    \"code\": \"DOB\",\n                    \"value\": \"21-08-1984\"\n                },\n                {\n                    \"code\": \"NAME\",\n                    \"value\": \"LULA WEYMOUTH\"\n                },\n                {\n                    \"code\": \"REASON\",\n                    \"value\": \"RESIGNATION\"\n                },\n                {\n                    \"code\": \"ID_CARD\",\n                    \"value\": \"8881120335121610\"\n                },\n                {\n                    \"code\": \"DECISION\",\n                    \"value\": {\n                        \"DECISION_POS_REASON\": \"\",\n                        \"DECISION_POS_STATUS\": \"\",\n                        \"DECISION_POS_REMARKS\": \"\",\n                        \"DECISION_CLAIM_HEAD_STATUS\": \"\",\n                        \"DECISION_CLAIM_STAFF_STATUS\": \"\",\n                        \"DECISION_SCREENING_HEAD_STATUS\": \"\",\n                        \"DECISION_SCREENING_HEAD_REMARKS\": \"\",\n                        \"DECISION_SCREENING_STAFF_STATUS\": \"\",\n                        \"DECISION_SCREENING_STAFF_REMARKS\": \"\"\n                    }\n                },\n                {\n                    \"code\": \"POLICY_NO\",\n                    \"value\": \"910425000344008\"\n                },\n                {\n                    \"code\": \"RISK_CODE\",\n                    \"value\": \"SURRENDER\"\n                },\n                {\n                    \"code\": \"CASH_VALUE\",\n                    \"value\": \"\"\n                },\n                {\n                    \"code\": \"CLAIM_TYPE\",\n                    \"value\": \"Tebus\"\n                },\n                {\n                    \"code\": \"IS_ELIGIBLE\",\n                    \"value\": \"TRUE\"\n                },\n                {\n                    \"code\": \"AML_CHECKING\",\n                    \"value\": \"\"\n                },\n                {\n                    \"code\": \"PAYMENT_DATE\",\n                    \"value\": \"\"\n                },\n                {\n                    \"code\": \"INCIDENT_DATE\",\n                    \"value\": \"2025-12-12 00:00:00\"\n                },\n                {\n                    \"code\": \"MOVEMENT_TYPE\",\n                    \"value\": \"SURRENDER\"\n                },\n                {\n                    \"code\": \"TANGGAL_LUNAS\",\n                    \"value\": null\n                },\n                {\n                    \"code\": \"CERTIFICATE_NO\",\n                    \"value\": \"910425000344008\"\n                },\n                {\n                    \"code\": \"EFFECTIVE_DATE\",\n                    \"value\": \"2026-01-13\"\n                },\n                {\n                    \"code\": \"REFUND_PREMIUM\",\n                    \"value\": \"3590313725\"\n                },\n                {\n                    \"code\": \"END_WORKING_DATE\",\n                    \"value\": null\n                },\n                {\n                    \"code\": \"PAYLOAD_SUBMISSION\",\n                    \"value\": {\n                        \"id\": \"\",\n                        \"result\": \"\",\n                        \"status\": \"\",\n                        \"message\": \"\",\n                        \"listVariable\": [\n                            {\n                                \"code\": \"PLAN_CODE\",\n                                \"value\": \"01\"\n                            },\n                            {\n                                \"code\": \"PRODUCT_CODE\",\n                                \"value\": \"104\"\n                            },\n                            {\n                                \"code\": \"CERTIFICATE_NUMBER\",\n                                \"value\": \"910425000344008\"\n                            },\n                            {\n                                \"code\": \"INCIDENT_DATE\",\n                                \"value\": \"2025-12-12 00:00:00\"\n                            },\n                            {\n                                \"code\": \"CASH_VALUE\",\n                                \"value\": \"\"\n                            },\n                            {\n                                \"code\": \"RISK_CODE\",\n                                \"value\": \"SURRENDER\"\n                            },\n                            {\n                                \"code\": \"MOVEMENT_TYPE\",\n                                \"value\": \"SURRENDER\"\n                            },\n                            {\n                                \"code\": \"REASON\",\n                                \"value\": \"RESIGNATION\"\n                            },\n                            {\n                                \"code\": \"BANK_NAME\",\n                                \"value\": \"bank central asia tbk\"\n                            },\n                            {\n                                \"code\": \"BANK_SWIFT_CODE\",\n                                \"value\": \"CENAIDJA\"\n                            },\n                            {\n                                \"code\": \"BANK_ACCOUNT_NAME\",\n                                \"value\": \"TEST SUCCESS\"\n                            },\n                            {\n                                \"code\": \"BENEFICIARY_NAME\",\n                                \"value\": \"ZEUS MACOPOLO\"\n                            },\n                            {\n                                \"code\": \"BANK_ACCOUNT_NUMBER\",\n                                \"value\": \"4000529148\"\n                            },\n                            {\n                                \"code\": \"RELATION\",\n                                \"value\": \"ANAK KANDUNG\"\n                            }\n                        ],\n                        \"policyDetail\": {\n                            \"cif\": \"28d4c969-3932-4f96-b83c-454df5a3f759\",\n                            \"dob\": \"21-08-1984\",\n                            \"nik\": \"8881120335121610\",\n                            \"address\": null,\n                            \"policyId\": \"1149eea0-7131-435a-a97d-aa090c6c8d79\",\n                            \"statusName\": null,\n                            \"customerName\": \"LULA WEYMOUTH\",\n                            \"policyNumber\": \"910425000344008\",\n                            \"policyStatus\": \"INFORCE\",\n                            \"organizationId\": \"0782b47f-8ff6-4eb9-87b9-08e3da17edc3\"\n                        },\n                        \"certificateNo\": \"910425000344008\"\n                    }\n                },\n                {\n                    \"code\": \"SCREENING_AML_STATUS\",\n                    \"value\": \"Approve\"\n                },\n                {\n                    \"code\": \"DOCUMENT_NEED_REVISION\",\n                    \"value\": {\n                        \"listDocument\": []\n                    }\n                },\n                {\n                    \"code\": \"REFUND_PREMIUM_UPDATED\",\n                    \"value\": \"TRUE\"\n                }\n            ],\n            \"details\": null\n        },\n        {\n            \"id\": \"0000019b-b570-0a93-946d-8d285fff9cbe\",\n            \"transactionId\": \"e1481899-c34b-4ea2-a37a-6db3ce7532c2\",\n            \"memberId\": \"\",\n            \"memberReferenceNo\": \"910425000344010\",\n            \"memberReferenceType\": \"POLICY_NO\",\n            \"taskName\": \"remove_member_corporate\",\n            \"taskStatus\": \"SUBMITTED\",\n            \"createdAt\": \"2026-01-13T10:39:37.491753\",\n            \"createdBy\": \"partnership-ps-remove-member\",\n            \"updatedAt\": \"2026-01-13T10:41:23.908242\",\n            \"updatedBy\": \"SYSTEM\",\n            \"transactionMemberDetailList\": [\n                {\n                    \"code\": \"DOB\",\n                    \"value\": \"03-01-1999\"\n                },\n                {\n                    \"code\": \"NAME\",\n                    \"value\": \"JUDAS SWANBORROW\"\n                },\n                {\n                    \"code\": \"REASON\",\n                    \"value\": \"TERMINATION\"\n                },\n                {\n                    \"code\": \"ID_CARD\",\n                    \"value\": \"8881134623436500\"\n                },\n                {\n                    \"code\": \"DECISION\",\n                    \"value\": {\n                        \"DECISION_POS_REASON\": \"\",\n                        \"DECISION_POS_STATUS\": \"\",\n                        \"DECISION_POS_REMARKS\": \"\",\n                        \"DECISION_CLAIM_HEAD_STATUS\": \"\",\n                        \"DECISION_CLAIM_STAFF_STATUS\": \"\",\n                        \"DECISION_SCREENING_HEAD_STATUS\": \"\",\n                        \"DECISION_SCREENING_HEAD_REMARKS\": \"\",\n                        \"DECISION_SCREENING_STAFF_STATUS\": \"\",\n                        \"DECISION_SCREENING_STAFF_REMARKS\": \"\"\n                    }\n                },\n                {\n                    \"code\": \"POLICY_NO\",\n                    \"value\": \"910425000344010\"\n                },\n                {\n                    \"code\": \"RISK_CODE\",\n                    \"value\": \"SURRENDER\"\n                },\n                {\n                    \"code\": \"CASH_VALUE\",\n                    \"value\": \"\"\n                },\n                {\n                    \"code\": \"CLAIM_TYPE\",\n                    \"value\": \"Tebus\"\n                },\n                {\n                    \"code\": \"IS_ELIGIBLE\",\n                    \"value\": \"TRUE\"\n                },\n                {\n                    \"code\": \"AML_CHECKING\",\n                    \"value\": \"\"\n                },\n                {\n                    \"code\": \"PAYMENT_DATE\",\n                    \"value\": \"\"\n                },\n                {\n                    \"code\": \"INCIDENT_DATE\",\n                    \"value\": \"2025-12-12 00:00:00\"\n                },\n                {\n                    \"code\": \"MOVEMENT_TYPE\",\n                    \"value\": \"SURRENDER\"\n                },\n                {\n                    \"code\": \"TANGGAL_LUNAS\",\n                    \"value\": null\n                },\n                {\n                    \"code\": \"CERTIFICATE_NO\",\n                    \"value\": \"910425000344010\"\n                },\n                {\n                    \"code\": \"EFFECTIVE_DATE\",\n                    \"value\": \"2026-01-13\"\n                },\n                {\n                    \"code\": \"REFUND_PREMIUM\",\n                    \"value\": \"3590313725\"\n                },\n                {\n                    \"code\": \"END_WORKING_DATE\",\n                    \"value\": null\n                },\n                {\n                    \"code\": \"PAYLOAD_SUBMISSION\",\n                    \"value\": {\n                        \"id\": \"\",\n                        \"result\": \"\",\n                        \"status\": \"\",\n                        \"message\": \"\",\n                        \"listVariable\": [\n                            {\n                                \"code\": \"PLAN_CODE\",\n                                \"value\": \"01\"\n                            },\n                            {\n                                \"code\": \"PRODUCT_CODE\",\n                                \"value\": \"104\"\n                            },\n                            {\n                                \"code\": \"CERTIFICATE_NUMBER\",\n                                \"value\": \"910425000344010\"\n                            },\n                            {\n                                \"code\": \"INCIDENT_DATE\",\n                                \"value\": \"2025-12-12 00:00:00\"\n                            },\n                            {\n                                \"code\": \"CASH_VALUE\",\n                                \"value\": \"\"\n                            },\n                            {\n                                \"code\": \"RISK_CODE\",\n                                \"value\": \"SURRENDER\"\n                            },\n                            {\n                                \"code\": \"MOVEMENT_TYPE\",\n                                \"value\": \"SURRENDER\"\n                            },\n                            {\n                                \"code\": \"REASON\",\n                                \"value\": \"TERMINATION\"\n                            },\n                            {\n                                \"code\": \"BANK_NAME\",\n                                \"value\": \"bank central asia tbk\"\n                            },\n                            {\n                                \"code\": \"BANK_SWIFT_CODE\",\n                                \"value\": \"CENAIDJA\"\n                            },\n                            {\n                                \"code\": \"BANK_ACCOUNT_NAME\",\n                                \"value\": \"TEST SUCCESS\"\n                            },\n                            {\n                                \"code\": \"BENEFICIARY_NAME\",\n                                \"value\": \"RONALDO NAZERIO\"\n                            },\n                            {\n                                \"code\": \"BANK_ACCOUNT_NUMBER\",\n                                \"value\": \"4000529148\"\n                            },\n                            {\n                                \"code\": \"RELATION\",\n                                \"value\": \"IBU\"\n                            }\n                        ],\n                        \"policyDetail\": {\n                            \"cif\": \"fa4350c7-3b16-4df7-92fb-6942fc6caac9\",\n                            \"dob\": \"03-01-1999\",\n                            \"nik\": \"8881134623436500\",\n                            \"address\": null,\n                            \"policyId\": \"7d761cbd-00a0-4d30-a8ac-ab8e47c320a7\",\n                            \"statusName\": null,\n                            \"customerName\": \"JUDAS SWANBORROW\",\n                            \"policyNumber\": \"910425000344010\",\n                            \"policyStatus\": \"INFORCE\",\n                            \"organizationId\": \"0782b47f-8ff6-4eb9-87b9-08e3da17edc3\"\n                        },\n                        \"certificateNo\": \"910425000344010\"\n                    }\n                },\n                {\n                    \"code\": \"SCREENING_AML_STATUS\",\n                    \"value\": \"Approve\"\n                },\n                {\n                    \"code\": \"DOCUMENT_NEED_REVISION\",\n                    \"value\": {\n                        \"listDocument\": []\n                    }\n                },\n                {\n                    \"code\": \"REFUND_PREMIUM_UPDATED\",\n                    \"value\": \"TRUE\"\n                }\n            ],\n            \"details\": null\n        },\n        {\n            \"id\": \"0000019b-b570-0a93-8f83-5e3e408bec36\",\n            \"transactionId\": \"e1481899-c34b-4ea2-a37a-6db3ce7532c2\",\n            \"memberId\": \"\",\n            \"memberReferenceNo\": \"910425000344031\",\n            \"memberReferenceType\": \"POLICY_NO\",\n            \"taskName\": \"remove_member_corporate\",\n            \"taskStatus\": \"SUBMITTED\",\n            \"createdAt\": \"2026-01-13T10:39:37.492177\",\n            \"createdBy\": \"partnership-ps-remove-member\",\n            \"updatedAt\": \"2026-01-13T10:41:23.692877\",\n            \"updatedBy\": \"SYSTEM\",\n            \"transactionMemberDetailList\": [\n                {\n                    \"code\": \"DOB\",\n                    \"value\": \"06-11-1987\"\n                },\n                {\n                    \"code\": \"NAME\",\n                    \"value\": \"CORILLA TRINER\"\n                },\n                {\n                    \"code\": \"REASON\",\n                    \"value\": \"RESIGNATION\"\n                },\n                {\n                    \"code\": \"ID_CARD\",\n                    \"value\": \"8881138950639400\"\n                },\n                {\n                    \"code\": \"DECISION\",\n                    \"value\": {\n                        \"DECISION_POS_REASON\": \"\",\n                        \"DECISION_POS_STATUS\": \"\",\n                        \"DECISION_POS_REMARKS\": \"\",\n                        \"DECISION_CLAIM_HEAD_STATUS\": \"\",\n                        \"DECISION_CLAIM_STAFF_STATUS\": \"\",\n                        \"DECISION_SCREENING_HEAD_STATUS\": \"\",\n                        \"DECISION_SCREENING_HEAD_REMARKS\": \"\",\n                        \"DECISION_SCREENING_STAFF_STATUS\": \"\",\n                        \"DECISION_SCREENING_STAFF_REMARKS\": \"\"\n                    }\n                },\n                {\n                    \"code\": \"POLICY_NO\",\n                    \"value\": \"910425000344031\"\n                },\n                {\n                    \"code\": \"RISK_CODE\",\n                    \"value\": \"SURRENDER\"\n                },\n                {\n                    \"code\": \"CASH_VALUE\",\n                    \"value\": \"\"\n                },\n                {\n                    \"code\": \"CLAIM_TYPE\",\n                    \"value\": \"Tebus\"\n                },\n                {\n                    \"code\": \"IS_ELIGIBLE\",\n                    \"value\": \"TRUE\"\n                },\n                {\n                    \"code\": \"AML_CHECKING\",\n                    \"value\": \"\"\n                },\n                {\n                    \"code\": \"PAYMENT_DATE\",\n                    \"value\": \"\"\n                },\n                {\n                    \"code\": \"INCIDENT_DATE\",\n                    \"value\": \"2025-12-12 00:00:00\"\n                },\n                {\n                    \"code\": \"MOVEMENT_TYPE\",\n                    \"value\": \"SURRENDER\"\n                },\n                {\n                    \"code\": \"TANGGAL_LUNAS\",\n                    \"value\": null\n                },\n                {\n                    \"code\": \"CERTIFICATE_NO\",\n                    \"value\": \"910425000344031\"\n                },\n                {\n                    \"code\": \"EFFECTIVE_DATE\",\n                    \"value\": \"2026-01-13\"\n                },\n                {\n                    \"code\": \"REFUND_PREMIUM\",\n                    \"value\": \"3590313725\"\n                },\n                {\n                    \"code\": \"END_WORKING_DATE\",\n                    \"value\": null\n                },\n                {\n                    \"code\": \"PAYLOAD_SUBMISSION\",\n                    \"value\": {\n                        \"id\": \"\",\n                        \"result\": \"\",\n                        \"status\": \"\",\n                        \"message\": \"\",\n                        \"listVariable\": [\n                            {\n                                \"code\": \"PLAN_CODE\",\n                                \"value\": \"01\"\n                            },\n                            {\n                                \"code\": \"PRODUCT_CODE\",\n                                \"value\": \"104\"\n                            },\n                            {\n                                \"code\": \"CERTIFICATE_NUMBER\",\n                                \"value\": \"910425000344031\"\n                            },\n                            {\n                                \"code\": \"INCIDENT_DATE\",\n                                \"value\": \"2025-12-12 00:00:00\"\n                            },\n                            {\n                                \"code\": \"CASH_VALUE\",\n                                \"value\": \"\"\n                            },\n                            {\n                                \"code\": \"RISK_CODE\",\n                                \"value\": \"SURRENDER\"\n                            },\n                            {\n                                \"code\": \"MOVEMENT_TYPE\",\n                                \"value\": \"SURRENDER\"\n                            },\n                            {\n                                \"code\": \"REASON\",\n                                \"value\": \"RESIGNATION\"\n                            },\n                            {\n                                \"code\": \"BANK_NAME\",\n                                \"value\": \"bank central asia tbk\"\n                            },\n                            {\n                                \"code\": \"BANK_SWIFT_CODE\",\n                                \"value\": \"CENAIDJA\"\n                            },\n                            {\n                                \"code\": \"BANK_ACCOUNT_NAME\",\n                                \"value\": \"TEST SUCCESS\"\n                            },\n                            {\n                                \"code\": \"BENEFICIARY_NAME\",\n                                \"value\": \"PIQUE DOSANTOS\"\n                            },\n                            {\n                                \"code\": \"BANK_ACCOUNT_NUMBER\",\n                                \"value\": \"4000529148\"\n                            },\n                            {\n                                \"code\": \"RELATION\",\n                                \"value\": \"AYAH\"\n                            }\n                        ],\n                        \"policyDetail\": {\n                            \"cif\": \"91fa55ae-d152-47bb-8c53-54176ebc08ca\",\n                            \"dob\": \"06-11-1987\",\n                            \"nik\": \"8881138950639400\",\n                            \"address\": null,\n                            \"policyId\": \"d765b6e7-9ef0-4897-b7cf-03203af271cf\",\n                            \"statusName\": null,\n                            \"customerName\": \"CORILLA TRINER\",\n                            \"policyNumber\": \"910425000344031\",\n                            \"policyStatus\": \"INFORCE\",\n                            \"organizationId\": \"0782b47f-8ff6-4eb9-87b9-08e3da17edc3\"\n                        },\n                        \"certificateNo\": \"910425000344031\"\n                    }\n                },\n                {\n                    \"code\": \"SCREENING_AML_STATUS\",\n                    \"value\": \"Approve\"\n                },\n                {\n                    \"code\": \"DOCUMENT_NEED_REVISION\",\n                    \"value\": {\n                        \"listDocument\": []\n                    }\n                },\n                {\n                    \"code\": \"REFUND_PREMIUM_UPDATED\",\n                    \"value\": \"TRUE\"\n                }\n            ],\n            \"details\": null\n        }\n    ],\n    \"page\": 1,\n    \"limit\": 2000,\n    \"totalRows\": 5,\n    \"totalPages\": 1\n}"
+        },
+        {
+          "name": "STEP 4 - Get Member Penampung",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "apiKey",
+                "value": "{{api_key}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"page\": 1,\r\n    \"limit\": 2000,    \r\n    \"transactionId\": \"{{transactionId}}\",\r\n    // \"transactionId\": \"a472ea9e-d09a-437f-bb2b-880b11bd2304\",\r\n    // \"transactionId\": \"0b88f524-e535-4b5c-a7ca-bdbe837dc126\",\r\n    // \"transactionId\": \"e0c31e6f-5cc4-4e51-b446-a68ca35ee4ac\",\r\n    // \"transactionId\": \"8ffe98a0-41ac-41c9-b8be-31446775ccf2\",\r\n    // \"transactionId\": \"15bc603f-e452-4376-9f3e-5ff6d4886abd\",\r\n    // \"transactionId\": \"f8ba93c2-a8a2-48a5-8640-0861a67a485c\",\r\n    // \"transactionId\": \"a572eadb-f522-4343-bb9e-6330da0e2244\",\r\n    // \"transactionId\": \"f90fda78-9435-4d66-923f-fa250ebc66fd\",\r\n    // \"transactionId\": \"f18aff8b-b7d4-4d63-a559-27b9981f685d\",\r\n    // \"transactionId\": \"216e1fb6-0d57-44a0-a348-d7cd35534c95\",\r\n    // \"transactionId\": \"9fc450cf-9640-458a-859a-d683acaabc31\",\r\n    \"filter\": [],\r\n    \"codes\": []\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/lifehub/public/api/v1/general-transaction/transaction-member/list",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "lifehub",
+                "public",
+                "api",
+                "v1",
+                "general-transaction",
+                "transaction-member",
+                "list"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "Text",
+          "header": [
+            {
+              "key": "Date",
+              "value": "Wed, 14 Jan 2026 02:03:44 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=16070400; includeSubDomains"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Content-Security-Policy",
+              "value": "frame-ancestors 'none'"
+            },
+            {
+              "key": "Via",
+              "value": "Kong"
+            },
+            {
+              "key": "X-Frame-Option",
+              "value": "DENY"
+            },
+            {
+              "key": "vary",
+              "value": "Origin"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"code\": 2000,\n    \"message\": \"Success\",\n    \"data\": [\n        {\n            \"id\": \"0000019b-ba3b-ad26-8456-e6a0bcffd270\",\n            \"transactionId\": \"acbd5b8c-044c-4441-a6c2-6da2814435d8\",\n            \"memberId\": \"\",\n            \"memberReferenceNo\": \"910625000139445\",\n            \"memberReferenceType\": \"POLICY_NO\",\n            \"taskName\": \"\",\n            \"taskStatus\": \"\",\n            \"createdAt\": \"2026-01-14T09:00:31.782398\",\n            \"createdBy\": \"lifespace-claim\",\n            \"updatedAt\": null,\n            \"updatedBy\": null,\n            \"transactionMemberDetailList\": [\n                {\n                    \"code\": \"DOB\",\n                    \"value\": \"2001-07-11\"\n                },\n                {\n                    \"code\": \"NAME\",\n                    \"value\": \"EEDUMMY HAKIKI I DEVT\"\n                },\n                {\n                    \"code\": \"REASON\",\n                    \"value\": \"RESIGNATION\"\n                },\n                {\n                    \"code\": \"ID_CARD\",\n                    \"value\": \"3271062011015203\"\n                },\n                {\n                    \"code\": \"DECISION\",\n                    \"value\": {\n                        \"DECISION_CLAIM_HEAD_STATUS\": \"\",\n                        \"DECISION_CLAIM_STAFF_STATUS\": \"\",\n                        \"DECISION_SCREENING_HEAD_STATUS\": \"\",\n                        \"DECISION_SCREENING_HEAD_REMARKS\": \"\",\n                        \"DECISION_SCREENING_STAFF_STATUS\": \"\",\n                        \"DECISION_SCREENING_STAFF_REMARKS\": \"\"\n                    }\n                },\n                {\n                    \"code\": \"RISK_CODE\",\n                    \"value\": \"SURRENDER\"\n                },\n                {\n                    \"code\": \"CASH_VALUE\",\n                    \"value\": \"501000000\"\n                },\n                {\n                    \"code\": \"CERTIFICATE\",\n                    \"value\": \"910625000139445\"\n                },\n                {\n                    \"code\": \"AML_CHECKING\",\n                    \"value\": \"\"\n                },\n                {\n                    \"code\": \"INCIDENT_DATE\",\n                    \"value\": \"2026-01-05 00:00:00\"\n                },\n                {\n                    \"code\": \"MOVEMENT_TYPE\",\n                    \"value\": \"SURRENDER\"\n                },\n                {\n                    \"code\": \"TANGGAL_LUNAS\",\n                    \"value\": \"2026-01-06 00:00:00\"\n                },\n                {\n                    \"code\": \"CERTIFICATE_NO\",\n                    \"value\": \"910625000139445\"\n                },\n                {\n                    \"code\": \"PAYLOAD_SUBMISSION\",\n                    \"value\": {\n                        \"id\": \"\",\n                        \"result\": \"\",\n                        \"status\": \"\",\n                        \"message\": \"\",\n                        \"listVariable\": [\n                            {\n                                \"code\": \"PLAN_CODE\",\n                                \"value\": \"01\"\n                            },\n                            {\n                                \"code\": \"PRODUCT_CODE\",\n                                \"value\": \"106\"\n                            },\n                            {\n                                \"code\": \"CERTIFICATE_NUMBER\",\n                                \"value\": \"910625000139445\"\n                            },\n                            {\n                                \"code\": \"INCIDENT_DATE\",\n                                \"value\": \"2026-01-05 00:00:00\"\n                            },\n                            {\n                                \"code\": \"CASH_VALUE\",\n                                \"value\": \"501000000\"\n                            },\n                            {\n                                \"code\": \"RISK_CODE\",\n                                \"value\": \"SURRENDER\"\n                            },\n                            {\n                                \"code\": \"MOVEMENT_TYPE\",\n                                \"value\": \"SURRENDER\"\n                            },\n                            {\n                                \"code\": \"REASON\",\n                                \"value\": \"RESIGNATION\"\n                            },\n                            {\n                                \"code\": \"BANK_NAME\",\n                                \"value\": \"BRI\"\n                            },\n                            {\n                                \"code\": \"BANK_SWIFT_CODE\",\n                                \"value\": \"BRINIDJA\"\n                            },\n                            {\n                                \"code\": \"BANK_ACCOUNT_NAME\",\n                                \"value\": \"QA POS TESTING\"\n                            },\n                            {\n                                \"code\": \"BENEFICIARY_NAME\",\n                                \"value\": \"EEDUMMY HAKIKI I DEVT\"\n                            },\n                            {\n                                \"code\": \"BANK_ACCOUNT_NUMBER\",\n                                \"value\": \"037601000450307\"\n                            },\n                            {\n                                \"code\": \"RELATION\",\n                                \"value\": \"Diri Sendiri\"\n                            }\n                        ],\n                        \"policyDetail\": {\n                            \"cif\": \"3a669585-3e89-4a4d-9f13-187ae9c0c227\",\n                            \"dob\": \"2001-07-11\",\n                            \"nik\": \"3271062011015203\",\n                            \"address\": null,\n                            \"policyId\": \"500216e6-1f9a-4ac4-9966-df0b8dc4017d\",\n                            \"customerName\": \"EEDUMMY HAKIKI I DEVT\",\n                            \"policyNumber\": \"910625000139445\",\n                            \"policyStatus\": \"INFORCE\",\n                            \"organizationId\": \"f2b8709b-c9fb-44c9-a9de-742c2e0360f3\"\n                        },\n                        \"certificateNo\": \"910625000139445\"\n                    }\n                },\n                {\n                    \"code\": \"DOCUMENT_NEED_REVISION\",\n                    \"value\": {}\n                }\n            ],\n            \"details\": null\n        },\n        {\n            \"id\": \"0000019b-ba3b-ad26-8e24-ace5599b89a8\",\n            \"transactionId\": \"acbd5b8c-044c-4441-a6c2-6da2814435d8\",\n            \"memberId\": \"\",\n            \"memberReferenceNo\": \"910625000139447\",\n            \"memberReferenceType\": \"POLICY_NO\",\n            \"taskName\": \"\",\n            \"taskStatus\": \"\",\n            \"createdAt\": \"2026-01-14T09:00:31.783011\",\n            \"createdBy\": \"lifespace-claim\",\n            \"updatedAt\": null,\n            \"updatedBy\": null,\n            \"transactionMemberDetailList\": [\n                {\n                    \"code\": \"DOB\",\n                    \"value\": \"2001-01-01\"\n                },\n                {\n                    \"code\": \"NAME\",\n                    \"value\": \"JORDIN MANRU\"\n                },\n                {\n                    \"code\": \"REASON\",\n                    \"value\": \"RESIGNATION\"\n                },\n                {\n                    \"code\": \"ID_CARD\",\n                    \"value\": \"3278060002991253\"\n                },\n                {\n                    \"code\": \"DECISION\",\n                    \"value\": {\n                        \"DECISION_CLAIM_HEAD_STATUS\": \"\",\n                        \"DECISION_CLAIM_STAFF_STATUS\": \"\",\n                        \"DECISION_SCREENING_HEAD_STATUS\": \"\",\n                        \"DECISION_SCREENING_HEAD_REMARKS\": \"\",\n                        \"DECISION_SCREENING_STAFF_STATUS\": \"\",\n                        \"DECISION_SCREENING_STAFF_REMARKS\": \"\"\n                    }\n                },\n                {\n                    \"code\": \"RISK_CODE\",\n                    \"value\": \"SURRENDER\"\n                },\n                {\n                    \"code\": \"CASH_VALUE\",\n                    \"value\": \"501000000\"\n                },\n                {\n                    \"code\": \"CERTIFICATE\",\n                    \"value\": \"910625000139447\"\n                },\n                {\n                    \"code\": \"AML_CHECKING\",\n                    \"value\": \"\"\n                },\n                {\n                    \"code\": \"INCIDENT_DATE\",\n                    \"value\": \"2026-01-05 00:00:00\"\n                },\n                {\n                    \"code\": \"MOVEMENT_TYPE\",\n                    \"value\": \"SURRENDER\"\n                },\n                {\n                    \"code\": \"TANGGAL_LUNAS\",\n                    \"value\": \"2026-01-06 00:00:00\"\n                },\n                {\n                    \"code\": \"CERTIFICATE_NO\",\n                    \"value\": \"910625000139447\"\n                },\n                {\n                    \"code\": \"PAYLOAD_SUBMISSION\",\n                    \"value\": {\n                        \"id\": \"\",\n                        \"result\": \"\",\n                        \"status\": \"\",\n                        \"message\": \"\",\n                        \"listVariable\": [\n                            {\n                                \"code\": \"PLAN_CODE\",\n                                \"value\": \"01\"\n                            },\n                            {\n                                \"code\": \"PRODUCT_CODE\",\n                                \"value\": \"106\"\n                            },\n                            {\n                                \"code\": \"CERTIFICATE_NUMBER\",\n                                \"value\": \"910625000139447\"\n                            },\n                            {\n                                \"code\": \"INCIDENT_DATE\",\n                                \"value\": \"2026-01-05 00:00:00\"\n                            },\n                            {\n                                \"code\": \"CASH_VALUE\",\n                                \"value\": \"501000000\"\n                            },\n                            {\n                                \"code\": \"RISK_CODE\",\n                                \"value\": \"SURRENDER\"\n                            },\n                            {\n                                \"code\": \"MOVEMENT_TYPE\",\n                                \"value\": \"SURRENDER\"\n                            },\n                            {\n                                \"code\": \"REASON\",\n                                \"value\": \"RESIGNATION\"\n                            },\n                            {\n                                \"code\": \"BANK_NAME\",\n                                \"value\": \"BRI\"\n                            },\n                            {\n                                \"code\": \"BANK_SWIFT_CODE\",\n                                \"value\": \"BRINIDJA\"\n                            },\n                            {\n                                \"code\": \"BANK_ACCOUNT_NAME\",\n                                \"value\": \"QA POS TESTING\"\n                            },\n                            {\n                                \"code\": \"BENEFICIARY_NAME\",\n                                \"value\": \"JORDIN MANRU\"\n                            },\n                            {\n                                \"code\": \"BANK_ACCOUNT_NUMBER\",\n                                \"value\": \"037601000450307\"\n                            },\n                            {\n                                \"code\": \"RELATION\",\n                                \"value\": \"Diri Sendiri\"\n                            }\n                        ],\n                        \"policyDetail\": {\n                            \"cif\": \"1c7151b7-c036-46d0-af02-0c9bf7c26f04\",\n                            \"dob\": \"2001-01-01\",\n                            \"nik\": \"3278060002991253\",\n                            \"address\": null,\n                            \"policyId\": \"eecce0db-183d-49f6-a31c-4bda6d64f537\",\n                            \"customerName\": \"JORDIN MANRU\",\n                            \"policyNumber\": \"910625000139447\",\n                            \"policyStatus\": \"INFORCE\",\n                            \"organizationId\": \"f2b8709b-c9fb-44c9-a9de-742c2e0360f3\"\n                        },\n                        \"certificateNo\": \"910625000139447\"\n                    }\n                },\n                {\n                    \"code\": \"DOCUMENT_NEED_REVISION\",\n                    \"value\": {}\n                }\n            ],\n            \"details\": null\n        },\n        {\n            \"id\": \"0000019b-ba3b-ad27-b48c-dfa7c6436915\",\n            \"transactionId\": \"acbd5b8c-044c-4441-a6c2-6da2814435d8\",\n            \"memberId\": \"\",\n            \"memberReferenceNo\": \"910625000139446\",\n            \"memberReferenceType\": \"POLICY_NO\",\n            \"taskName\": \"\",\n            \"taskStatus\": \"\",\n            \"createdAt\": \"2026-01-14T09:00:31.783042\",\n            \"createdBy\": \"lifespace-claim\",\n            \"updatedAt\": null,\n            \"updatedBy\": null,\n            \"transactionMemberDetailList\": [\n                {\n                    \"code\": \"DOB\",\n                    \"value\": \"2005-12-12\"\n                },\n                {\n                    \"code\": \"NAME\",\n                    \"value\": \"DUMMY CHATRINE SILALAHI SEC\"\n                },\n                {\n                    \"code\": \"REASON\",\n                    \"value\": \"RESIGNATION\"\n                },\n                {\n                    \"code\": \"ID_CARD\",\n                    \"value\": \"3271062011014393\"\n                },\n                {\n                    \"code\": \"DECISION\",\n                    \"value\": {\n                        \"DECISION_CLAIM_HEAD_STATUS\": \"\",\n                        \"DECISION_CLAIM_STAFF_STATUS\": \"\",\n                        \"DECISION_SCREENING_HEAD_STATUS\": \"\",\n                        \"DECISION_SCREENING_HEAD_REMARKS\": \"\",\n                        \"DECISION_SCREENING_STAFF_STATUS\": \"\",\n                        \"DECISION_SCREENING_STAFF_REMARKS\": \"\"\n                    }\n                },\n                {\n                    \"code\": \"RISK_CODE\",\n                    \"value\": \"SURRENDER\"\n                },\n                {\n                    \"code\": \"CASH_VALUE\",\n                    \"value\": \"501000000\"\n                },\n                {\n                    \"code\": \"CERTIFICATE\",\n                    \"value\": \"910625000139446\"\n                },\n                {\n                    \"code\": \"AML_CHECKING\",\n                    \"value\": \"\"\n                },\n                {\n                    \"code\": \"INCIDENT_DATE\",\n                    \"value\": \"2026-01-05 00:00:00\"\n                },\n                {\n                    \"code\": \"MOVEMENT_TYPE\",\n                    \"value\": \"SURRENDER\"\n                },\n                {\n                    \"code\": \"TANGGAL_LUNAS\",\n                    \"value\": \"2026-01-06 00:00:00\"\n                },\n                {\n                    \"code\": \"CERTIFICATE_NO\",\n                    \"value\": \"910625000139446\"\n                },\n                {\n                    \"code\": \"PAYLOAD_SUBMISSION\",\n                    \"value\": {\n                        \"id\": \"\",\n                        \"result\": \"\",\n                        \"status\": \"\",\n                        \"message\": \"\",\n                        \"listVariable\": [\n                            {\n                                \"code\": \"PLAN_CODE\",\n                                \"value\": \"01\"\n                            },\n                            {\n                                \"code\": \"PRODUCT_CODE\",\n                                \"value\": \"106\"\n                            },\n                            {\n                                \"code\": \"CERTIFICATE_NUMBER\",\n                                \"value\": \"910625000139446\"\n                            },\n                            {\n                                \"code\": \"INCIDENT_DATE\",\n                                \"value\": \"2026-01-05 00:00:00\"\n                            },\n                            {\n                                \"code\": \"CASH_VALUE\",\n                                \"value\": \"501000000\"\n                            },\n                            {\n                                \"code\": \"RISK_CODE\",\n                                \"value\": \"SURRENDER\"\n                            },\n                            {\n                                \"code\": \"MOVEMENT_TYPE\",\n                                \"value\": \"SURRENDER\"\n                            },\n                            {\n                                \"code\": \"REASON\",\n                                \"value\": \"RESIGNATION\"\n                            },\n                            {\n                                \"code\": \"BANK_NAME\",\n                                \"value\": \"BRI\"\n                            },\n                            {\n                                \"code\": \"BANK_SWIFT_CODE\",\n                                \"value\": \"BRINIDJA\"\n                            },\n                            {\n                                \"code\": \"BANK_ACCOUNT_NAME\",\n                                \"value\": \"QA POS TESTING\"\n                            },\n                            {\n                                \"code\": \"BENEFICIARY_NAME\",\n                                \"value\": \"DUMMY CHATRINE SILALAHI SEC\"\n                            },\n                            {\n                                \"code\": \"BANK_ACCOUNT_NUMBER\",\n                                \"value\": \"037601000450307\"\n                            },\n                            {\n                                \"code\": \"RELATION\",\n                                \"value\": \"Diri Sendiri\"\n                            }\n                        ],\n                        \"policyDetail\": {\n                            \"cif\": \"389f2d3b-e034-45f0-8062-7e7e6c2c9424\",\n                            \"dob\": \"2005-12-12\",\n                            \"nik\": \"3271062011014393\",\n                            \"address\": null,\n                            \"policyId\": \"0414e397-e2a1-4216-a778-726f184f9c8e\",\n                            \"customerName\": \"DUMMY CHATRINE SILALAHI SEC\",\n                            \"policyNumber\": \"910625000139446\",\n                            \"policyStatus\": \"INFORCE\",\n                            \"organizationId\": \"f2b8709b-c9fb-44c9-a9de-742c2e0360f3\"\n                        },\n                        \"certificateNo\": \"910625000139446\"\n                    }\n                },\n                {\n                    \"code\": \"DOCUMENT_NEED_REVISION\",\n                    \"value\": {}\n                }\n            ],\n            \"details\": null\n        },\n        {\n            \"id\": \"0000019b-ba3b-ad27-831b-d394ddc85f20\",\n            \"transactionId\": \"acbd5b8c-044c-4441-a6c2-6da2814435d8\",\n            \"memberId\": \"\",\n            \"memberReferenceNo\": \"910625000139449\",\n            \"memberReferenceType\": \"POLICY_NO\",\n            \"taskName\": \"\",\n            \"taskStatus\": \"\",\n            \"createdAt\": \"2026-01-14T09:00:31.783069\",\n            \"createdBy\": \"lifespace-claim\",\n            \"updatedAt\": null,\n            \"updatedBy\": null,\n            \"transactionMemberDetailList\": [\n                {\n                    \"code\": \"DOB\",\n                    \"value\": \"1998-06-15\"\n                },\n                {\n                    \"code\": \"NAME\",\n                    \"value\": \"DUMMY HILMI SILALAHI\"\n                },\n                {\n                    \"code\": \"REASON\",\n                    \"value\": \"RESIGNATION\"\n                },\n                {\n                    \"code\": \"ID_CARD\",\n                    \"value\": \"3271062011011542\"\n                },\n                {\n                    \"code\": \"DECISION\",\n                    \"value\": {\n                        \"DECISION_CLAIM_HEAD_STATUS\": \"\",\n                        \"DECISION_CLAIM_STAFF_STATUS\": \"\",\n                        \"DECISION_SCREENING_HEAD_STATUS\": \"\",\n                        \"DECISION_SCREENING_HEAD_REMARKS\": \"\",\n                        \"DECISION_SCREENING_STAFF_STATUS\": \"\",\n                        \"DECISION_SCREENING_STAFF_REMARKS\": \"\"\n                    }\n                },\n                {\n                    \"code\": \"RISK_CODE\",\n                    \"value\": \"SURRENDER\"\n                },\n                {\n                    \"code\": \"CASH_VALUE\",\n                    \"value\": \"501000000\"\n                },\n                {\n                    \"code\": \"CERTIFICATE\",\n                    \"value\": \"910625000139449\"\n                },\n                {\n                    \"code\": \"AML_CHECKING\",\n                    \"value\": \"\"\n                },\n                {\n                    \"code\": \"INCIDENT_DATE\",\n                    \"value\": \"2026-01-05 00:00:00\"\n                },\n                {\n                    \"code\": \"MOVEMENT_TYPE\",\n                    \"value\": \"SURRENDER\"\n                },\n                {\n                    \"code\": \"TANGGAL_LUNAS\",\n                    \"value\": \"2026-01-06 00:00:00\"\n                },\n                {\n                    \"code\": \"CERTIFICATE_NO\",\n                    \"value\": \"910625000139449\"\n                },\n                {\n                    \"code\": \"PAYLOAD_SUBMISSION\",\n                    \"value\": {\n                        \"id\": \"\",\n                        \"result\": \"\",\n                        \"status\": \"\",\n                        \"message\": \"\",\n                        \"listVariable\": [\n                            {\n                                \"code\": \"PLAN_CODE\",\n                                \"value\": \"01\"\n                            },\n                            {\n                                \"code\": \"PRODUCT_CODE\",\n                                \"value\": \"106\"\n                            },\n                            {\n                                \"code\": \"CERTIFICATE_NUMBER\",\n                                \"value\": \"910625000139449\"\n                            },\n                            {\n                                \"code\": \"INCIDENT_DATE\",\n                                \"value\": \"2026-01-05 00:00:00\"\n                            },\n                            {\n                                \"code\": \"CASH_VALUE\",\n                                \"value\": \"501000000\"\n                            },\n                            {\n                                \"code\": \"RISK_CODE\",\n                                \"value\": \"SURRENDER\"\n                            },\n                            {\n                                \"code\": \"MOVEMENT_TYPE\",\n                                \"value\": \"SURRENDER\"\n                            },\n                            {\n                                \"code\": \"REASON\",\n                                \"value\": \"RESIGNATION\"\n                            },\n                            {\n                                \"code\": \"BANK_NAME\",\n                                \"value\": \"BRI\"\n                            },\n                            {\n                                \"code\": \"BANK_SWIFT_CODE\",\n                                \"value\": \"BRINIDJA\"\n                            },\n                            {\n                                \"code\": \"BANK_ACCOUNT_NAME\",\n                                \"value\": \"QA POS TESTING\"\n                            },\n                            {\n                                \"code\": \"BENEFICIARY_NAME\",\n                                \"value\": \"DUMMY HILMI SILALAHI\"\n                            },\n                            {\n                                \"code\": \"BANK_ACCOUNT_NUMBER\",\n                                \"value\": \"037601000450307\"\n                            },\n                            {\n                                \"code\": \"RELATION\",\n                                \"value\": \"Diri Sendiri\"\n                            }\n                        ],\n                        \"policyDetail\": {\n                            \"cif\": \"f9cc9535-39f7-4a54-a5b3-f611cd52a190\",\n                            \"dob\": \"1998-06-15\",\n                            \"nik\": \"3271062011011542\",\n                            \"address\": null,\n                            \"policyId\": \"c5707f76-1974-4200-a294-4e1feafd01f8\",\n                            \"customerName\": \"DUMMY HILMI SILALAHI\",\n                            \"policyNumber\": \"910625000139449\",\n                            \"policyStatus\": \"INFORCE\",\n                            \"organizationId\": \"f2b8709b-c9fb-44c9-a9de-742c2e0360f3\"\n                        },\n                        \"certificateNo\": \"910625000139449\"\n                    }\n                },\n                {\n                    \"code\": \"DOCUMENT_NEED_REVISION\",\n                    \"value\": {}\n                }\n            ],\n            \"details\": null\n        }\n    ],\n    \"page\": 1,\n    \"limit\": 2000,\n    \"totalRows\": 4,\n    \"totalPages\": 1\n}"
+        }
+      ]
+    },
+    {
+      "name": "STEP 5 - Submission Case - Remove Member",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apiKey",
+            "value": "{{api_key}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \r\n    \"transactionId\": \"{{transactionId}}\",\r\n   \"isNewSubmission\": true\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/v2/workflow/ao-pos/remove-member/submission",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v2",
+            "workflow",
+            "ao-pos",
+            "remove-member",
+            "submission"
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'https://api-automation-uat.ifg-life.id/v2/workflow/ao-pos/remove-member/submission' \\\r\n--header 'Content-Type: application/json' \\\r\n--header 'apiKey: E97baCBt8SxmDcYNyd3KwbEA0giw8ElF' \\\r\n--data '{\r\n   \"transactionId\":\"7ae0636b-9c4f-4c73-9144-2b964935927b\",\r\n   \"isNewSubmission\": true\r\n}'"
+      },
+      "response": []
+    },
+    {
+      "name": "STEP 6 - Resubmission Case - Remove Member",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apiKey",
+            "value": "{{dev_api_key}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \n    \"transactionId\": \"c99aca1f-1b37-43d3-be8f-b571cfb3133b\",\n    \"processInstanceId\": \"971bd1dd-55d6-4510-90df-690b947a8073\"\n    // \"processInstanceId\": \"9e17dfbd-a8a4-4c95-90f5-90617bbe354a\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/v2/workflow/ao-pos/remove-member/resubmit",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v2",
+            "workflow",
+            "ao-pos",
+            "remove-member",
+            "resubmit"
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'https://api-automation.ifg-life.id/v2/workflow/ao-pos/remove-member/resubmit' \\\n--header 'Content-Type: application/json' \\\n--header 'apiKey: E97baCBt8SxmDcYNyd3KwbEA0giw8ElF' \\\n--data '{\n   \"transactionId\":\"2416f60c-bad6-46f2-9bbc-c76a693ec0a3\",\n   \"processInstanceId\": \"f8e67ca6-dad7-42e7-b319-97338e53db20\"\n}'"
+      },
+      "response": []
+    },
+    {
+      "name": "STEP 3 - Submission Member - Remove Member with Split Account",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "{{api_key}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"organizationMember\": {\n        \"transactionId\": \"5589c0c3-efad-4a8a-ac9f-b2044a9bae34\",\n        \"referenceNo\": \"kang2026-janu-4e7b-1390-WITHDRAW26090129\",\n        \"transactionType\": \"lifespace-ps-remove-member\",\n        \"totalMember\": \"1\",\n        \"totalPage\": \"1\",\n        \"page\": 1,\n        \"totalInPage\": \"1\",\n        \"listOfMember\": [\n            {\n                \"memberId\": \"\",\n                \"memberReferenceNo\": \"910625000379101\",\n                \"memberReferenceType\": \"POLICY_NO\",\n                \"taskName\": \"\",\n                \"taskStatus\": \"\",\n                \"details\": {\n                    \"DESTINATION_ACCOUNT\": {\n                        \"destinationAccountList\": [\n                            {\n                                \"relation\": \"Diri Sendiri\",\n                                \"amount\": \"50000\",\n                                \"percent\": \"20\", \n                                \"bankName\": \"BRI\",\n                                \"bankSwiftCode\": \"BRINIDJA\",\n                                \"bankAccountName\": \"Kelvin Ganteng\",\n                                \"beneficiaryName\": \"KELVIN ANG\",\n                                \"bankAccountNumber\": \"390353489220\" \n                            },\n                            {\n                                \"relation\": \"Cucu\",\n                                \"amount\": \"50000\",\n                                \"percent\": \"20\", \n                                \"bankName\": \"BRI\",\n                                \"bankSwiftCode\": \"BRINIDJA\",\n                                \"bankAccountName\": \"Nama Rekening Cucu\",\n                                \"beneficiaryName\": \"KELVIN ANG\",\n                                \"bankAccountNumber\": \"873606538234\"\n                            },\n                            {\n                                \"relation\": \"Istri\",\n                                \"amount\": \"50000\", \n                                \"percent\": \"20\",\n                                \"bankName\": \"BRI\",\n                                \"bankSwiftCode\": \"BRINIDJA\",\n                                \"bankAccountName\": \"Nama Rekening Istri Tersayang\",\n                                \"beneficiaryName\": \"KELVIN ANG\",\n                                \"bankAccountNumber\": \"893589443102\"\n                            },\n                            {\n                                \"relation\": \"Anak\",\n                                \"amount\": \"50000\",\n                                \"percent\": \"20\", \n                                \"bankName\": \"BRI\",\n                                \"bankSwiftCode\": \"BRINIDJA\",\n                                \"bankAccountName\": \"Nama Rekening Anak Ke 2\",\n                                \"beneficiaryName\": \"KELVIN ANG\",\n                                \"bankAccountNumber\": \"622828513279\"\n                            },\n                            {\n                                \"relation\": \"Anak\",\n                                \"amount\": \"50000\",\n                                \"percent\": \"20\", \n                                \"bankName\": \"BRI\",\n                                \"bankSwiftCode\": \"BRINIDJA\",\n                                \"bankAccountName\": \"Nama Rekening Anak Ke 3\",\n                                \"beneficiaryName\": \"KELVIN ANG\",\n                                \"bankAccountNumber\": \"4975271871\"\n                            }\n                        ]\n                    },\n                    \"PAYLOAD_SUBMISSION\": {\n                        \"id\": \"\",\n                        \"result\": \"\",\n                        \"status\": \"\",\n                        \"message\": \"\",\n                        \"certificateNo\": \"910625000379101\",\n                        \"policyDetail\": {\n                            \"cif\": \"dcbb192f-efc8-40a1-9058-146bcbc1ff37\",\n                            \"dob\": \"1999-06-07\",\n                            \"nik\": \"1605198130328040\",\n                            \"address\": \"null\",\n                            \"policyStatus\": \"INFORCE\",\n                            \"customerName\": \"ATMA SIMANJUNTAK\",\n                            \"policyNumber\": \"910625000379101\",\n                            \"policyId\": \"{{memberId}}\",\n                            \"organizationId\": \"df922480-eae3-4f13-9426-e30679ac7f47\"\n                        },\n                        \"listVariable\": [\n                            {\n                                \"code\": \"PLAN_CODE\",\n                                \"value\": \"04\"\n                            },\n                            {\n                                \"code\": \"PRODUCT_CODE\",\n                                \"value\": \"106\"\n                            },\n                            {\n                                \"code\": \"CERTIFICATE_NUMBER\",\n                                \"value\": \"910625000379101\"\n                            },\n                            {\n                                \"code\": \"INCIDENT_DATE\",\n                                \"value\": \"2026-02-26 09:01:29\"\n                            },\n                            {\n                                \"code\": \"NO_SK_PEMBERHENTIAN\",\n                                \"value\": \"RM-143.367\"\n                            },\n                            {\n                                \"code\": \"END_WORKING_DATE\",\n                                \"value\": \"2026-02-26 09:01:29\"\n                            },\n                            {\n                                \"code\": \"CASH_VALUE\",\n                                \"value\": \"10449\"\n                            },\n                            {\n                                \"code\": \"RISK_CODE\",\n                                \"value\": \"SURRENDER\"\n                            },\n                            {\n                                \"code\": \"MOVEMENT_TYPE\",\n                                \"value\": \"SURRENDER\"\n                            },\n                            {\n                                \"code\": \"REASON\",\n                                \"value\": \"RESIGNATION\"\n                            },\n                            {\n                                \"code\": \"BANK_NAME\",\n                                \"value\": \"BRI\"\n                            },\n                            {\n                                \"code\": \"BANK_SWIFT_CODE\",\n                                \"value\": \"BRINIDJA\"\n                            },\n                            {\n                                \"code\": \"BANK_ACCOUNT_NAME\",\n                                \"value\": \"DEV POS TESTING\"\n                            },\n                            {\n                                \"code\": \"BENEFICIARY_NAME\",\n                                \"value\": \"KELVIN ANG\"\n                            },\n                            {\n                                \"code\": \"BANK_ACCOUNT_NUMBER\",\n                                \"value\": \"01010101010101\"\n                            },\n                            {\n                                \"code\": \"RELATION\",\n                                \"value\": \"Diri Sendiri\"\n                            }\n                        ]\n                    },\n                    \"DOB\": \"1999-06-07\",\n                    \"ID_CARD\": \"1605198130328040\",\n                    \"NAME\": \"ATMA SIMANJUNTAK\",\n                    \"CERTIFICATE\": \"910625000379101\",\n                    \"CERTIFICATE_NO\": \"910625000379101\",\n                    \"CASH_VALUE\": \"10449\",\n                    \"END_WORKING_DATE\": \"2026-02-26 09:01:29\",\n                    \"INCIDENT_DATE\": \"2026-02-26 09:01:29\",\n                    \"PAID_OFF_DATE\": \"2026-01-01 17:11:39\",\n                    \"RISK_CODE\": \"SURRENDER\",\n                    \"MOVEMENT_TYPE\": \"SURRENDER\",\n                    \"REASON\": \"RESIGNATION\",\n                    \"AML_CHECKING\": \"\",\n                    \"ZERO_CASH_VALUE\": \"TRUE\",\n                    \"DECISION\": {\n                        \"DECISION_CLAIM_HEAD_STATUS\": \"\",\n                        \"DECISION_CLAIM_STAFF_STATUS\": \"\",\n                        \"DECISION_SCREENING_HEAD_STATUS\": \"\",\n                        \"DECISION_SCREENING_HEAD_REMARKS\": \"\",\n                        \"DECISION_SCREENING_STAFF_STATUS\": \"\",\n                        \"DECISION_SCREENING_STAFF_REMARKS\": \"\"\n                    },\n                    \"DOCUMENT_NEED_REVISION\": {}\n                }\n            }\n        ]\n    }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v2/ao-workflow-claim/general/transaction/member",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v2",
+            "ao-workflow-claim",
+            "general",
+            "transaction",
+            "member"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "referenceNo",
+      "value": ""
+    },
+    {
+      "key": "transactionId",
+      "value": ""
+    }
+  ]
+}

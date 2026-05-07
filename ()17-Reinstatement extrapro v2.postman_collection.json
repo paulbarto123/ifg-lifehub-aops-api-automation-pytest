@@ -1,0 +1,975 @@
+{
+  "info": {
+    "_postman_id": "907e6b2a-c493-49ae-9818-a654a3bb1eeb",
+    "name": "()17-Reinstatement extrapro v2",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "46870646"
+  },
+  "item": [
+    {
+      "name": "Get Polis Detail",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let json = pm.response.json();\r",
+              "let policy = json.data.data[0];\r",
+              "let list = policy.listPolicyVariable;\r",
+              "\r",
+              "function setEnvByCode(code, prefix){\r",
+              "    let obj = list.find(e => e.code === code);\r",
+              "    if(!obj) return;\r",
+              "\r",
+              "    pm.collectionVariables.set(`id_${prefix}`, obj.id);\r",
+              "    pm.collectionVariables.set(`value_${prefix}`, obj.value);\r",
+              "    pm.collectionVariables.set(`type_${prefix}`, obj.type);\r",
+              "    pm.collectionVariables.set(`createdBy_${prefix}`, obj.createdBy);\r",
+              "    pm.collectionVariables.set(`createdAt_${prefix}`, obj.createdAt);\r",
+              "}\r",
+              "\r",
+              "// COVERAGE_START_DATE\r",
+              "setEnvByCode(\"COVERAGE_START_DATE\", \"coverage_start_date\");\r",
+              "\r",
+              "// COVERAGE_END_DATE\r",
+              "setEnvByCode(\"COVERAGE_END_DATE\", \"coverage_end_date\");\r",
+              "\r",
+              "// NEXT_BILLING_DATE\r",
+              "setEnvByCode(\"NEXT_BILLING_DATE\", \"next_billing_date\");\r",
+              "\r",
+              "// PLAN_CODE\r",
+              "setEnvByCode(\"PLAN_CODE\", \"plan_code\");\r",
+              "\r",
+              "\r",
+              "// ROOT LEVEL\r",
+              "pm.collectionVariables.set(\"policy_id\", policy.id);\r",
+              "pm.collectionVariables.set(\"policy_number\", policy.policyNumber);\r",
+              "\r",
+              "// productCode\r",
+              "pm.collectionVariables.set(\"product_code\", policy.productCode);\r",
+              "\r",
+              "// ekycId (kalau ada)\r",
+              "pm.collectionVariables.set(\"ekyc_id\", policy.personIn.cif);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apiKey",
+            "value": "{{api_key_core}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \n    \"policyNumber\": \"800424000006294\",\n    \"responseListParameter\": {\n        \"listCard\": true,\n        \"listPerson\": true,\n        \"listPolicyCostVariable\": true,\n        \"listPolicyCoverage\": true,\n        \"listPolicyMaterialFact\": true,\n        \"listPolicyRate\": true,\n        \"listPolicyRelation\": true,\n        \"listPolicyVariable\": true,\n        \"listPolicyTermCondition\": true,\n        \"listPolicyProfessionalRelation\": true,\n        \"listPolicyAccountInterestFactor\": true\n    }\n}\n// 800526000259601, 800526000245039 extrapro\n// 800226000261933 lifecover,800424000029865\n// DEV Extrapro >> 800526000272275\n// DEV Lifesaver >>800124000006336, 800425000130740\n// DEV Lifecoer >> 800226000259364,800226000259389\n// DEV Lifecover >> 800226000247325, 800226000259152\n// DEV cust app >> 800224000029861\n// DEV LifeSaver >> 800124000005094\n\n///// still Lapse\n// DEV LifeCover >> 800225000141573,800225000141554, 800225000141519,800225000141477,800226000247325\n// DEV LifeChoice >> 800425000130737,800424000006294,800424000005088,800424000030226, 800424000030147\n// DEV LifeChance >> 800326000222288\n// DEV Extrapro >> 800526000272275, 800526000259502\n\n// UAT LifeCover >> = 800226000449979\n// 002 > lifecover\n// 004 > Lifechoice\n// 003 >> Lifechance",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url_core}}/v3/pas/policy/search",
+          "host": [
+            "{{base_url_core}}"
+          ],
+          "path": [
+            "v3",
+            "pas",
+            "policy",
+            "search"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Check Eligibility",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const now = new Date();\r",
+              "\r",
+              "// formatter\r",
+              "function formatDate(date){\r",
+              "    const year = date.getFullYear();\r",
+              "    const month = String(date.getMonth() + 1).padStart(2, '0');\r",
+              "    const day = String(date.getDate()).padStart(2, '0');\r",
+              "    const hours = String(date.getHours()).padStart(2, '0');\r",
+              "    const minutes = String(date.getMinutes()).padStart(2, '0');\r",
+              "    const seconds = String(date.getSeconds()).padStart(2, '0');\r",
+              "\r",
+              "    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;\r",
+              "}\r",
+              "\r",
+              "pm.collectionVariables.set(\"now\", formatDate(now));\r",
+              "// now\r",
+              "const nowStr = formatDate(now);\r",
+              "// -1 bulan\r",
+              "const minus1 = new Date(now);\r",
+              "minus1.setMonth(minus1.getMonth() - 1);\r",
+              "// set env\r",
+              "pm.collectionVariables.set(\"now_minus_1_month\", formatDate(minus1));\r",
+              "// log\r",
+              "console.log(\"now     :\", formatDate(now));\r",
+              "console.log(\"now -1 month     :\", formatDate(minus1));\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apikey",
+            "value": "{{api_key}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"policyNo\": \"{{policy_number}}\", \n    // \"policyNo\": \"800124000006339\",\n    \"actionDate\" : \"{{now}}\",\n    // \"actionDate\":  \"2027-03-02 08:35:09\",\n    \"actionCode\":\"REINSTATEMENT\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/v2/policy/reinstatement/submission-eligibility",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v2",
+            "policy",
+            "reinstatement",
+            "submission-eligibility"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Next Billing Date",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "const now = new Date();\r",
+              "\r",
+              "// formatter\r",
+              "function formatDate(date){\r",
+              "    const year = date.getFullYear();\r",
+              "    const month = String(date.getMonth() + 1).padStart(2, '0');\r",
+              "    const day = String(date.getDate()).padStart(2, '0');\r",
+              "    const hours = String(date.getHours()).padStart(2, '0');\r",
+              "    const minutes = String(date.getMinutes()).padStart(2, '0');\r",
+              "    const seconds = String(date.getSeconds()).padStart(2, '0');\r",
+              "\r",
+              "    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;\r",
+              "}\r",
+              "\r",
+              "// +3 bulan\r",
+              "const plus3 = new Date(now);\r",
+              "plus3.setMonth(plus3.getMonth() + 3);\r",
+              "\r",
+              "// +1 bulan\r",
+              "const plus1 = new Date(now);\r",
+              "plus1.setMonth(plus1.getMonth() + 1);\r",
+              "\r",
+              "// -2 bulan\r",
+              "const minus2 = new Date(now);\r",
+              "minus2.setMonth(minus2.getMonth() - 2);\r",
+              "\r",
+              "// set env\r",
+              "pm.collectionVariables.set(\"now_minus_2_month\", formatDate(minus2));\r",
+              "pm.collectionVariables.set(\"now_plus_3_month\", formatDate(plus3));\r",
+              "pm.collectionVariables.set(\"now_plus_1_month\", formatDate(plus1));\r",
+              "console.log(\"now -2 month     :\", formatDate(minus2));"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apiKey",
+            "value": "{{api_key_core}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"listPolicyVariable\": [\n        {\n            \"id\": \"{{id_coverage_start_date}}\",\n            \"code\": \"COVERAGE_START_DATE\",\n            \"value\": \"{{value_coverage_start_date}}\",\n            \"type\": \"{{type_coverage_start_date}}\",\n            \"createdBy\": \"{{createdBy_coverage_start_date}}\",\n            \"createdAt\": \"{{createdAt_coverage_start_date}}\",\n            \"updatedBy\": \"BPMN_PS\",\n            \"updatedAt\": null\n        },\n        {\n            \"id\": \"{{id_coverage_end_date}}\",\n            \"code\": \"COVERAGE_END_DATE\",\n            \"value\": \"{{now_plus_3_month}}\",\n            \"type\": \"{{type_coverage_end_date}}\",\n            \"createdBy\": \"{{createdBy_coverage_end_date}}\",\n            \"createdAt\": \"{{createdAt_coverage_end_date}}\",\n            \"updatedBy\": \"BPMN_PS\",\n            \"updatedAt\": null\n        },\n        {\n            \"id\": \"{{id_next_billing_date}}\",\n            \"code\": \"NEXT_BILLING_DATE\",\n            // \"value\": \"{{now_plus_1_month}}\",\n            \"value\":  \"2026-04-13 00:00:00\",\n            \"type\": \"{{type_next_billing_date}}\",\n            \"createdBy\": \"{{createdBy_next_billing_date}}\",\n            \"createdAt\": \"{{createdAt_next_billing_date}}\",\n            \"updatedBy\": \"BPMN_PS\",\n            \"updatedAt\": null\n        }\n    ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url_core}}/v2/pas/policies/variable/{{policy_id}}",
+          "host": [
+            "{{base_url_core}}"
+          ],
+          "path": [
+            "v2",
+            "pas",
+            "policies",
+            "variable",
+            "{{policy_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Detail Ekyc Info",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let json = pm.response.json();\r",
+              "let data = json.data[0];\r",
+              "\r",
+              "// ========================\r",
+              "// BASIC BIODATA\r",
+              "// ========================\r",
+              "pm.collectionVariables.set(\"userId\", data.userId);\r",
+              "pm.collectionVariables.set(\"name\", data.idCard.name);\r",
+              "pm.collectionVariables.set(\"address\", data.idCard.address);\r",
+              "pm.collectionVariables.set(\"dob\", data.idCard.dob);\r",
+              "pm.collectionVariables.set(\"gender\", data.idCard.gender);\r",
+              "\r",
+              "\r",
+              "// ========================\r",
+              "// CONTACT\r",
+              "// ========================\r",
+              "let phone = data.contacts.find(c => c.type === \"PHONE\");\r",
+              "let email = data.contacts.find(c => c.type === \"EMAIL\");\r",
+              "\r",
+              "if (phone) {\r",
+              "    pm.collectionVariables.set(\"phone_number\", phone.value);\r",
+              "}\r",
+              "\r",
+              "if (email) {\r",
+              "    pm.collectionVariables.set(\"email\", email.value);\r",
+              "}\r",
+              "\r",
+              "\r",
+              "// ========================\r",
+              "// JOB OBJECT (SET SATU2)\r",
+              "// ========================\r",
+              "let job = data.jobs[0];\r",
+              "\r",
+              "pm.collectionVariables.set(\"job_id\", job.id);\r",
+              "pm.collectionVariables.set(\"job_category\", job.jobCategory);\r",
+              "pm.collectionVariables.set(\"job_ekyc_id\", job.ekycId);\r",
+              "pm.collectionVariables.set(\"job_sector_of_business\", job.sectorOfBusiness);\r",
+              "pm.collectionVariables.set(\"job_business_name\", job.businessName);\r",
+              "pm.collectionVariables.set(\"job_annual_income\", job.annualIncome);\r",
+              "pm.collectionVariables.set(\"job_ownership_status\", job.ownershipStatus);\r",
+              "pm.collectionVariables.set(\"job_type\", job.jobType);\r",
+              "pm.collectionVariables.set(\"job_level\", job.jobLevel);\r",
+              "pm.collectionVariables.set(\"job_company_name\", job.companyName);\r",
+              "pm.collectionVariables.set(\"job_company_phone_number\", job.companyPhoneNumber);\r",
+              "pm.collectionVariables.set(\"job_company_email\", job.companyEmail);\r",
+              "pm.collectionVariables.set(\"job_address\", job.address);\r",
+              "pm.collectionVariables.set(\"job_neighborhood\", job.neighborhood);\r",
+              "pm.collectionVariables.set(\"job_hamlet\", job.hamlet);\r",
+              "pm.collectionVariables.set(\"job_village\", job.village);\r",
+              "pm.collectionVariables.set(\"job_district_name\", job.districtName);\r",
+              "pm.collectionVariables.set(\"job_city_name\", job.cityName);\r",
+              "pm.collectionVariables.set(\"job_province_name\", job.provinceName);\r",
+              "pm.collectionVariables.set(\"job_postcode\", job.postcode);\r",
+              "pm.collectionVariables.set(\"job_created_at\", job.createdAt);\r",
+              "pm.collectionVariables.set(\"job_updated_at\", job.updatedAt);\r",
+              "\r",
+              "// ========================\r",
+              "// HEIGHT & WEIGHT (additionalInfos)\r",
+              "// ========================\r",
+              "let height = data.additionalInfos.find(x => x.code === \"HEIGHT\");\r",
+              "let weight = data.additionalInfos.find(x => x.code === \"WEIGHT\");\r",
+              "\r",
+              "if (height) {\r",
+              "    pm.collectionVariables.set(\"height\", height.value);\r",
+              "    pm.collectionVariables.set(\"height_id\", height.id);\r",
+              "}\r",
+              "\r",
+              "if (weight) {\r",
+              "    pm.collectionVariables.set(\"weight\", weight.value);\r",
+              "    pm.collectionVariables.set(\"weight_id\", weight.id);\r",
+              "}\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "{{api_key_ifgId}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"ekycId\": \"{{ekyc_id}}\"\n    // \"idCardNo\" : \"8882279475035253\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url_ifgId}}/api/v6/ekyc/data/getEkycInfo",
+          "host": [
+            "{{base_url_ifgId}}"
+          ],
+          "path": [
+            "api",
+            "v6",
+            "ekyc",
+            "data",
+            "getEkycInfo"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Submission",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apikey",
+            "value": "{{api_key}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"userId\": \"a203e3b0-f476-4644-9694-0a02e3ae7d9e\",\n    // \"userId\": \"{{userId}}\",\n    // \"userId\": null,\n    \"policy\": {\n        // \"nextBillingDate\": \"{{value_next_billing_date}}\",\n        \"nextBillingDate\": \"{{now_plus_1_month}}\",\n        // \"nextBillingDate\": \"2026-03-31 11:17:54\",\n        \"planCode\": \"{{value_plan_code}}\",\n        \"policyNumber\": \"{{policy_number}}\",\n        \"productCode\": \"{{product_code}}\",\n        \"reinstatementDate\": \"{{now}}\"\n    },\n    \"policyHolder\": {\n        \"ekycId\": \"{{ekyc_id}}\",\n        \"namePolicyHolder\": \"{{name}}\",\n        \"address\": \"{{address}}\",\n        \"mobilePhoneNumber\": \"{{phone_number}}\",\n        \"emailPolicyHolder\": \"{{email}}\"\n    },\n    \"insured\": [\n        {\n            \"ekycId\": \"{{ekyc_id}}\",\n            \"nameInsured\": \"{{name}}\",\n            \"dob\": \"{{dob}}\",\n            \"gender\": \"{{gender}}\",\n            \"job\": {\n                \"jobCategory\": \"{{job_category}}\",\n                \"jobType\": \"{{job_type}}\",\n                \"jobLevel\": \"{{job_level}}\",\n                \"companyPhoneNumber\": \"{{job_company_phone_number}}\",\n                \"companyEmail\": \"{{job_company_email}}\",\n                \"companyName\": \"{{job_company_name}}\",\n                \"ownershipStatus\": \"{{job_ownership_status}}\",\n                // \"ownershipStatus\": \"Pemilik Tunggal\",\n                \"sectorOfBusiness\": \"{{job_sector_of_business}}\",\n                \"businessName\": \"{{job_business_name}}\",\n                \"address\": \"{{job_address}}\",\n                \"provinceName\": \"{{job_province_name}}\",\n                \"cityName\": \"{{job_city_name}}\",\n                \"districtName\": \"{{job_district_name}}\",\n                \"village\": \"{{job_village}}\",\n                \"neighborhood\": \"{{job_neighborhood}}\",\n                \"hamlet\": \"{{job_hamlet}}\",\n                \"postcode\": \"{{job_postcode}}\",\n                \"annualIncome\": \"{{job_annual_income}}\"\n            },\n            \"height\": {{height}},\n            \"weight\": {{weight}}\n        }\n    ],\n    \"linkDocuments\": {\n        \"signaturePHUrl\": \"https://api-customer-dev.ifg-life.id/api/v1/public/assets/3f8076b6-bb77-457e-86eb-e904c5a166a9.png\",\n        \"signatureINUrl\": \"https://api-customer-dev.ifg-life.id/api/v1/public/assets/3034d02d-0269-426b-ac90-83a3837c7730.png\"\n    },\n    \"uwHealthQuestion\": {\n        \"progressAnswer\": 100,\n        \"listAnswer\": [\n            {\n                \"answered\": \"false\",\n                \"codeQuestion\": 1\n            },\n            {\n                \"answered\": \"true\",\n                \"codeQuestion\": 2\n            },\n            {\n                \"answered\": \"false\",\n                \"codeQuestion\": 3\n            },\n            {\n                \"answered\": \"false\",\n                \"codeQuestion\": 4\n            },\n            {\n                \"answered\": \"false\",\n                \"codeQuestion\": 5\n            },\n            {\n                \"answered\": \"false\",\n                \"codeQuestion\": 6\n            },\n            {\n                \"answered\": \"false\",\n                \"codeQuestion\": 7\n            },\n            {\n                \"answered\": \"false\",\n                \"codeQuestion\": 8\n            },\n            {\n                \"answered\": \"false\",\n                \"codeQuestion\": 9\n            },\n            {\n                \"answered\": \"false\",\n                \"codeQuestion\": 10\n            },\n            {\n                \"answered\": \"false\",\n                \"codeQuestion\": 11\n            },\n            {\n                \"answered\": \"false\",\n                \"codeQuestion\": 12\n            },\n            {\n                \"answered\": \"false\",\n                \"codeQuestion\": 13\n            },\n            {\n                \"answered\": \"false\",\n                \"codeQuestion\": 14\n            }\n        ],\n        \"listAnswerDetail\": [\n            {\n                \"answerDetail\": \"\",\n                \"codeQuestionDetail\": 1,\n                \"typeDataAnswerDetail\": \"Placeholder\"\n            },\n            {\n                \"answerDetail\": \"\",\n                \"codeQuestionDetail\": 2,\n                \"typeDataAnswerDetail\": \"Placeholder\"\n            },\n            {\n                \"answerDetail\": \"\",\n                \"codeQuestionDetail\": 3,\n                \"typeDataAnswerDetail\": \"Placeholder\"\n            },\n            {\n                \"answerDetail\": \"false\",\n                \"codeQuestionDetail\": 4,\n                \"typeDataAnswerDetail\": \"Boolean\"\n            },\n            {\n                \"answerDetail\": \"false\",\n                \"codeQuestionDetail\": 5,\n                \"typeDataAnswerDetail\": \"Boolean\"\n            },\n            {\n                \"answerDetail\": \"false\",\n                \"codeQuestionDetail\": 6,\n                \"typeDataAnswerDetail\": \"Boolean\"\n            },\n            {\n                \"answerDetail\": \"false\",\n                \"codeQuestionDetail\": 7,\n                \"typeDataAnswerDetail\": \"Boolean\"\n            },\n            {\n                \"answerDetail\": \"false\",\n                \"codeQuestionDetail\": 8,\n                \"typeDataAnswerDetail\": \"Boolean\"\n            },\n            {\n                \"answerDetail\": \"false\",\n                \"codeQuestionDetail\": 9,\n                \"typeDataAnswerDetail\": \"Boolean\"\n            },\n            {\n                \"answerDetail\": \"false\",\n                \"codeQuestionDetail\": 10,\n                \"typeDataAnswerDetail\": \"Boolean\"\n            },\n            {\n                \"answerDetail\": \"false\",\n                \"codeQuestionDetail\": 11,\n                \"typeDataAnswerDetail\": \"Boolean\"\n            },\n            {\n                \"answerDetail\": \"false\",\n                \"codeQuestionDetail\": 12,\n                \"typeDataAnswerDetail\": \"Boolean\"\n            },\n            {\n                \"answerDetail\": \"false\",\n                \"codeQuestionDetail\": 13,\n                \"typeDataAnswerDetail\": \"Boolean\"\n            },\n            {\n                \"answerDetail\": \"false\",\n                \"codeQuestionDetail\": 14,\n                \"typeDataAnswerDetail\": \"Boolean\"\n            },\n            {\n                \"answerDetail\": \"false\",\n                \"codeQuestionDetail\": 15,\n                \"typeDataAnswerDetail\": \"Boolean\"\n            },\n            {\n                \"answerDetail\": \"false\",\n                \"codeQuestionDetail\": 16,\n                \"typeDataAnswerDetail\": \"Boolean\"\n            },\n            {\n                \"answerDetail\": \"false\",\n                \"codeQuestionDetail\": 17,\n                \"typeDataAnswerDetail\": \"Boolean\"\n            },\n            {\n                \"answerDetail\": \"false\",\n                \"codeQuestionDetail\": 18,\n                \"typeDataAnswerDetail\": \"Boolean\"\n            },\n            {\n                \"answerDetail\": \"false\",\n                \"codeQuestionDetail\": 19,\n                \"typeDataAnswerDetail\": \"Boolean\"\n            },\n            {\n                \"answerDetail\": \"false\",\n                \"codeQuestionDetail\": 20,\n                \"typeDataAnswerDetail\": \"Boolean\"\n            },\n            {\n                \"answerDetail\": \"false\",\n                \"codeQuestionDetail\": 21,\n                \"typeDataAnswerDetail\": \"Boolean\"\n            },\n            {\n                \"answerDetail\": \"false\",\n                \"codeQuestionDetail\": 22,\n                \"typeDataAnswerDetail\": \"Boolean\"\n            },\n            {\n                \"answerDetail\": \"false\",\n                \"codeQuestionDetail\": 23,\n                \"typeDataAnswerDetail\": \"String\"\n            },\n            {\n                \"answerDetail\": \"0\",\n                \"codeQuestionDetail\": 24,\n                \"typeDataAnswerDetail\": \"Integer\"\n            },\n            {\n                \"answerDetail\": \"\",\n                \"codeQuestionDetail\": 25,\n                \"typeDataAnswerDetail\": \"Year\"\n            },\n            {\n                \"answerDetail\": \"\",\n                \"codeQuestionDetail\": 26,\n                \"typeDataAnswerDetail\": \"Placeholder\"\n            },\n            {\n                \"answerDetail\": \"\",\n                \"codeQuestionDetail\": 27,\n                \"typeDataAnswerDetail\": \"Placeholder\"\n            },\n            {\n                \"answerDetail\": \"false\",\n                \"codeQuestionDetail\": 28,\n                \"typeDataAnswerDetail\": \"String\"\n            },\n            {\n                \"answerDetail\": \"false\",\n                \"codeQuestionDetail\": 29,\n                \"typeDataAnswerDetail\": \"String\"\n            },\n            {\n                \"answerDetail\": \"false\",\n                \"codeQuestionDetail\": 30,\n                \"typeDataAnswerDetail\": \"String\"\n            },\n            {\n                \"answerDetail\": \"false\",\n                \"codeQuestionDetail\": 31,\n                \"typeDataAnswerDetail\": \"Boolean\"\n            },\n            {\n                \"answerDetail\": \"false\",\n                \"codeQuestionDetail\": 32,\n                \"typeDataAnswerDetail\": \"Boolean\"\n            },\n            {\n                \"answerDetail\": \"false\",\n                \"codeQuestionDetail\": 33,\n                \"typeDataAnswerDetail\": \"Boolean\"\n            }\n        ],\n        \"listAnswerSubDetail\": [\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 1,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"0\",\n                \"codeQuestionSubDetail\": 2,\n                \"typeDataAnswerSubDetail\": \"Integer\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 3,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 4,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 5,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"0\",\n                \"codeQuestionSubDetail\": 6,\n                \"typeDataAnswerSubDetail\": \"Integer\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 7,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 8,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 9,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"0\",\n                \"codeQuestionSubDetail\": 10,\n                \"typeDataAnswerSubDetail\": \"Integer\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 11,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 12,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 13,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 14,\n                \"typeDataAnswerSubDetail\": \"Date\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 15,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 16,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 17,\n                \"typeDataAnswerSubDetail\": \"Date\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 18,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 19,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 20,\n                \"typeDataAnswerSubDetail\": \"Date\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 21,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 22,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 23,\n                \"typeDataAnswerSubDetail\": \"Date\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 24,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 25,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 26,\n                \"typeDataAnswerSubDetail\": \"Date\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 27,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 28,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 29,\n                \"typeDataAnswerSubDetail\": \"Date\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 30,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 31,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 32,\n                \"typeDataAnswerSubDetail\": \"Date\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 33,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 34,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 35,\n                \"typeDataAnswerSubDetail\": \"Date\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 36,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 37,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 38,\n                \"typeDataAnswerSubDetail\": \"Date\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 39,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 40,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 41,\n                \"typeDataAnswerSubDetail\": \"Date\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 42,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 43,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 44,\n                \"typeDataAnswerSubDetail\": \"Date\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 45,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 46,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 47,\n                \"typeDataAnswerSubDetail\": \"Date\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 48,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 49,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 50,\n                \"typeDataAnswerSubDetail\": \"Date\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 51,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 52,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 53,\n                \"typeDataAnswerSubDetail\": \"Date\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 54,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 55,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 56,\n                \"typeDataAnswerSubDetail\": \"Date\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 57,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 58,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 59,\n                \"typeDataAnswerSubDetail\": \"Date\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 60,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 61,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 62,\n                \"typeDataAnswerSubDetail\": \"Date\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 63,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 64,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 65,\n                \"typeDataAnswerSubDetail\": \"Date\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 66,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 67,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 68,\n                \"typeDataAnswerSubDetail\": \"Date\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 69,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 70,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 71,\n                \"typeDataAnswerSubDetail\": \"YearMonth\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 72,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 73,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 74,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 75,\n                \"typeDataAnswerSubDetail\": \"YearMonth\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 76,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 77,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"0\",\n                \"codeQuestionSubDetail\": 78,\n                \"typeDataAnswerSubDetail\": \"Integer\"\n            },\n            {\n                \"answerSubDetail\": \"0\",\n                \"codeQuestionSubDetail\": 79,\n                \"typeDataAnswerSubDetail\": \"Integer\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 80,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 81,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 82,\n                \"typeDataAnswerSubDetail\": \"String\"\n            },\n            {\n                \"answerSubDetail\": \"\",\n                \"codeQuestionSubDetail\": 83,\n                \"typeDataAnswerSubDetail\": \"String\"\n            }\n        ]\n    }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/v2/policy/reinstatement",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v2",
+            "policy",
+            "reinstatement"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Initiate Payment",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apikey",
+            "value": "YfPCr603s4OyM4pMUAuHvaWIl1kmmkWq"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"workflowId\": \"reinstatement_individualv6\",\n    // \"processInstanceId\": \"aee037d7-da0c-4ac6-ac1d-e1afbe58156e\", \n    \"processInstanceId\": \"67e3b5da-a3de-48e5-8f50-9dff538f37f4\",\n    \"action\": \"initiate\" \n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api-automation-v2-dev.ifg-life.id/v2/policy/payment/task",
+          "protocol": "https",
+          "host": [
+            "api-automation-v2-dev",
+            "ifg-life",
+            "id"
+          ],
+          "path": [
+            "v2",
+            "policy",
+            "payment",
+            "task"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Invoice Detail",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "E97baCBt8SxmDcYNyd3KwbEA0giw8ElF"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"masterInvoiceNumber\": \"\",\n    \"proposalNumber\": \"\",\n    \"policyNumber\": \"\",\n    \"payerId\": \"\",\n    \"status\": \"\", \n    \"invoiceNumber\": \"INV202605038880\",\n    \"bulkUnique\": \"\",\n    \"size\": 10,\n    \"page\": 0\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api-automation-dev.ifg-life.id/v1/ao-new-business/billing/search",
+          "protocol": "https",
+          "host": [
+            "api-automation-dev",
+            "ifg-life",
+            "id"
+          ],
+          "path": [
+            "v1",
+            "ao-new-business",
+            "billing",
+            "search"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Payment Callback",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apikey",
+            "value": "{{api_key}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"data\": {\n        \"status\": \"SUCCESS\",\n        \"transactionId\": \"INV202605038880\", //  invoiceNo di respon initiate payment\n        \"reffNo\": \"800225000222262\", // policyNumber di invoice detail\n        \"payment\": {\n            \"type\": \"debit-card\",\n            \"method\": \"recurring\",//\"single-payment\", \n            \"id\":\"668603670161061816111568\", // PAYMENT_ID di workflow admin\n            \"channel\": \"mti-3ds\",\n            \"mid\": \"ifgtest\",\n            \"amount\": 406062.00, // amount di invoice detail\n            \"adminFee\": 27698,\n            \"adminFeeDetail\": [\n                {\n                    \"type\": \"ac\", //\"pg\",\n                    \"amount\": 27698\n                }\n            ],\n            \"dateTime\": \"2026-05-06 10:13:42\", // transactionDate di invoice detail\n            \"bankSettlement\": \"\"\n        }\n    }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/v2/policy/payment/callback",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v2",
+            "policy",
+            "payment",
+            "callback"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update policy Status",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apiKey",
+            "value": "AXBJVtacQkg9vOVjurl1qJXPwHIC9Nh3"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"policyId\": \"6a0e4f44-6737-4478-9a87-dda1eb260e3e\", \n    \"status\": \"LAPSE\",\n    \"actionCode\": \"SUBMITTED\",\n    \"updatedBy\": \"SYSTEM\"\n}\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api-core-dev.ifg-life.id/v2/pas/policies/status",
+          "protocol": "https",
+          "host": [
+            "api-core-dev",
+            "ifg-life",
+            "id"
+          ],
+          "path": [
+            "v2",
+            "pas",
+            "policies",
+            "status"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Check Prod Config",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "{{api_key_core}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"rate\": true,\n    \"benefit\" : true,\n    \"variable\": true,\n    \"operationCatalog\": true,\n    \"claimRule\": true,\n    \"productPlanBenefitRule\": true\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url_core}}/v1/product-engine/product-configuration/product-specification?planCode=01&productCode=005&channelCode=",
+          "host": [
+            "{{base_url_core}}"
+          ],
+          "path": [
+            "v1",
+            "product-engine",
+            "product-configuration",
+            "product-specification"
+          ],
+          "query": [
+            {
+              "key": "planCode",
+              "value": "01"
+            },
+            {
+              "key": "productCode",
+              "value": "005"
+            },
+            {
+              "key": "channelCode",
+              "value": ""
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Cancel Billing",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "AXBJVtacQkg9vOVjurl1qJXPwHIC9Nh3"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"invoiceNumber\": \"INV202601179684\", \n    \"updatedBy\" : \"System\" \n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api-core-dev.ifg-life.id/v1/ao-new-business/billing/cancels",
+          "protocol": "https",
+          "host": [
+            "api-core-dev",
+            "ifg-life",
+            "id"
+          ],
+          "path": [
+            "v1",
+            "ao-new-business",
+            "billing",
+            "cancels"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Payment Callback Cancel",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apikey",
+            "value": "YfPCr603s4OyM4pMUAuHvaWIl1kmmkWq"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"workflowId\": \"reinstatement_individualv6\",\n    \"processInstanceId\": \"5f3561a4-6b7b-4938-ae72-429608bc555f\", \n    \"action\": \"cancel\" \n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api-automation-v2-dev.ifg-life.id/v2/policy/payment/task",
+          "protocol": "https",
+          "host": [
+            "api-automation-v2-dev",
+            "ifg-life",
+            "id"
+          ],
+          "path": [
+            "v2",
+            "policy",
+            "payment",
+            "task"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "now",
+      "value": ""
+    },
+    {
+      "key": "id_coverage_start_date",
+      "value": ""
+    },
+    {
+      "key": "value_coverage_start_date",
+      "value": ""
+    },
+    {
+      "key": "type_coverage_start_date",
+      "value": ""
+    },
+    {
+      "key": "createdAt_coverage_start_date",
+      "value": ""
+    },
+    {
+      "key": "createdBy_coverage_start_date",
+      "value": ""
+    },
+    {
+      "key": "id_coverage_end_date",
+      "value": ""
+    },
+    {
+      "key": "value_coverage_end_date",
+      "value": ""
+    },
+    {
+      "key": "type_coverage_end_date",
+      "value": ""
+    },
+    {
+      "key": "createdAt_next_billing_date",
+      "value": ""
+    },
+    {
+      "key": "now_plus_1_month",
+      "value": ""
+    },
+    {
+      "key": "now_minus_1_month",
+      "value": ""
+    },
+    {
+      "key": "now_minus_2_month",
+      "value": ""
+    },
+    {
+      "key": "now_plus_3_month",
+      "value": ""
+    },
+    {
+      "key": "createdBy_coverage_end_date",
+      "value": ""
+    },
+    {
+      "key": "createdAt_coverage_end_date",
+      "value": ""
+    },
+    {
+      "key": "id_next_billing_date",
+      "value": ""
+    },
+    {
+      "key": "value_next_billing_date",
+      "value": ""
+    },
+    {
+      "key": "type_next_billing_date",
+      "value": ""
+    },
+    {
+      "key": "createdBy_next_billing_date",
+      "value": ""
+    },
+    {
+      "key": "policy_id",
+      "value": ""
+    },
+    {
+      "key": "policy_number",
+      "value": ""
+    },
+    {
+      "key": "next_billing_date",
+      "value": ""
+    },
+    {
+      "key": "id_plan_code",
+      "value": ""
+    },
+    {
+      "key": "value_plan_code",
+      "value": ""
+    },
+    {
+      "key": "type_plan_code",
+      "value": ""
+    },
+    {
+      "key": "createdBy_plan_code",
+      "value": ""
+    },
+    {
+      "key": "createdAt_plan_code",
+      "value": ""
+    },
+    {
+      "key": "product_code",
+      "value": ""
+    },
+    {
+      "key": "ekyc_id",
+      "value": ""
+    },
+    {
+      "key": "name",
+      "value": ""
+    },
+    {
+      "key": "address",
+      "value": ""
+    },
+    {
+      "key": "dob",
+      "value": ""
+    },
+    {
+      "key": "gender",
+      "value": ""
+    },
+    {
+      "key": "phone_number",
+      "value": ""
+    },
+    {
+      "key": "email",
+      "value": ""
+    },
+    {
+      "key": "job_id",
+      "value": ""
+    },
+    {
+      "key": "job_category",
+      "value": ""
+    },
+    {
+      "key": "job_ekyc_id",
+      "value": ""
+    },
+    {
+      "key": "job_sector_of_business",
+      "value": ""
+    },
+    {
+      "key": "job_business_name",
+      "value": ""
+    },
+    {
+      "key": "job_annual_income",
+      "value": ""
+    },
+    {
+      "key": "job_ownership_status",
+      "value": ""
+    },
+    {
+      "key": "job_type",
+      "value": ""
+    },
+    {
+      "key": "job_level",
+      "value": ""
+    },
+    {
+      "key": "job_company_name",
+      "value": ""
+    },
+    {
+      "key": "job_company_phone_number",
+      "value": ""
+    },
+    {
+      "key": "job_company_email",
+      "value": ""
+    },
+    {
+      "key": "job_address",
+      "value": ""
+    },
+    {
+      "key": "job_neighborhood",
+      "value": ""
+    },
+    {
+      "key": "job_hamlet",
+      "value": ""
+    },
+    {
+      "key": "job_village",
+      "value": ""
+    },
+    {
+      "key": "job_district_name",
+      "value": ""
+    },
+    {
+      "key": "job_city_name",
+      "value": ""
+    },
+    {
+      "key": "job_province_name",
+      "value": ""
+    },
+    {
+      "key": "job_postcode",
+      "value": ""
+    },
+    {
+      "key": "job_created_at",
+      "value": ""
+    },
+    {
+      "key": "job_updated_at",
+      "value": ""
+    },
+    {
+      "key": "height",
+      "value": ""
+    },
+    {
+      "key": "height_id",
+      "value": ""
+    },
+    {
+      "key": "weight",
+      "value": ""
+    },
+    {
+      "key": "weight_id",
+      "value": ""
+    },
+    {
+      "key": "userId",
+      "value": ""
+    }
+  ]
+}

@@ -1,0 +1,470 @@
+{
+  "info": {
+    "_postman_id": "766569f8-b4ca-4e99-930f-e4338c2875b2",
+    "name": "()01-Remove Member Automation CLI/LCP",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "46870646"
+  },
+  "item": [
+    {
+      "name": "STEP 1 - Submission Header - Remove Member",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "const uuid = crypto.randomUUID();  // Postman v10+ supports crypto\r",
+              "pm.collectionVariables.set(\"referenceNo\", uuid);\r",
+              "// const now = new Date();\r",
+              "\r",
+              "// const pad = (n) => n < 10 ? '0' + n : n;\r",
+              "\r",
+              "// const formattedDate = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;\r",
+              "\r",
+              "// pm.environment.set(\"formattedDate\", formattedDate);\r",
+              " "
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apiKey",
+            "value": "{{api_key}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"referenceNo\": \"{{referenceNo}}\", // random uuid\r\n    \"referenceType\": \"CLAIM_SUBMISSION_NO\",\r\n    \"transactionType\": \"lifespace-ps-remove-member\",\r\n    \"workflow\": \"\",\r\n    \"instanceId\": \"\",\r\n    \"status\": \"\",\r\n    \"details\": {\r\n        \"PAYLOAD_SUBMISSION\": {\r\n            \"id\": \"\",\r\n            \"transactionEventId\": \"\",\r\n            \"transactionEventNumber\": \"\",\r\n            \"policyNumber\": \"{{policyOrgNumber}}\",\r\n            \"organizationId\":\"{{policyOrgId}}\",\r\n            \"submissionDate\": \"{{submissionDate}}\",\r\n            \"status\": \"\",\r\n            \"transactionEventVariable\": [\r\n                {\r\n                    \"code\": \"PREMIUM_REFUND\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"{{premiumRefund}}\" // True or False\r\n                    // \"value\": \"FALSE\"\r\n                },\r\n                {\r\n                    \"code\": \"NO_SURAT_REFERENSI\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"{{noSuratReferensi}}\" \r\n                },\r\n                {\r\n                    \"code\": \"TANGGAL_SURAT_REFERENSI\",\r\n                    \"type\": \"date\",\r\n                    \"value\": \"{{tanggalSuratReferensi}}\"\r\n                },\r\n                {\r\n                    \"code\": \"PIC_NAME\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"{{picName}}\"\r\n                },\r\n                {\r\n                    \"code\": \"PIC_EMAIL\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"{{picEmail}}\"\r\n                },\r\n                {\r\n                    \"code\": \"PIC_PHONE_NUMBER\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"{{picPhoneNumber}}\"\r\n                },\r\n                {\r\n                    \"code\": \"PIC_POSITION\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"{{picPosition}}\"\r\n                }\r\n            ],\r\n            \"message\": \"\"\r\n        },\r\n        \"DECISION\": {}\r\n    }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v2/ao-workflow-claim/general/transaction/header",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v2",
+            "ao-workflow-claim",
+            "general",
+            "transaction",
+            "header"
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'https://api-automation-uat.ifg-life.id/api/v2/ao-workflow-claim/general/transaction/header' \\\r\n--header 'accept: application/json' \\\r\n--header 'Content-Type: application/json' \\\r\n--header 'apiKey: E97baCBt8SxmDcYNyd3KwbEA0giw8ElF' \\\r\n--data-raw '{\r\n    \"referenceNo\": \"b876cc32-73f6-465b-8fd9-08d8732ea4ab\",\r\n    \"referenceType\": \"CLAIM_SUBMISSION_NO\",\r\n    \"transactionType\": \"lifespace-ps-remove-member\",\r\n    \"workflow\": \"\",\r\n    \"instanceId\": \"\",\r\n    \"status\": \"\",\r\n    \"details\": {\r\n        \"PAYLOAD_SUBMISSION\": {\r\n            \"id\": \"\",\r\n            \"transactionEventId\": \"\",\r\n            \"transactionEventNumber\": \"\",\r\n            \"policyNumber\": \"910425857\",\r\n            \"organizationId\":\"a712bcc1-f546-45ce-ab56-4f7bee3d2409\",\r\n            \"submissionDate\": \"{{formattedDate}}\",\r\n            \"status\": \"\",\r\n            \"transactionEventVariable\": [\r\n                {\r\n                    \"code\": \"PREMIUM_REFUND\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"TRUE\"\r\n                },\r\n                {\r\n                    \"code\": \"NO_SURAT_REFERENSI\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"78374T4082023\"\r\n                },\r\n                {\r\n                    \"code\": \"TANGGAL_SURAT_REFERENSI\",\r\n                    \"type\": \"date\",\r\n                    \"value\": \"2025-04-05\"\r\n                },\r\n                {\r\n                    \"code\": \"PIC_NAME\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"Jhon Doe\"\r\n                },\r\n                {\r\n                    \"code\": \"PIC_EMAIL\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"jhondoe@mail.id\"\r\n                },\r\n                {\r\n                    \"code\": \"PIC_PHONE_NUMBER\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"0212235642\"\r\n                },\r\n                {\r\n                    \"code\": \"PIC_POSITION\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"Manager\"\r\n                }\r\n            ],\r\n            \"message\": \"\"\r\n        },\r\n        \"DECISION\": {}\r\n    }\r\n}'"
+      },
+      "response": []
+    },
+    {
+      "name": "Postman delay 10 seconds",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "{{api_key}}",
+            "disabled": true
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://postman-echo.com/delay/10",
+          "protocol": "https",
+          "host": [
+            "postman-echo",
+            "com"
+          ],
+          "path": [
+            "delay",
+            "10"
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'https://api-automation-v2-dev.ifg-life.id/lifehub/public/api/v1/general-transaction/transaction-member/list' \\\r\n--header 'apiKey: YfPCr603s4OyM4pMUAuHvaWIl1kmmkWq' \\\r\n--header 'Content-Type: application/json' \\\r\n--data '{\r\n    \"page\": 1,\r\n    \"limit\": 10,\r\n    \"transactionId\": \"2d0c5cf1-cd3f-44d5-8db2-6387f2e52db8\",\r\n    \"filter\": [],\r\n    \"codes\": []\r\n}'"
+      },
+      "response": []
+    },
+    {
+      "name": "STEP 2 - Get Header - Remove Member",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let responseData = pm.response.json();\r",
+              "\r",
+              "// Make sure the response contains data\r",
+              "if (responseData && responseData.data && responseData.data.length > 0) {\r",
+              "    let transaction = responseData.data[0];\r",
+              "\r",
+              "    pm.collectionVariables.set(\"transactionId\", transaction.id);\r",
+              "    pm.collectionVariables.set(\"referenceNo\", transaction.referenceNo);\r",
+              "\r",
+              "    console.log(\"Saved transactionId:\", transaction.id);\r",
+              "    console.log(\"Saved referenceNo:\", transaction.referenceNo);\r",
+              "} else {\r",
+              "    console.warn(\"No transaction data found in response.\");\r",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "{{api_key}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"page\": 1,\n    \"limit\": 1,\n    \"filter\": [],\n    \"referenceNo\": \"{{referenceNo}}\",\n    // \"transactionId\": \"0e479ba7-9f5a-495b-ad25-7718cc22daf4\",\n    // \"transactionId\": \"d6ddc359-e7c4-46e5-abb1-1901af0e06fa\",\n    \"codes\": [\n    ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/lifehub/public/api/v1/general-transaction/transaction/list",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "lifehub",
+            "public",
+            "api",
+            "v1",
+            "general-transaction",
+            "transaction",
+            "list"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "STEP 3 - Submission Member - Remove Member",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "accept",
+            "value": "application/json"
+          },
+          {
+            "key": "apiKey",
+            "value": "{{api_key}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"organizationMember\": {\r\n        \"transactionId\": \"{{transactionId}}\", // random uuid\r\n        \"referenceNo\": \"{{referenceNo}}\",\r\n        \"transactionType\": \"lifespace-ps-remove-member\",\r\n        \"totalMember\": \"1\",\r\n        \"totalPage\": \"1\",\r\n        \"page\": 1,\r\n        \"totalInPage\": \"1\",\r\n        \"listOfMember\": [\r\n            {\r\n                \"memberId\": \"\",\r\n                \"memberReferenceNo\": \"{{policyNumber}}\",\r\n                \"memberReferenceType\": \"POLICY_NO\",\r\n                \"taskName\": \"\",\r\n                \"taskStatus\": \"\",\r\n                \"details\": {\r\n                    \"PAYLOAD_SUBMISSION\": {\r\n                        \"id\": \"\",\r\n                        \"result\": \"\",\r\n                        \"status\": \"\",\r\n                        \"message\": \"\",\r\n                        \"certificateNo\": \"{{certificateNo}}\",\r\n                        \"policyDetail\": {\r\n                            \"cif\": \"{{cif}}\",\r\n                            \"dob\": \"{{dob}}\",\r\n                            \"nik\": \"{{nik}}\",\r\n                            \"address\": null,\r\n                            \"policyStatus\": \"INFORCE\",\r\n                            \"customerName\": \"{{customerName}}\",\r\n                            \"policyNumber\": \"{{policyNumber}}\",\r\n                            \"policyId\": \"{{policyId}}\",\r\n                            \"organizationId\": \"{{policyOrgId}}\"\r\n                        },\r\n                        \"listVariable\": [\r\n                            {\r\n                                \"code\": \"PLAN_CODE\",\r\n                                \"value\": \"{{planCode}}\" // ex. 01\r\n                            },\r\n                            {\r\n                                \"code\": \"PRODUCT_CODE\",\r\n                                \"value\": \"{{productCode}}\" // DHT = 106, PHT = 901, GLP = 104, CLI 108, LCP 103\r\n                            },\r\n                            {\r\n                                \"code\": \"CERTIFICATE_NUMBER\",\r\n                                \"value\": \"{{certificateNo}}\"\r\n                            },\r\n                            {\r\n                                \"code\": \"INCIDENT_DATE\",\r\n                                \"value\": \"{{incidentDate}}\"\r\n                            },\r\n                            {\r\n                                \"code\": \"CASH_VALUE\",\r\n                                \"value\": \"{{cashValue}}\"\r\n                            },\r\n                            {\r\n                                \"code\": \"RISK_CODE\",\r\n                                \"value\": \"{{riskCode}}\"\r\n                            },\r\n                            {\r\n                                \"code\": \"MOVEMENT_TYPE\",\r\n                                \"value\": \"{{movementType}}\"\r\n                            },\r\n                            {\r\n                                \"code\": \"REASON\",\r\n                                \"value\": \"{{reason}}\"\r\n                            },\r\n                            {\r\n                                \"code\": \"BANK_NAME\",\r\n                                \"value\": \"{{bankName}}\"\r\n                            },\r\n                            {\r\n                                \"code\": \"BANK_SWIFT_CODE\",\r\n                                \"value\": \"{{bankSwiftCode}}\"\r\n                            },\r\n                            {\r\n                                \"code\": \"BANK_ACCOUNT_NAME\",\r\n                                \"value\": \"{{bankAccountName}}\"\r\n                            },\r\n                            {\r\n                                \"code\": \"BENEFICIARY_NAME\",\r\n                                \"value\": \"{{beneficiaryName}}\"\r\n                            },\r\n                            {\r\n                                \"code\": \"BANK_ACCOUNT_NUMBER\",\r\n                                \"value\": \"{{bankAccountNumber}}\"\r\n                            },\r\n                            {\r\n                                \"code\": \"RELATION\",\r\n                                \"value\": \"{{relation}}\"\r\n                            }\r\n                        ]\r\n                    },\r\n                    // \"TANGGAL_LUNAS\" :  \"{{tanggalLunas}}\",  // ini untuk LCP dan CLI      // ini untuk LCP dan CLI pakai ISO8601 \r\n                    \"PAID_OFF_DATE\": \"{{paidOffDate}}\", // ini untuk LCP dan CLI      // ini untuk LCP dan CLI pakai ISO8601 \r\n                    \"DOB\": \"{{dob}}\",\r\n                    \"ID_CARD\": \"{{nik}}\",\r\n                    \"NAME\": \"{{customerName}}\",\r\n                    \"CERTIFICATE\": \"{{certificateNo}}\",\r\n                    \"CERTIFICATE_NO\": \"{{certificateNo}}\",\r\n                    \"CASH_VALUE\": \"{{cashValue}}\",\r\n                    \"INCIDENT_DATE\": \"{{incidentDate}}\",\r\n                    \"RISK_CODE\": \"{{riskCode}}\",\r\n                    \"MOVEMENT_TYPE\": \"{{movementType}}\",\r\n                    \"REASON\": \"{{reason}}\",\r\n                    \"AML_CHECKING\": \"\",\r\n                    \"DECISION\": {\r\n                        \"DECISION_CLAIM_HEAD_STATUS\": \"\",\r\n                        \"DECISION_CLAIM_STAFF_STATUS\": \"\",\r\n                        \"DECISION_SCREENING_HEAD_STATUS\": \"\",\r\n                        \"DECISION_SCREENING_HEAD_REMARKS\": \"\",\r\n                        \"DECISION_SCREENING_STAFF_STATUS\": \"\",\r\n                        \"DECISION_SCREENING_STAFF_REMARKS\": \"\"\r\n                    },\r\n                    \"DOCUMENT_NEED_REVISION\": {}\r\n                }\r\n            }\r\n        ]\r\n    }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v2/ao-workflow-claim/general/transaction/member",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v2",
+            "ao-workflow-claim",
+            "general",
+            "transaction",
+            "member"
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'https://api-automation-uat.ifg-life.id/api/v2/ao-workflow-claim/general/transaction/member' \\\r\n--header 'Content-Type: application/json' \\\r\n--header 'accept: application/json' \\\r\n--header 'apiKey: E97baCBt8SxmDcYNyd3KwbEA0giw8ElF' \\\r\n--data '{\r\n    \"organizationMember\": {\r\n        \"transactionId\": \"7ae0636b-9c4f-4c73-9144-2b964935927b\",\r\n        \"referenceNo\": \"b876cc32-73f6-465b-8fd9-08d8732ea4ab\",\r\n        \"transactionType\": \"lifespace-ps-remove-member\",\r\n        \"totalMember\": \"1\",\r\n        \"totalPage\": \"1\",\r\n        \"page\": 1,\r\n        \"totalInPage\": \"1\",\r\n        \"listOfMember\": [\r\n            {\r\n                \"memberId\": \"DGA0000088327\",\r\n                \"memberReferenceNo\": \"910425000049000\",\r\n                \"memberReferenceType\": \"CERTIFICATE_NO\",\r\n                \"taskName\": \"\",\r\n                \"taskStatus\": \"\",\r\n                \"details\": {\r\n                    \"PAYLOAD_SUBMISSION\": {\r\n                        \"id\": \"\",\r\n                        \"result\": \"\",\r\n                        \"status\": \"\",\r\n                        \"message\": \"\",\r\n                        \"certificateNo\": \"91042585700000008\",\r\n                        \"policyDetail\": {\r\n                            \"cif\": \"6b5f23b5-cfa5-4a93-b6e7-f4fd238841b7\",\r\n                            \"dob\": \"1997-04-10\",\r\n                            \"nik\": \"1430639798421630\",\r\n                            \"address\": \"JAKARTA\",\r\n                            \"statusName\": \"INFORCE\",\r\n                            \"customerName\": \"DUMMY NAME 8\",\r\n                            \"policyNumber\": \"910425000049000\",\r\n                            \"policyId\":\"b31dd154-898a-437f-9f81-73e0f1ad21e9\", \r\n                            \"organizationId\":\"a712bcc1-f546-45ce-ab56-4f7bee3d2409\" \r\n                        },\r\n                        \"listVariable\": [\r\n                            {\r\n                                \"code\": \"PLAN_CODE\",\r\n                                \"value\": \"01\"\r\n                            },\r\n                            {\r\n                                \"code\": \"PRODUCT_CODE\",\r\n                                \"value\": \"104\"\r\n                            },\r\n                            {\r\n                                \"code\": \"CARD_NUMBER\",\r\n                                \"value\": \"DGA0000088327\"\r\n                            },\r\n                            {\r\n                                \"code\": \"INCIDENT_DATE\",\r\n                                \"value\": \"2025-04-04 11:03:00\"\r\n                            },\r\n                            {\r\n                                \"code\": \"CASH_VALUE\",\r\n                                \"value\": \"0\"\r\n                            },\r\n                            {\r\n                                \"code\": \"RISK_CODE\",\r\n                                \"value\": \"MATURITY\"\r\n                            },\r\n                            {\r\n                                \"code\": \"MUTATION_TYPE\",\r\n                                \"value\": \"MATURITY\" \r\n                            },\r\n                            {\r\n                                \"code\": \"REASON\",\r\n                                \"value\": \"TERMINATION\" \r\n                            },\r\n                            {\r\n                                \"code\": \"BANK_NAME\",\r\n                                \"value\": \"Mandiri\"\r\n                            },\r\n                            {\r\n                                \"code\": \"BANK_SWIFT_CODE\",\r\n                                \"value\": \"CENAIDJA\"\r\n                            },\r\n                            {\r\n                                \"code\": \"BANK_ACCOUNT_NAME\",\r\n                                \"value\": \"DUMMY NAME 8\"\r\n                            },\r\n                            {\r\n                                \"code\": \"BENEFICIARY_NAME\",\r\n                                \"value\": \"DUMMY NAME 8\"\r\n                            },\r\n                            {\r\n                                \"code\": \"BANK_ACCOUNT_NUMBER\",\r\n                                \"value\": \"1301164250\"\r\n                            },\r\n                            {\r\n                                \"code\": \"RELATION\",\r\n                                \"value\": \"Diri Sendiri\"\r\n                            }\r\n                        ]\r\n                    },\r\n                    \"DECISION\": {}\r\n                }\r\n            }\r\n        ]\r\n    }\r\n}'"
+      },
+      "response": []
+    },
+    {
+      "name": "Postman delay 20 seconds",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://postman-echo.com/delay/20",
+          "protocol": "https",
+          "host": [
+            "postman-echo",
+            "com"
+          ],
+          "path": [
+            "delay",
+            "20"
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'https://api-automation-v2-dev.ifg-life.id/lifehub/public/api/v1/general-transaction/transaction-member/list' \\\r\n--header 'apiKey: YfPCr603s4OyM4pMUAuHvaWIl1kmmkWq' \\\r\n--header 'Content-Type: application/json' \\\r\n--data '{\r\n    \"page\": 1,\r\n    \"limit\": 10,\r\n    \"transactionId\": \"2d0c5cf1-cd3f-44d5-8db2-6387f2e52db8\",\r\n    \"filter\": [],\r\n    \"codes\": []\r\n}'"
+      },
+      "response": []
+    },
+    {
+      "name": "STEP 4 - Get Member Penampung",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// Parse the response JSON\r",
+              "let response = pm.response.json();\r",
+              "\r",
+              "// Configuration\r",
+              "const maxRetries = 10;  // how many times to retry\r",
+              "const retryDelay = 6000; // milliseconds between retries\r",
+              "\r",
+              "// Use pm.variables to persist retry count between runs\r",
+              "let retryCount = pm.variables.get(\"retryCount\") || 0;\r",
+              "\r",
+              "if (response.data && Array.isArray(response.data) && response.data.length === 0) {\r",
+              "    if (retryCount < maxRetries) {\r",
+              "        retryCount++;\r",
+              "        console.log(`⚠️ Data empty. Retrying... Attempt ${retryCount}/${maxRetries}`);\r",
+              "\r",
+              "        // Save updated retry count\r",
+              "        pm.variables.set(\"retryCount\", retryCount);\r",
+              "\r",
+              "        // Schedule a retry\r",
+              "        setTimeout(() => {\r",
+              "            postman.setNextRequest(pm.info.requestName);\r",
+              "        }, retryDelay);\r",
+              "    } else {\r",
+              "        console.log(\"🚫 Max retries reached. Stopping further requests.\");\r",
+              "        pm.variables.unset(\"retryCount\");\r",
+              "    }\r",
+              "} else {\r",
+              "    console.log(\"✅ Non-empty data received. Test successful!\");\r",
+              "    // Reset retry count since data is valid\r",
+              "    pm.variables.unset(\"retryCount\");\r",
+              "}\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "{{api_key}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"page\": 1,\r\n    \"limit\": 2000,\r\n    \"transactionId\": \"{{transactionId}}\",\r\n    // \"transactionId\": \"cef60509-96f3-4149-aa88-0be04c80bfc0\",\r\n    \"filter\": [],\r\n    \"codes\": []\r\n}\r\n\r\n// {\r\n//     \"page\": 1,\r\n//     \"codes\": [\r\n//         \"PAYLOAD_SUBMISSION\",\r\n//         \"PAID_OFF_DATE\"\r\n//     ],\r\n//     \"limit\": 1000,\r\n//     \"filter\": [\r\n//         {\r\n//             \"code\": \"SCREENING_AML_STATUS\",\r\n//             \"value\": \"APPROVE\"\r\n//         }\r\n//     ],\r\n//     \"transactionId\": \"0e479ba7-9f5a-495b-ad25-7718cc22daf4\"\r\n// }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/lifehub/public/api/v1/general-transaction/transaction-member/list",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "lifehub",
+            "public",
+            "api",
+            "v1",
+            "general-transaction",
+            "transaction-member",
+            "list"
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'https://api-automation-v2-dev.ifg-life.id/lifehub/public/api/v1/general-transaction/transaction-member/list' \\\r\n--header 'apiKey: YfPCr603s4OyM4pMUAuHvaWIl1kmmkWq' \\\r\n--header 'Content-Type: application/json' \\\r\n--data '{\r\n    \"page\": 1,\r\n    \"limit\": 10,\r\n    \"transactionId\": \"2d0c5cf1-cd3f-44d5-8db2-6387f2e52db8\",\r\n    \"filter\": [],\r\n    \"codes\": []\r\n}'"
+      },
+      "response": []
+    },
+    {
+      "name": "STEP 5 - Submission Case - Remove Member",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apiKey",
+            "value": "{{api_key}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \r\n    \"transactionId\": \"{{transactionId}}\",\r\n   \"isNewSubmission\": true\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/v2/workflow/ao-pos/remove-member/submission",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v2",
+            "workflow",
+            "ao-pos",
+            "remove-member",
+            "submission"
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'https://api-automation-uat.ifg-life.id/v2/workflow/ao-pos/remove-member/submission' \\\r\n--header 'Content-Type: application/json' \\\r\n--header 'apiKey: E97baCBt8SxmDcYNyd3KwbEA0giw8ElF' \\\r\n--data '{\r\n   \"transactionId\":\"7ae0636b-9c4f-4c73-9144-2b964935927b\",\r\n   \"isNewSubmission\": true\r\n}'"
+      },
+      "response": []
+    },
+    {
+      "name": "STEP 6 - Resubmission Case - Remove Member",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apiKey",
+            "value": "{{api_key}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \n    \"transactionId\": \"c99aca1f-1b37-43d3-be8f-b571cfb3133b\",\n    \"processInstanceId\": \"971bd1dd-55d6-4510-90df-690b947a8073\"\n    // \"processInstanceId\": \"9e17dfbd-a8a4-4c95-90f5-90617bbe354a\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/v2/workflow/ao-pos/remove-member/resubmit",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v2",
+            "workflow",
+            "ao-pos",
+            "remove-member",
+            "resubmit"
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'https://api-automation.ifg-life.id/v2/workflow/ao-pos/remove-member/resubmit' \\\n--header 'Content-Type: application/json' \\\n--header 'apiKey: E97baCBt8SxmDcYNyd3KwbEA0giw8ElF' \\\n--data '{\n   \"transactionId\":\"2416f60c-bad6-46f2-9bbc-c76a693ec0a3\",\n   \"processInstanceId\": \"f8e67ca6-dad7-42e7-b319-97338e53db20\"\n}'"
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "referenceNo",
+      "value": "23ca46a0-5d44-458a-8a26-04c9303d0e0e"
+    },
+    {
+      "key": "transactionId",
+      "value": "47a2a0e8-60a6-4759-9cc5-3fc17fb7216f"
+    }
+  ]
+}

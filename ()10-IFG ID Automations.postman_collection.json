@@ -1,0 +1,1127 @@
+{
+  "info": {
+    "_postman_id": "bb3a56cc-e885-4758-b3f9-4214909a8e0f",
+    "name": "()10-IFG ID Automations",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "46870646"
+  },
+  "item": [
+    {
+      "name": "GET EKYC INFO BULK",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "cKTZHYVVJab2Kxk69wqVsSLmlCHIbkHp",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"data\": [\r\n        {\r\n            \"ekycId\": \"ec7641fe-c3a7-49dd-b5af-5ee62a406490\"\r\n        }\r\n    ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api-ifgid-dev.ifg-life.id/api/v1/ekyc/data/getEkycInfo/bulk",
+          "protocol": "https",
+          "host": [
+            "api-ifgid-dev",
+            "ifg-life",
+            "id"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "ekyc",
+            "data",
+            "getEkycInfo",
+            "bulk"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "FETCH USER TAX DATA",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apiKey",
+            "value": "vuUqf1Uu1IcxntBIEw1JA0lh0uUGM3B0"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"ekycId\": \"e2ccfa22-06b3-45e8-afe5-c2484fc5fe65\",\r\n    \"referenceNumber\": \"30f4f315-b49b-4f79-bd0f-644352597d01\"\r\n}"
+        },
+        "url": {
+          "raw": "https://api-ifgid-dev.ifg-life.id/api/v1/user/tax/search",
+          "protocol": "https",
+          "host": [
+            "api-ifgid-dev",
+            "ifg-life",
+            "id"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "user",
+            "tax",
+            "search"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET USER JOB",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "cKTZHYVVJab2Kxk69wqVsSLmlCHIbkHp"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"ekycId\": \"74045353-9b5d-4151-b31f-64efe733a149\"\n}"
+        },
+        "url": {
+          "raw": "https://api-ifgid-dev.ifg-life.id/api/v1/user/job/search",
+          "protocol": "https",
+          "host": [
+            "api-ifgid-dev",
+            "ifg-life",
+            "id"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "user",
+            "job",
+            "search"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "FETCH USER CONTACT",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "cKTZHYVVJab2Kxk69wqVsSLmlCHIbkHp"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"ekycId\": \"a00cb4e5-edd8-4778-83fc-afc7921a8ef5\"\n}"
+        },
+        "url": {
+          "raw": "https://api-ifgid-dev.ifg-life.id/api/v1/user/contact/search",
+          "protocol": "https",
+          "host": [
+            "api-ifgid-dev",
+            "ifg-life",
+            "id"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "user",
+            "contact",
+            "search"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Fetch Data Ekyc Address",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "channelId",
+            "value": "e0f175d4-6aa0-4e20-916d-56318a28dd11"
+          },
+          {
+            "key": "apiKey",
+            "value": "cKTZHYVVJab2Kxk69wqVsSLmlCHIbkHp"
+          },
+          {
+            "key": "ekycId",
+            "value": "066859ec-76cb-4e81-93a2-c528965fbc08"
+          }
+        ],
+        "url": {
+          "raw": "https://api-ifgid-dev.ifg-life.id/api/v1/ekyc/address",
+          "protocol": "https",
+          "host": [
+            "api-ifgid-dev",
+            "ifg-life",
+            "id"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "ekyc",
+            "address"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Insert Ekyc Address",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "channelId",
+            "value": "e0f175d4-6aa0-4e20-916d-56318a28dd11"
+          },
+          {
+            "key": "apiKey",
+            "value": "cKTZHYVVJab2Kxk69wqVsSLmlCHIbkHp"
+          },
+          {
+            "key": "ekycId",
+            "value": "066859ec-76cb-4e81-93a2-c528965fbc08"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"id\": \"41a56a0a-3a1e-4a8e-aa3a-ea781ba5ce04\",\r\n    \"rt\": \"045\",\r\n    \"rw\": \"013\",\r\n    \"city\": {\r\n        \"code\": \"34.01\",\r\n        \"value\": \"Kab.Pandeglang\"\r\n    },\r\n    \"title\": \"alamatrumahcorres-edit\",\r\n    \"street\": \"JALAN 123\",\r\n    \"district\": {\r\n        \"code\": \"34.01.01\",\r\n        \"value\": \"Kec.Majasari\"\r\n    },\r\n    \"postcode\": \"45225\",\r\n    \"province\": {\r\n        \"code\": \"34\",\r\n        \"value\": \"Banten\"\r\n    },\r\n    \"subDistrict\": {\r\n        \"code\": \"34.01.01.0202\",\r\n        \"value\": \"Kel.Karaton\"\r\n    }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api-ifgid-dev.ifg-life.id/api/v1/ekyc/address",
+          "protocol": "https",
+          "host": [
+            "api-ifgid-dev",
+            "ifg-life",
+            "id"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "ekyc",
+            "address"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Ekcy Address",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "channelId",
+            "value": "e0f175d4-6aa0-4e20-916d-56318a28dd11"
+          },
+          {
+            "key": "apiKey",
+            "value": "cKTZHYVVJab2Kxk69wqVsSLmlCHIbkHp"
+          },
+          {
+            "key": "ekycId",
+            "value": "066859ec-76cb-4e81-93a2-c528965fbc08"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"id\": \"41a56a0a-3a1e-4a8e-aa3a-ea781ba5ce04\",\r\n    \"rt\": \"045\",\r\n    \"rw\": \"013\",\r\n    \"city\": {\r\n        \"code\": \"34.01\",\r\n        \"value\": \"Kab.Pandeglang\"\r\n    },\r\n    \"title\": \"alamatrumahcorres-edit\",\r\n    \"street\": \"JALAN 123\",\r\n    \"district\": {\r\n        \"code\": \"34.01.01\",\r\n        \"value\": \"Kec.Majasari\"\r\n    },\r\n    \"postcode\": \"45225\",\r\n    \"province\": {\r\n        \"code\": \"34\",\r\n        \"value\": \"Banten\"\r\n    },\r\n    \"subDistrict\": {\r\n        \"code\": \"34.01.01.0202\",\r\n        \"value\": \"Kel.Karaton\"\r\n    }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api-ifgid-dev.ifg-life.id/api/v1/ekyc/address",
+          "protocol": "https",
+          "host": [
+            "api-ifgid-dev",
+            "ifg-life",
+            "id"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "ekyc",
+            "address"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Organization Address",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "channelId",
+            "value": "e0f175d4-6aa0-4e20-916d-56318a28dd11"
+          },
+          {
+            "key": "apiKey",
+            "value": "cKTZHYVVJab2Kxk69wqVsSLmlCHIbkHp"
+          },
+          {
+            "key": "ekycId",
+            "value": "10f86701-2a04-4a64-8f29-7dd8aa5a5945"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"city\": \"KOTA ADM. JAKARTA SELATAN\",\r\n    \"block\": \"B18\",\r\n    \"title\": \"HEAD OFFICE TEST BARU\",\r\n    \"hamlet\": \"04\",\r\n    \"street\": \"Jl. BARU BARU no. 1234\",\r\n    \"village\": \"PANCORAN\",\r\n    \"building\": \"BUILDING BARU\",\r\n    \"district\": \"PANCORAN\",\r\n    \"postcode\": \"12421\",\r\n    \"province\": \"JAWA BARAT\",\r\n    \"neighborhood\": \"29\",\r\n    \"addressNumber\": \"30B\",\r\n    \"organizationId\": \"f2b8709b-c9fb-44c9-a9de-742c2e0360f3\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api-ifgid-dev.ifg-life.id/organization-service/api/v1/organization-addresses/dd7cfce2-6436-46f2-bc32-93efe86c6d2d",
+          "protocol": "https",
+          "host": [
+            "api-ifgid-dev",
+            "ifg-life",
+            "id"
+          ],
+          "path": [
+            "organization-service",
+            "api",
+            "v1",
+            "organization-addresses",
+            "dd7cfce2-6436-46f2-bc32-93efe86c6d2d"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Insert Organization Address",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "channelId",
+            "value": "e0f175d4-6aa0-4e20-916d-56318a28dd11"
+          },
+          {
+            "key": "apiKey",
+            "value": "cKTZHYVVJab2Kxk69wqVsSLmlCHIbkHp"
+          },
+          {
+            "key": "ekycId",
+            "value": "10f86701-2a04-4a64-8f29-7dd8aa5a5945"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"city\": \"KOTA ADM. JAKARTA SELATAN\",\r\n    \"block\": \"B18\",\r\n    \"title\": \"HEAD OFFICE TEST BARU\",\r\n    \"hamlet\": \"04\",\r\n    \"street\": \"Jl. BARU BARU no. 1234\",\r\n    \"village\": \"PANCORAN\",\r\n    \"building\": \"BUILDING BARU\",\r\n    \"district\": \"PANCORAN\",\r\n    \"postcode\": \"12421\",\r\n    \"province\": \"JAWA BARAT\",\r\n    \"neighborhood\": \"29\",\r\n    \"addressNumber\": \"30B\",\r\n    \"organizationId\": \"f2b8709b-c9fb-44c9-a9de-742c2e0360f3\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api-ifgid-dev.ifg-life.id/organization-service/api/v1/organization-addresses",
+          "protocol": "https",
+          "host": [
+            "api-ifgid-dev",
+            "ifg-life",
+            "id"
+          ],
+          "path": [
+            "organization-service",
+            "api",
+            "v1",
+            "organization-addresses"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Organization Address",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "channelId",
+            "value": "e0f175d4-6aa0-4e20-916d-56318a28dd11"
+          },
+          {
+            "key": "apiKey",
+            "value": "cKTZHYVVJab2Kxk69wqVsSLmlCHIbkHp"
+          },
+          {
+            "key": "ekycId",
+            "value": "10f86701-2a04-4a64-8f29-7dd8aa5a5945"
+          }
+        ],
+        "url": {
+          "raw": "https://api-ifgid-dev.ifg-life.id/organization-service/api/v1/organization-addresses/0f8d4d7a-b2d8-4ed5-a979-7258bec76b24",
+          "protocol": "https",
+          "host": [
+            "api-ifgid-dev",
+            "ifg-life",
+            "id"
+          ],
+          "path": [
+            "organization-service",
+            "api",
+            "v1",
+            "organization-addresses",
+            "0f8d4d7a-b2d8-4ed5-a979-7258bec76b24"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Fetch Organization Address",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "channelId",
+            "value": "e0f175d4-6aa0-4e20-916d-56318a28dd11"
+          },
+          {
+            "key": "apiKey",
+            "value": "cKTZHYVVJab2Kxk69wqVsSLmlCHIbkHp"
+          },
+          {
+            "key": "ekycId",
+            "value": "10f86701-2a04-4a64-8f29-7dd8aa5a5945"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"id\": \"8c379f09-2351-4206-a0fd-133bdd107be1\",\r\n    \"title\": \"alamatrumahcorres-edit\",\r\n    \"street\": \"kpciekekpabuaran-edit\",\r\n    \"province\": {\r\n        \"code\": \"34\",\r\n        \"value\": \"Banten\"\r\n    },\r\n    \"city\": {\r\n        \"code\": \"34.01\",\r\n        \"value\": \"Kab.Pandeglang\"\r\n    },\r\n    \"district\": {\r\n        \"code\": \"34.01.01\",\r\n        \"value\": \"Kec.Majasari\"\r\n    },\r\n    \"subDistrict\": {\r\n        \"code\": \"34.01.01.0202\",\r\n        \"value\": \"Kel.Karaton\"\r\n    },\r\n    \"rt\": \"005\",\r\n    \"rw\": \"012\",\r\n    \"postcode\": \"42225\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api-ifgid-dev.ifg-life.id/organization-service/api/v1/organization-addresses?organizationId=f2b8709b-c9fb-44c9-a9de-742c2e0360f3",
+          "protocol": "https",
+          "host": [
+            "api-ifgid-dev",
+            "ifg-life",
+            "id"
+          ],
+          "path": [
+            "organization-service",
+            "api",
+            "v1",
+            "organization-addresses"
+          ],
+          "query": [
+            {
+              "key": "organizationId",
+              "value": "f2b8709b-c9fb-44c9-a9de-742c2e0360f3"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET ADDITIONAL INFO",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "channelId",
+            "value": "e0f175d4-6aa0-4e20-916d-56318a28dd11"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apiKey",
+            "value": "vuUqf1Uu1IcxntBIEw1JA0lh0uUGM3B0"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"ekycId\": \"c1a96184-d070-491d-8793-b945dc2b92d9\"\r\n}"
+        },
+        "url": {
+          "raw": "https://api-ifgid-dev.ifg-life.id/api/v1/user/additionalInfo/search",
+          "protocol": "https",
+          "host": [
+            "api-ifgid-dev",
+            "ifg-life",
+            "id"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "user",
+            "additionalInfo",
+            "search"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "ADDITIONAL INFO MASTER",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "channelId",
+            "value": "e0f175d4-6aa0-4e20-916d-56318a28dd11"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apiKey",
+            "value": "vuUqf1Uu1IcxntBIEw1JA0lh0uUGM3B0"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"ekycId\": \"c1a96184-d070-491d-8793-b945dc2b92d9\",\r\n    \"weight\": 67,\r\n    \"height\": 175\r\n}"
+        },
+        "url": {
+          "raw": "https://api-ifgid-dev.ifg-life.id/api/v1/user/additional-info-master/search",
+          "protocol": "https",
+          "host": [
+            "api-ifgid-dev",
+            "ifg-life",
+            "id"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "user",
+            "additional-info-master",
+            "search"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET OCR DATA",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "channelId",
+            "value": "e0f175d4-6aa0-4e20-916d-56318a28dd11"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apiKey",
+            "value": "vuUqf1Uu1IcxntBIEw1JA0lh0uUGM3B0"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"ekycId\": \"12be8cec-f2d1-45b5-8282-5a4d8a3a09ee\"\r\n}"
+        },
+        "url": {
+          "raw": "https://api-ifgid-uat.ifg-life.id/api/v1/ekyc/data/getOcrDocument",
+          "protocol": "https",
+          "host": [
+            "api-ifgid-uat",
+            "ifg-life",
+            "id"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "ekyc",
+            "data",
+            "getOcrDocument"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "SEARCH TAX USER",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apiKey",
+            "value": "vuUqf1Uu1IcxntBIEw1JA0lh0uUGM3B0"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"ekycId\" : \"b493aa3d-b278-42c2-93b3-1dc23ae16b2f\"\r\n    // \"referenceNumber\": \"721296d8-5590-4693-90da-081d921af4e0\"\r\n   \r\n}"
+        },
+        "url": {
+          "raw": "https://api-ifgid-uat.ifg-life.id/api/v1/user/tax/search",
+          "protocol": "https",
+          "host": [
+            "api-ifgid-uat",
+            "ifg-life",
+            "id"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "user",
+            "tax",
+            "search"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Fetch Data Organization",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "vuUqf1Uu1IcxntBIEw1JA0lh0uUGM3B0"
+          }
+        ],
+        "url": {
+          "raw": "https://api-ifgid-dev.ifg-life.id/organization-service/api/v1/organizations/f2b8709b-c9fb-44c9-a9de-742c2e0360f3",
+          "protocol": "https",
+          "host": [
+            "api-ifgid-dev",
+            "ifg-life",
+            "id"
+          ],
+          "path": [
+            "organization-service",
+            "api",
+            "v1",
+            "organizations",
+            "f2b8709b-c9fb-44c9-a9de-742c2e0360f3"
+          ],
+          "query": [
+            {
+              "key": "organizationId",
+              "value": "f2b8709b-c9fb-44c9-a9de-742c2e0360f3",
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET EKYC INFO",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apiKey",
+            "value": "cKTZHYVVJab2Kxk69wqVsSLmlCHIbkHp"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "// {\n// \"ekycId\": \"925c67e5-1bf1-4b9a-bdcf-56d9afff5d77\"\n// }\n{\n    \"ekycId\": \"2f657536-4e25-474c-b7b3-580a8463d827\"\n}"
+        },
+        "url": {
+          "raw": "https://api-ifgid-dev.ifg-life.id/api/v2/ekyc/data/getEkycInfo",
+          "protocol": "https",
+          "host": [
+            "api-ifgid-dev",
+            "ifg-life",
+            "id"
+          ],
+          "path": [
+            "api",
+            "v2",
+            "ekyc",
+            "data",
+            "getEkycInfo"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "ADD JOB",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "{{api_key_ifgId}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"ekycId\": \"2f657536-4e25-474c-b7b3-580a8463d827\",\n    \"jobCategory\": \"employee\", \n    \"jobType\": \"Agen Asuransi\", \n    \"address\": \"Jl Gatot Subroto No 99\",\n    \"neighborhood\": \"001\",\n    \"hamlet\": \"013\",\n    \"village\": \"Tanjung Duren\",\n    \"districtName\": \"Gerogol Petambubran\",\n    \"cityName\": \"Jakarta Barat\",\n    \"provinceName\": \"DKI Jakarta\",\n    \"postcode\": \"42211\",\n    \"businessName\": \"PT Code Development Indonesia\",\n    \"sectorOfBusiness\": \"Jasa\",\n    \"annualIncome\": \"Rp100jt-Rp300jt\",\n    \"jobLevel\": \"Lainnya\", \n    \"companyName\": \"PT MAJU BERSAMA TBK\", \n    \"companyPhoneNumber\": \"0218094831\",\n    \"companyEmail\": \"arden@baby.id\",\n    \"referenceNumber\": \"reference-number1\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url_ifgId}}/api/v1/user/job",
+          "host": [
+            "{{base_url_ifgId}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "user",
+            "job"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "USER DOCUMENTS",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "vuUqf1Uu1IcxntBIEw1JA0lh0uUGM3B0"
+          },
+          {
+            "key": "channelId",
+            "value": "e0f175d4-6aa0-4e20-916d-56318a28dd11"
+          },
+          {
+            "key": "deviceId",
+            "value": "93d69e69-2bb6-4e22-bec5-23626bdddd6f",
+            "disabled": true
+          },
+          {
+            "key": "userId",
+            "value": "d65f7058-c8d6-4bd5-9691-a4b099660e89",
+            "disabled": true
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api-ifgid-dev.ifg-life.id/api/v1/user-documents?ekycId=e857dd7f-b6c0-4763-a0d7-22651d1c74c6",
+          "protocol": "https",
+          "host": [
+            "api-ifgid-dev",
+            "ifg-life",
+            "id"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "user-documents"
+          ],
+          "query": [
+            {
+              "key": "ekycId",
+              "value": "e857dd7f-b6c0-4763-a0d7-22651d1c74c6"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "USER DOCUMENTS OCR",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "vuUqf1Uu1IcxntBIEw1JA0lh0uUGM3B0"
+          },
+          {
+            "key": "channelId",
+            "value": "e0f175d4-6aa0-4e20-916d-56318a28dd11"
+          },
+          {
+            "key": "deviceId",
+            "value": "93d69e69-2bb6-4e22-bec5-23626bdddd6f",
+            "disabled": true
+          },
+          {
+            "key": "userId",
+            "value": "d65f7058-c8d6-4bd5-9691-a4b099660e89",
+            "disabled": true
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"ekycId\": \"e857dd7f-b6c0-4763-a0d7-22651d1c74c6\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api-ifgid-uat.ifg-life.id/api/v1/ekyc/data/getOcrDocument",
+          "protocol": "https",
+          "host": [
+            "api-ifgid-uat",
+            "ifg-life",
+            "id"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "ekyc",
+            "data",
+            "getOcrDocument"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET DOCUMENT OF USER DOCUMENT",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "cKTZHYVVJab2Kxk69wqVsSLmlCHIbkHp"
+          },
+          {
+            "key": "channelId",
+            "value": "e0f175d4-6aa0-4e20-916d-56318a28dd11"
+          },
+          {
+            "key": "deviceId",
+            "value": "93d69e69-2bb6-4e22-bec5-23626bdddd6f",
+            "disabled": true
+          },
+          {
+            "key": "userId",
+            "value": "d65f7058-c8d6-4bd5-9691-a4b099660e89",
+            "disabled": true
+          }
+        ],
+        "url": {
+          "raw": "https://api-ifgid-uat.ifg-life.id/api/v1/storage?key=7832e2ae-2cfa-4141-8b1f-2335623c69b9.jpg&dir=id-card",
+          "protocol": "https",
+          "host": [
+            "api-ifgid-uat",
+            "ifg-life",
+            "id"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "storage"
+          ],
+          "query": [
+            {
+              "key": "key",
+              "value": "7832e2ae-2cfa-4141-8b1f-2335623c69b9.jpg"
+            },
+            {
+              "key": "dir",
+              "value": "id-card"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET DOCUMENT OCR",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "cKTZHYVVJab2Kxk69wqVsSLmlCHIbkHp"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"ekycId\": \"41937ab8-d2ac-4411-a206-dd8b037de298\"\n}"
+        },
+        "url": {
+          "raw": "https://api-ifgid-uat.ifg-life.id/api/v1/ekyc/data/getOcrDocument",
+          "protocol": "https",
+          "host": [
+            "api-ifgid-uat",
+            "ifg-life",
+            "id"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "ekyc",
+            "data",
+            "getOcrDocument"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "FETCH ADDITIONAL INFO MASTER",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "cKTZHYVVJab2Kxk69wqVsSLmlCHIbkHp"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "channelId",
+            "value": "e0f175d4-6aa0-4e20-916d-56318a28dd11",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"ekycId\": \"c1a96184-d070-491d-8793-b945dc2b92d9\"\r\n}"
+        },
+        "url": {
+          "raw": "https://api-ifgid-dev.ifg-life.id/api/v1/user/additional-info-master/search",
+          "protocol": "https",
+          "host": [
+            "api-ifgid-dev",
+            "ifg-life",
+            "id"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "user",
+            "additional-info-master",
+            "search"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "UPDATE DATA CUSTOMER",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "cKTZHYVVJab2Kxk69wqVsSLmlCHIbkHp"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"ekycId\": \"2ad379a9-295b-4863-ac8f-6a2036edc72e\",\n    \"address\": \"Desa Saleh Mukti\",\n    \"province\": \"Sumatera Selatan \",\n    \"city\": \"Kabupaten Banyuasin\",\n    \"district\": \"Kecamatan Air Saleh\",\n    \"subDistrict\": \"Kelurahan Saleh Mukti\",\n    \"neighborhood\": \"001\",\n    \"hamlet\": \"001\",\n    \"maritalStatus\": \"kawin\",\n    \"occupation\": \" karyawan swasta \",\n    \"religion\": \" islam \",\n    \"postcode\": \"19234\",  \n    \"name\": \"Indri Rahmawati ST, M,Sc\",\n    \"dob\": \"07-03-2021\",\n    \"pob\" : \"padang\",\n    \"nationality\": \" WNI \",\n    \"gender\": \"LAKI-LAKI\",\n    \"identityType\" : \"NIK\"\n}"
+        },
+        "url": {
+          "raw": "https://api-ifgid-uat.ifg-life.id/api/v3/ekyc/updateIdentityCard",
+          "protocol": "https",
+          "host": [
+            "api-ifgid-uat",
+            "ifg-life",
+            "id"
+          ],
+          "path": [
+            "api",
+            "v3",
+            "ekyc",
+            "updateIdentityCard"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "UPDATE JOB",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "{{api_key_ifgId}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"ekycId\": \"2f657536-4e25-474c-b7b3-580a8463d827\",\n    \"companyName\": \"PT MAJU BERSAMA TBK\"\n    // \"jobCategory\": \"entrepreneur\",\n    // \"jobType\": \"AGEN ASURANSI\"\n    // \"jobType\": \"Dekorator Papan Periklanan (Luar Ruangan)\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url_ifgId}}/api/v1/user/job",
+          "host": [
+            "{{base_url_ifgId}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "user",
+            "job"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "[V4] GET EKYC INFO",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apiKey",
+            "value": "cKTZHYVVJab2Kxk69wqVsSLmlCHIbkHp"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"ekycId\": \"10f86701-2a04-4a64-8f29-7dd8aa5a5945\"\n}"
+        },
+        "url": {
+          "raw": "https://api-ifgid-dev.ifg-life.id/api/v4/ekyc/data/getEkycInfo",
+          "protocol": "https",
+          "host": [
+            "api-ifgid-dev",
+            "ifg-life",
+            "id"
+          ],
+          "path": [
+            "api",
+            "v4",
+            "ekyc",
+            "data",
+            "getEkycInfo"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "SAVE ADDITIONAL MASTER INFO",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "cKTZHYVVJab2Kxk69wqVsSLmlCHIbkHp"
+          },
+          {
+            "key": "channelId",
+            "value": "dcd7eac7-8ba4-4216-b97d-86165b3bcccf"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"ekycId\": \"c1a96184-d070-491d-8793-b945dc2b92d9\",\n    \"height\" : 55,\n    \"weight\" : 160,\n    \"sourceOfPremium\" : \"Gaji\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api-ifgid-dev.ifg-life.id/api/v1/user/additionalInfo",
+          "protocol": "https",
+          "host": [
+            "api-ifgid-dev",
+            "ifg-life",
+            "id"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "user",
+            "additionalInfo"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

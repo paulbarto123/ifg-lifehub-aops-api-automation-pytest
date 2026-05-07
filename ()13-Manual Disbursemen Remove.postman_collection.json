@@ -1,0 +1,287 @@
+{
+  "info": {
+    "_postman_id": "d310e6f2-33b9-4867-a6a2-be2cfa90fe66",
+    "name": "()13-Manual Disbursemen Remove",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "46870646"
+  },
+  "item": [
+    {
+      "name": "1 - GET Member Penampung",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "if (pm.response.code === 200) {\r",
+              "    const response = pm.response.json();\r",
+              "    let page = response.page;\r",
+              "\r",
+              "    if (page === response.totalPages) {\r",
+              "        page = 0;\r",
+              "    }\r",
+              "\r",
+              "    pm.environment.set(\"nextPage\", page + 1);\r",
+              "    const data = response.data[0];\r",
+              "\r",
+              "    if (response.data.length > 0) {\r",
+              "        const applicationRefId = data.transactionId;\r",
+              "        pm.environment.set(\"applicationRefId\", applicationRefId);\r",
+              "\r",
+              "        // Ambil response JSON\r",
+              "        const res = pm.response.json();\r",
+              "        const formattedDate = pm.environment.get(\"formattedDate\");\r",
+              "\r",
+              "        // Transform data\r",
+              "        const transformedData = res.data.map(item => {\r",
+              "            const refundDetail = (item.transactionMemberDetailList || [])\r",
+              "                .find(d => d.code === \"REFUND_PREMIUM\");\r",
+              "\r",
+              "            return {\r",
+              "                amount: refundDetail ? refundDetail.value : \"0\",\r",
+              "                status: item.taskStatus === \"COMPLETED\" ? \"success\" : \"failed\",\r",
+              "                returnAt: \"1900-01-01 00:00:00\",\r",
+              "                disburseAt: formattedDate,\r",
+              "                failReason: \"\",\r",
+              "                sourceBank: {\r",
+              "                    bankCode: \"BNINIDJA\",\r",
+              "                    accountNo: \"***7789\"\r",
+              "                },\r",
+              "                transferType: \"manual\",\r",
+              "                disbursementId: `${Math.floor(Math.random() * 100000)}${Math.floor(Math.random() * 100000)}`,\r",
+              "                applicationSubRefId: item.id\r",
+              "            };\r",
+              "        });\r",
+              "\r",
+              "        // Final payload\r",
+              "        const finalPayload = {\r",
+              "            data: transformedData,\r",
+              "            status: \"success\",\r",
+              "            applicationRefId: applicationRefId\r",
+              "        };\r",
+              "\r",
+              "        // Simpan ke environment / collection variable\r",
+              "        pm.environment.set(\"disbursementPayload\", JSON.stringify(finalPayload, null, 2));\r",
+              "\r",
+              "        // Optional: tampilkan di Postman Console\r",
+              "        console.log(\"Disbursement Payload:\", finalPayload);\r",
+              "        pm.environment.set(\"totalRows\", response.totalRows);\r",
+              "    }\r",
+              "}\r",
+              "\r",
+              "\r",
+              "\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "const now = new Date();\r",
+              "\r",
+              "const pad = (n) => n < 10 ? '0' + n : n;\r",
+              "\r",
+              "const formattedDate = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;\r",
+              "\r",
+              "pm.environment.set(\"formattedDate\", formattedDate);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "{{api_key}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"page\": {{nextPage}},\r\n    \"limit\": 50,\r\n    \"transactionId\": \"{{transactionId}}\",\r\n    \"filter\": [\r\n        {\r\n            \"code\": \"DECISION_POS_STATUS\",\r\n            \"value\": \"APPROVED\"\r\n        },\r\n        {\r\n            \"code\": \"SCREENING_AML_STATUS\",\r\n            \"value\": \"Approve\"\r\n        }\r\n    ],\r\n    \"codes\": [\r\n        \"REFUND_PREMIUM\"\r\n    ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/lifehub/public/api/v1/general-transaction/transaction-member/list",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "lifehub",
+            "public",
+            "api",
+            "v1",
+            "general-transaction",
+            "transaction-member",
+            "list"
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'https://api-automation-dev.ifg-life.id/api/v1/general-transaction/transaction-member/list' \\\r\n--header 'apiKey: E97baCBt8SxmDcYNyd3KwbEA0giw8ElF' \\\r\n--header 'Content-Type: application/json' \\\r\n--data '{\r\n    \"page\": 1,\r\n    \"limit\": 100,\r\n    \"transactionId\": \"e712c884-43b9-4360-835c-93766b902c6b\",\r\n    \"filter\": [\r\n        \r\n        \r\n        \r\n        \r\n    ],\r\n    \"codes\": []\r\n}'"
+      },
+      "response": []
+    },
+    {
+      "name": "2 - Callback disbursement Remove",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Response body code is '2000'\", function () {\r",
+              "    const response = pm.response.json();\r",
+              "    pm.expect(response.code).to.equal(\"2000\");\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "{{api_key}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{{disbursementPayload}}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/v1/ao-workflow-policy-corporate/remove-member/task/testing-callback-disbursement",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v1",
+            "ao-workflow-policy-corporate",
+            "remove-member",
+            "task",
+            "testing-callback-disbursement"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "3 - Callback disbursement Remove Local",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Response body code is '2000'\", function () {\r",
+              "    const response = pm.response.json();\r",
+              "    pm.expect(response.code).to.equal(\"2000\");\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "{{api_key}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{{disbursementPayload}}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/v1/ao-workflow-policy-corporate/remove-member/task/testing-callback-disbursement",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v1",
+            "ao-workflow-policy-corporate",
+            "remove-member",
+            "task",
+            "testing-callback-disbursement"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "applicationRefId",
+      "value": ""
+    },
+    {
+      "key": "applicationSubRefId",
+      "value": ""
+    },
+    {
+      "key": "disbAmount",
+      "value": ""
+    }
+  ]
+}

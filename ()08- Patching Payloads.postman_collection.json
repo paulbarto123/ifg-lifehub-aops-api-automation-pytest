@@ -1,0 +1,93 @@
+{
+  "info": {
+    "_postman_id": "3d3cc236-bc81-4a43-9ae2-5da2bb689265",
+    "name": "()08- Patching Payloads",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "46870646"
+  },
+  "item": [
+    {
+      "name": "Patching Plan Code Corpo",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apiKey",
+            "value": "AXBJVtacQkg9vOVjurl1qJXPwHIC9Nh3"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n   \"listPolicyVariable\": [\n       {\n           \"code\": \"PLAN_CODE\",\n           \"type\": \"String\",\n           \"value\": \"02\",\n           \"createdBy\": \"CR-6331\",\n           \"updatedBy\": \"\"\n       }\n   ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api-core.ifg-life.id/v2/pas/organization-policies/variable/4160ada1-fb06-45ae-86f7-744f5695574a",
+          "protocol": "https",
+          "host": [
+            "api-core",
+            "ifg-life",
+            "id"
+          ],
+          "path": [
+            "v2",
+            "pas",
+            "organization-policies",
+            "variable",
+            "4160ada1-fb06-45ae-86f7-744f5695574a"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Patching Grace Period Member",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "apiKey",
+            "value": "EGpocVyiQ4L1E2qNaNu9uZa9DcYo64t3"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"policyId\": \"0d24a39a-421a-4549-8ba2-d5189c8b88ef\", \n    \"status\": \"GRACE_PERIOD\",\n    \"actionCode\": \"SUBMITTED\",\n    \"updatedBy\": \"IN-4412\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api-core.ifg-life.id/v2/pas/policies/status",
+          "protocol": "https",
+          "host": [
+            "api-core",
+            "ifg-life",
+            "id"
+          ],
+          "path": [
+            "v2",
+            "pas",
+            "policies",
+            "status"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

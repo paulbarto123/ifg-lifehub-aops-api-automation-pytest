@@ -1,0 +1,1081 @@
+{
+  "info": {
+    "_postman_id": "5aab79ae-5a1c-4938-b079-9909117eb872",
+    "name": "()07-Withdrawal Corpo Runner",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "46870646"
+  },
+  "item": [
+    {
+      "name": "1 - Get Data Org | SEARCH_POLICY_ORGANIZATION_BY_POLICY_NUMBER",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "\r",
+              "if (pm.response.code === 200) {\r",
+              "    const response = pm.response.json();\r",
+              "    if (response.data && response.data.data.length > 0) {\r",
+              "        const organizationId = response.data.data[0].organizationId;\r",
+              "        const organizationPolicyNumber = response.data.data[0].organizationPolicyNumber;\r",
+              "\r",
+              "        const productCode = response.data.data[0].productCode;\r",
+              "\r",
+              "        pm.collectionVariables.set(\"productCode\", productCode);\r",
+              "        pm.collectionVariables.set(\"organizationId\", organizationId);\r",
+              "        pm.collectionVariables.set(\"organizationPolicyNumber\", organizationPolicyNumber);\r",
+              "    }\r",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "{{api_key_core}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"page\": 0,\r\n    \"size\": 1,\r\n    \"organizationPolicyNumber\": \"9106252032\"//\"EBP/PHT-0000001160/AA (0000001160)\"// PHT dev ////\"9106262063\"//\"9106262063\"//UAT //\"9106251881\" //UAT pooled //\"9106262063\" //UAT indiv // \"9106252051\"DEV//\"910625928\"//\"9106252051\" // 9106252156\r\n    // \"organizationPolicyNumber\": \"9901251792\" //PHT DEV\r\n    // \"organizationPolicyNumber\": \"NONEBP/PHT-0000003004/LA\" //PHT DEV indiv\r\n    \r\n    // \"organizationPolicyNumber\": \"9106252051\" //DHT DEV\r\n}\r\n// LCP => 9108251594\r\n// CLI Dev => 9108251649,9108251491\r\n// GLP => 9104251192\r\n// DHT Ind => 9106252051,9106251658\r\n// PHT Ind => EBP/PHT-0000011111/AA (0000011111)\r\n// GLP UAT => 9104251578\r\n// DHT pool dev => 9106252105, 9106252106\r\n\r\n// DEV DHT POOLED => 9106252032\r\n// UAT DHT POOL => 9106251881\r\n//UAT DHT indiv => 9106262063",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url_core}}/v2/pas/organization-policies/search",
+          "host": [
+            "{{base_url_core}}"
+          ],
+          "path": [
+            "v2",
+            "pas",
+            "organization-policies",
+            "search"
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'https://api-automation-uat.ifg-life.id/api/v2/ao-workflow-claim/general/transaction/header' \\\r\n--header 'accept: application/json' \\\r\n--header 'Content-Type: application/json' \\\r\n--header 'apiKey: E97baCBt8SxmDcYNyd3KwbEA0giw8ElF' \\\r\n--data-raw '{\r\n    \"referenceNo\": \"b876cc32-73f6-465b-8fd9-08d8732ea4ab\",\r\n    \"referenceType\": \"CLAIM_SUBMISSION_NO\",\r\n    \"transactionType\": \"lifespace-ps-remove-member\",\r\n    \"workflow\": \"\",\r\n    \"instanceId\": \"\",\r\n    \"status\": \"\",\r\n    \"details\": {\r\n        \"PAYLOAD_SUBMISSION\": {\r\n            \"id\": \"\",\r\n            \"transactionEventId\": \"\",\r\n            \"transactionEventNumber\": \"\",\r\n            \"policyNumber\": \"910425857\",\r\n            \"organizationId\":\"a712bcc1-f546-45ce-ab56-4f7bee3d2409\",\r\n            \"submissionDate\": \"{{formattedDate}}\",\r\n            \"status\": \"\",\r\n            \"transactionEventVariable\": [\r\n                {\r\n                    \"code\": \"PREMIUM_REFUND\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"TRUE\"\r\n                },\r\n                {\r\n                    \"code\": \"NO_SURAT_REFERENSI\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"78374T4082023\"\r\n                },\r\n                {\r\n                    \"code\": \"TANGGAL_SURAT_REFERENSI\",\r\n                    \"type\": \"date\",\r\n                    \"value\": \"2025-04-05\"\r\n                },\r\n                {\r\n                    \"code\": \"PIC_NAME\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"Jhon Doe\"\r\n                },\r\n                {\r\n                    \"code\": \"PIC_EMAIL\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"jhondoe@mail.id\"\r\n                },\r\n                {\r\n                    \"code\": \"PIC_PHONE_NUMBER\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"0212235642\"\r\n                },\r\n                {\r\n                    \"code\": \"PIC_POSITION\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"Manager\"\r\n                }\r\n            ],\r\n            \"message\": \"\"\r\n        },\r\n        \"DECISION\": {}\r\n    }\r\n}'"
+      },
+      "response": []
+    },
+    {
+      "name": "2 - Get Policy Member",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.collectionVariables.unset(\"planCode\");\r",
+              "pm.collectionVariables.unset(\"randomPolicyNumber\");\r",
+              "\r",
+              "\r",
+              "if (pm.response.code === 200) {\r",
+              "    const response = pm.response.json();\r",
+              "\r",
+              "    if (response.data && response.data.policyList) {\r",
+              "        const validPolicies = response.data.policyList.filter(policy => policy.premi >= 0 && policy.policyStatus === \"INFORCE\");\r",
+              "        console.info(validPolicies)\r",
+              "        pm.test(\"There are policies with premi greater than 0 and status INFORCE\", function () {\r",
+              "            pm.expect(validPolicies.length).to.be.greaterThan(0);\r",
+              "        });\r",
+              "\r",
+              "        if (validPolicies.length > 0) {\r",
+              "            const index = Math.floor(Math.random() * validPolicies.length);\r",
+              "            const randomPolicy = validPolicies[index];\r",
+              "            pm.collectionVariables.set(\"randomPolicyNumber\", randomPolicy.policyNumber);\r",
+              "            if (randomPolicy.planCode) {\r",
+              "                pm.collectionVariables.set(\"planCode\", randomPolicy.planCode);\r",
+              "            } else {\r",
+              "                pm.collectionVariables.set(\"planCode\", \"\");\r",
+              "            }\r",
+              "            console.log(\"Random Policy Number:\", randomPolicy);\r",
+              "        }\r",
+              "    }\r",
+              "}\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "{{api_key_core}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"organizationPolicyNumber\": \"{{organizationPolicyNumber}}\",\r\n    \"size\": 1000\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url_core}}/v2/pas/policy/search",
+          "host": [
+            "{{base_url_core}}"
+          ],
+          "path": [
+            "v2",
+            "pas",
+            "policy",
+            "search"
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'https://api-automation-uat.ifg-life.id/api/v2/ao-workflow-claim/general/transaction/header' \\\r\n--header 'accept: application/json' \\\r\n--header 'Content-Type: application/json' \\\r\n--header 'apiKey: E97baCBt8SxmDcYNyd3KwbEA0giw8ElF' \\\r\n--data-raw '{\r\n    \"referenceNo\": \"b876cc32-73f6-465b-8fd9-08d8732ea4ab\",\r\n    \"referenceType\": \"CLAIM_SUBMISSION_NO\",\r\n    \"transactionType\": \"lifespace-ps-remove-member\",\r\n    \"workflow\": \"\",\r\n    \"instanceId\": \"\",\r\n    \"status\": \"\",\r\n    \"details\": {\r\n        \"PAYLOAD_SUBMISSION\": {\r\n            \"id\": \"\",\r\n            \"transactionEventId\": \"\",\r\n            \"transactionEventNumber\": \"\",\r\n            \"policyNumber\": \"910425857\",\r\n            \"organizationId\":\"a712bcc1-f546-45ce-ab56-4f7bee3d2409\",\r\n            \"submissionDate\": \"{{formattedDate}}\",\r\n            \"status\": \"\",\r\n            \"transactionEventVariable\": [\r\n                {\r\n                    \"code\": \"PREMIUM_REFUND\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"TRUE\"\r\n                },\r\n                {\r\n                    \"code\": \"NO_SURAT_REFERENSI\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"78374T4082023\"\r\n                },\r\n                {\r\n                    \"code\": \"TANGGAL_SURAT_REFERENSI\",\r\n                    \"type\": \"date\",\r\n                    \"value\": \"2025-04-05\"\r\n                },\r\n                {\r\n                    \"code\": \"PIC_NAME\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"Jhon Doe\"\r\n                },\r\n                {\r\n                    \"code\": \"PIC_EMAIL\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"jhondoe@mail.id\"\r\n                },\r\n                {\r\n                    \"code\": \"PIC_PHONE_NUMBER\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"0212235642\"\r\n                },\r\n                {\r\n                    \"code\": \"PIC_POSITION\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"Manager\"\r\n                }\r\n            ],\r\n            \"message\": \"\"\r\n        },\r\n        \"DECISION\": {}\r\n    }\r\n}'"
+      },
+      "response": []
+    },
+    {
+      "name": "3 - Submission Header",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "const now = new Date();\r",
+              "\r",
+              "const pad = (n) => n < 10 ? '0' + n : n;\r",
+              "\r",
+              "const formattedDate = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;\r",
+              "\r",
+              "pm.collectionVariables.set(\"formattedDate\", formattedDate);\r",
+              "\r",
+              "\r",
+              "const hhmmss = `${pad(now.getDate())}${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}`;\r",
+              "\r",
+              "function uuid() {\r",
+              "    return 'kang2026-janu-4xxx-xxxx-WITHDRAW'.replace(/[xy]/g, function (c) {\r",
+              "        const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);\r",
+              "        return v.toString(16);\r",
+              "    });\r",
+              "}\r",
+              "\r",
+              "pm.collectionVariables.set('referenceNo', uuid() + hhmmss);\r",
+              "\r",
+              "\r",
+              "\r",
+              "const formattedToday = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;\r",
+              "\r",
+              "pm.collectionVariables.set('today', formattedToday);\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "{{api_key}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"referenceNo\": \"{{referenceNo}}\",\r\n    \"referenceType\": \"TEST_WITHDRAWAL\",\r\n    \"transactionType\": \"lifespace-ps-withdrawal\",\r\n    \"workflow\": \"\",\r\n    \"instanceId\": \"\",\r\n    \"status\": \"\",\r\n    \"details\": {\r\n        \"PAYLOAD_SUBMISSION\": {\r\n            \"id\": \"\",\r\n            \"status\": \"\",\r\n            \"policyNumber\": \"{{organizationPolicyNumber}}\",\r\n            \"organizationId\": \"{{organizationId}}\",\r\n            \"submissionDate\": \"{{formattedDate}}\", //\"2026-01-01 00:00:00\",//\"{{formattedDate}}\",\r\n            \"transactionEventVariable\": [\r\n                {\r\n                    \"code\": \"NO_SURAT_REFERENSI\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"KA-{{$randomInt}}{{$randomInt}}/WD/2026\"\r\n                },\r\n                {\r\n                    \"code\": \"TANGGAL_SURAT_REFERENSI\",\r\n                    \"type\": \"date\",\r\n                    \"value\": \"{{today}}\"\r\n                },\r\n                {\r\n                    \"code\": \"PIC_NAME\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"Paulus Siahaan\"\r\n                },\r\n                {\r\n                    \"code\": \"PIC_EMAIL\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"paulus.siahaan@ifg-life.id\"\r\n                },\r\n                {\r\n                    \"code\": \"PIC_PHONE_NUMBER\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"628234567890\"\r\n                },\r\n                {\r\n                    \"code\": \"PIC_POSITION\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"QA Tester\"\r\n                }\r\n            ]\r\n        }\r\n    }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v2/ao-workflow-claim/general/transaction/header",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v2",
+            "ao-workflow-claim",
+            "general",
+            "transaction",
+            "header"
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'https://api-automation-uat.ifg-life.id/api/v2/ao-workflow-claim/general/transaction/header' \\\r\n--header 'accept: application/json' \\\r\n--header 'Content-Type: application/json' \\\r\n--header 'apiKey: E97baCBt8SxmDcYNyd3KwbEA0giw8ElF' \\\r\n--data-raw '{\r\n    \"referenceNo\": \"b876cc32-73f6-465b-8fd9-08d8732ea4ab\",\r\n    \"referenceType\": \"CLAIM_SUBMISSION_NO\",\r\n    \"transactionType\": \"lifespace-ps-remove-member\",\r\n    \"workflow\": \"\",\r\n    \"instanceId\": \"\",\r\n    \"status\": \"\",\r\n    \"details\": {\r\n        \"PAYLOAD_SUBMISSION\": {\r\n            \"id\": \"\",\r\n            \"transactionEventId\": \"\",\r\n            \"transactionEventNumber\": \"\",\r\n            \"policyNumber\": \"910425857\",\r\n            \"organizationId\":\"a712bcc1-f546-45ce-ab56-4f7bee3d2409\",\r\n            \"submissionDate\": \"{{formattedDate}}\",\r\n            \"status\": \"\",\r\n            \"transactionEventVariable\": [\r\n                {\r\n                    \"code\": \"PREMIUM_REFUND\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"TRUE\"\r\n                },\r\n                {\r\n                    \"code\": \"NO_SURAT_REFERENSI\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"78374T4082023\"\r\n                },\r\n                {\r\n                    \"code\": \"TANGGAL_SURAT_REFERENSI\",\r\n                    \"type\": \"date\",\r\n                    \"value\": \"2025-04-05\"\r\n                },\r\n                {\r\n                    \"code\": \"PIC_NAME\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"Jhon Doe\"\r\n                },\r\n                {\r\n                    \"code\": \"PIC_EMAIL\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"jhondoe@mail.id\"\r\n                },\r\n                {\r\n                    \"code\": \"PIC_PHONE_NUMBER\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"0212235642\"\r\n                },\r\n                {\r\n                    \"code\": \"PIC_POSITION\",\r\n                    \"type\": \"string\",\r\n                    \"value\": \"Manager\"\r\n                }\r\n            ],\r\n            \"message\": \"\"\r\n        },\r\n        \"DECISION\": {}\r\n    }\r\n}'"
+      },
+      "response": []
+    },
+    {
+      "name": "Postman delay 10 seconds",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://postman-echo.com/delay/10",
+          "protocol": "https",
+          "host": [
+            "postman-echo",
+            "com"
+          ],
+          "path": [
+            "delay",
+            "10"
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'https://api-automation-v2-dev.ifg-life.id/lifehub/public/api/v1/general-transaction/transaction-member/list' \\\r\n--header 'apiKey: YfPCr603s4OyM4pMUAuHvaWIl1kmmkWq' \\\r\n--header 'Content-Type: application/json' \\\r\n--data '{\r\n    \"page\": 1,\r\n    \"limit\": 10,\r\n    \"transactionId\": \"2d0c5cf1-cd3f-44d5-8db2-6387f2e52db8\",\r\n    \"filter\": [],\r\n    \"codes\": []\r\n}'"
+      },
+      "response": []
+    },
+    {
+      "name": "4 - GET Header Penampung",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const response = pm.response.json();\r",
+              "if (pm.response.code === 200 && response.data && response.data.length > 0) {\r",
+              "    // pm.collectionVariables.set(\"transactionId\", response.data[0].id);\r",
+              "    pm.collectionVariables.set(\"transactionId\", response.data[0].id);\r",
+              "    pm.collectionVariables.set(\"instanceId\", response.data[0].instanceId);\r",
+              "}\r",
+              "\r",
+              "// Configuration\r",
+              "const maxRetries = 5;  // how many times to retry\r",
+              "const retryDelay = 3000; // milliseconds between retries\r",
+              "\r",
+              "// Use pm.collectionVariables to persist retry count between runs\r",
+              "let retryCount = pm.collectionVariables.get(\"retryCount\") || 0;\r",
+              "\r",
+              "if (response.data && Array.isArray(response.data) && response.data.length === 0) {\r",
+              "    if (retryCount < maxRetries) {\r",
+              "        retryCount++;\r",
+              "        console.log(`⚠️ Data empty. Retrying... Attempt ${retryCount}/${maxRetries}`);\r",
+              "\r",
+              "        // Save updated retry count\r",
+              "        pm.collectionVariables.set(\"retryCount\", retryCount);\r",
+              "\r",
+              "        // Schedule a retry\r",
+              "        setTimeout(() => {\r",
+              "            postman.setNextRequest(pm.info.requestName);\r",
+              "        }, retryDelay);\r",
+              "    } else {\r",
+              "        console.log(\"🚫 Max retries reached. Stopping further requests.\");\r",
+              "        pm.collectionVariables.unset(\"retryCount\");\r",
+              "    }\r",
+              "} else {\r",
+              "    console.log(\"✅ Non-empty data received. Test successful!\");\r",
+              "    // Reset retry count since data is valid\r",
+              "    pm.collectionVariables.unset(\"retryCount\");\r",
+              "}\r",
+              "\r",
+              "\r",
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.expect(pm.response.code).to.equal(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response body code is '2000'\", function () {\r",
+              "    const response = pm.response.json();\r",
+              "    pm.expect(response.code).to.equal(2000);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Data array is not empty\", function () {\r",
+              "    const response = pm.response.json();\r",
+              "    pm.expect(response.data).to.exist;\r",
+              "    pm.expect(response.data).to.be.an('array').that.is.not.empty;\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Total rows is greater than zero\", function () {\r",
+              "    const response = pm.response.json();\r",
+              "    pm.expect(response.totalRows).to.be.greaterThan(0);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Total pages is greater than zero\", function () {\r",
+              "    const response = pm.response.json();\r",
+              "    pm.expect(response.totalPages).to.be.greaterThan(0);\r",
+              "});\r",
+              "\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "{{api_key}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"page\": 1,\n    \"limit\": 1,\n    // \"transactionId\": \"075d8716-a9ac-45b3-9724-e0b970320727\",\n    // \"transactionType\": \"lifespace-ps-remove-member\",\n    \"referenceNo\": \"{{referenceNo}}\",\n    // \"referenceType\": \"OnePartner\",\n    // \"status\":\"PENDING\",\n    \"filter\": [],\n    \"codes\": []\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/lifehub/public/api/v1/general-transaction/transaction/list",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "lifehub",
+            "public",
+            "api",
+            "v1",
+            "general-transaction",
+            "transaction",
+            "list"
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'https://api-automation-dev.ifg-life.id/api/v1/general-transaction/transaction/list' \\\n\r\n--header 'apiKey: E97baCBt8SxmDcYNyd3KwbEA0giw8ElF' \\\n\r\n--header 'Content-Type: application/json' \\\n\r\n--data '{\n\r\n    \"page\":1 ,\n\r\n    \"limit\": 1,\n\r\n    \"referenceNo\": \"910724193\",\n\r\n    \"filter\": [\n\r\n        {\n\r\n            \"code\": \"SUBMISSION_ID\",\n\r\n            \"value\": \"e1ffad32-f454-414d-bbba-06fe5efeaada\"\n\r\n        }\n\r\n    ],\n\r\n    \"codes\": [\n\r\n        \"SUBMISSION_ID\"\n\r\n    ]\n\r\n}'\n "
+      },
+      "response": []
+    },
+    {
+      "name": "5 - Check Policy No",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "if (pm.response.code === 200) {\r",
+              "    const response = pm.response.json();\r",
+              "    if (response.data.policyList && response.data.policyList.length > 0) {\r",
+              "        const policyId = response.data.policyList[0].id;\r",
+              "        const cif = response.data.policyList[0].person.cif;\r",
+              "        const policyStatus = response.data.policyList[0].status;\r",
+              "        const policyNumber = response.data.policyList[0].policyNumber;\r",
+              "\r",
+              "        const productCode = response.data.policyList[0].productCode;\r",
+              "\r",
+              "        // Retrieve CERTIFICATE_NUMBER from listPolicyVariable\r",
+              "        const certificateNumberVariable = response.data.policyList[0].listPolicyVariable.find(variable => variable.code === \"CERTIFICATE_NUMBER\");\r",
+              "        if (certificateNumberVariable) {\r",
+              "            pm.collectionVariables.set(\"certificateNumber\", certificateNumberVariable.value);\r",
+              "            // pm.collectionVariables.set(\"certificateNumber\", certificateNumberVariable.value);\r",
+              "            // pm.globals.set(\"certificateNumber\", certificateNumberVariable.value);\r",
+              "        } else {\r",
+              "            // pm.globals.set(\"certificateNumber\", policyNumber);\r",
+              "            // pm.collectionVariables.set(\"certificateNumber\", policyNumber);\r",
+              "            pm.collectionVariables.set(\"certificateNumber\", policyNumber);\r",
+              "        }\r",
+              "\r",
+              "        pm.collectionVariables.set(\"policyId\", policyId);\r",
+              "        pm.collectionVariables.set(\"cif\", cif);\r",
+              "        pm.collectionVariables.set(\"policyNumber\", policyNumber);\r",
+              "        pm.collectionVariables.set(\"policyStatus\", policyStatus);\r",
+              "        // pm.collectionVariables.set(\"productCode\", productCode);\r",
+              "\r",
+              "        if (response.data.policyList[0].listPolicyCoverage.length > 0) {\r",
+              "            const planCode = response.data.policyList[0].listPolicyCoverage[0].planCode;\r",
+              "\r",
+              "            pm.collectionVariables.set(\"planCode\", planCode);\r",
+              "\r",
+              "        } else {\r",
+              "            pm.collectionVariables.set(\"planCode\", \"\");\r",
+              "        }\r",
+              "\r",
+              "    }\r",
+              "}\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "{{api_key_core}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n\"policyNumber\": \"{{randomPolicyNumber}}\"\n// \"policyNumber\": \"990126000259208\"\n    // \"policyNumber\":\"910626000422448\"// UAT DHT indiv\n    //\"{{randomPolicyNumber}}\"//\"{{policyNo}}\"\n    // \"policyNumber\" : \"910625000138724\"// DEV, 910625000138723 \"910626000422448\"// UAT\n    // \"policyNumber\": \"910625000378934\" //UAT DHT Pooled\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url_core}}/v2/pas/policies/search",
+          "host": [
+            "{{base_url_core}}"
+          ],
+          "path": [
+            "v2",
+            "pas",
+            "policies",
+            "search"
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'https://api-automation-uat.ifg-life.id/api/v2/ao-workflow-claim/general/transaction/member' \\\r\n--header 'Content-Type: application/json' \\\r\n--header 'accept: application/json' \\\r\n--header 'apiKey: E97baCBt8SxmDcYNyd3KwbEA0giw8ElF' \\\r\n--data '{\r\n    \"organizationMember\": {\r\n        \"transactionId\": \"7ae0636b-9c4f-4c73-9144-2b964935927b\",\r\n        \"referenceNo\": \"b876cc32-73f6-465b-8fd9-08d8732ea4ab\",\r\n        \"transactionType\": \"lifespace-ps-remove-member\",\r\n        \"totalMember\": \"1\",\r\n        \"totalPage\": \"1\",\r\n        \"page\": 1,\r\n        \"totalInPage\": \"1\",\r\n        \"listOfMember\": [\r\n            {\r\n                \"memberId\": \"DGA0000088327\",\r\n                \"memberReferenceNo\": \"910425000049000\",\r\n                \"memberReferenceType\": \"CERTIFICATE_NO\",\r\n                \"taskName\": \"\",\r\n                \"taskStatus\": \"\",\r\n                \"details\": {\r\n                    \"PAYLOAD_SUBMISSION\": {\r\n                        \"id\": \"\",\r\n                        \"result\": \"\",\r\n                        \"status\": \"\",\r\n                        \"message\": \"\",\r\n                        \"certificateNo\": \"91042585700000008\",\r\n                        \"policyDetail\": {\r\n                            \"cif\": \"6b5f23b5-cfa5-4a93-b6e7-f4fd238841b7\",\r\n                            \"dob\": \"1997-04-10\",\r\n                            \"nik\": \"1430639798421630\",\r\n                            \"address\": \"JAKARTA\",\r\n                            \"statusName\": \"INFORCE\",\r\n                            \"customerName\": \"DUMMY NAME 8\",\r\n                            \"policyNumber\": \"910425000049000\",\r\n                            \"policyId\":\"b31dd154-898a-437f-9f81-73e0f1ad21e9\", \r\n                            \"organizationId\":\"a712bcc1-f546-45ce-ab56-4f7bee3d2409\" \r\n                        },\r\n                        \"listVariable\": [\r\n                            {\r\n                                \"code\": \"PLAN_CODE\",\r\n                                \"value\": \"01\"\r\n                            },\r\n                            {\r\n                                \"code\": \"PRODUCT_CODE\",\r\n                                \"value\": \"104\"\r\n                            },\r\n                            {\r\n                                \"code\": \"CARD_NUMBER\",\r\n                                \"value\": \"DGA0000088327\"\r\n                            },\r\n                            {\r\n                                \"code\": \"INCIDENT_DATE\",\r\n                                \"value\": \"2025-04-04 11:03:00\"\r\n                            },\r\n                            {\r\n                                \"code\": \"CASH_VALUE\",\r\n                                \"value\": \"0\"\r\n                            },\r\n                            {\r\n                                \"code\": \"RISK_CODE\",\r\n                                \"value\": \"MATURITY\"\r\n                            },\r\n                            {\r\n                                \"code\": \"MUTATION_TYPE\",\r\n                                \"value\": \"MATURITY\" \r\n                            },\r\n                            {\r\n                                \"code\": \"REASON\",\r\n                                \"value\": \"TERMINATION\" \r\n                            },\r\n                            {\r\n                                \"code\": \"BANK_NAME\",\r\n                                \"value\": \"Mandiri\"\r\n                            },\r\n                            {\r\n                                \"code\": \"BANK_SWIFT_CODE\",\r\n                                \"value\": \"CENAIDJA\"\r\n                            },\r\n                            {\r\n                                \"code\": \"BANK_ACCOUNT_NAME\",\r\n                                \"value\": \"DUMMY NAME 8\"\r\n                            },\r\n                            {\r\n                                \"code\": \"BENEFICIARY_NAME\",\r\n                                \"value\": \"DUMMY NAME 8\"\r\n                            },\r\n                            {\r\n                                \"code\": \"BANK_ACCOUNT_NUMBER\",\r\n                                \"value\": \"1301164250\"\r\n                            },\r\n                            {\r\n                                \"code\": \"RELATION\",\r\n                                \"value\": \"Diri Sendiri\"\r\n                            }\r\n                        ]\r\n                    },\r\n                    \"DECISION\": {}\r\n                }\r\n            }\r\n        ]\r\n    }\r\n}'"
+      },
+      "response": []
+    },
+    {
+      "name": "6 - Ambil data Member yg mau WD",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.expect(pm.response.code).to.equal(200);\r",
+              "});\r",
+              "\r",
+              "const response = pm.response.json();\r",
+              "if (response.data && response.data.length > 0) {\r",
+              "    const name = response.data[0].idCard.name;\r",
+              "    pm.collectionVariables.set(\"name\", name);\r",
+              "\r",
+              "    const idCardNo = response.data[0].idCard.idCardNo;\r",
+              "    pm.collectionVariables.set(\"idCardNo\", idCardNo);\r",
+              "\r",
+              "    const address = response.data[0].idCard.address;\r",
+              "    pm.collectionVariables.set(\"address\", address);\r",
+              "\r",
+              "    const dob = response.data[0].idCard.dob;\r",
+              "    const formattedDob = new Date(dob.split('-').reverse().join('-')).toISOString().split('T')[0]; // Convert to yyyy-mm-dd\r",
+              "    pm.collectionVariables.set(\"dob\", formattedDob);\r",
+              "}\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "{{api_key_ifgId}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"ekycId\": \"{{cif}}\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url_ifgId}}/api/v6/ekyc/data/getEkycInfo",
+          "host": [
+            "{{base_url_ifgId}}"
+          ],
+          "path": [
+            "api",
+            "v6",
+            "ekyc",
+            "data",
+            "getEkycInfo"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "7 - Submission Member - Withdrawal Test",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.expect(pm.response.code).to.equal(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response body code is '2000'\", function () {\r",
+              "    const response = pm.response.json();\r",
+              "    pm.expect(response.code).to.equal(\"2000\");\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "// Pre-request Script\r",
+              "const min = 10000;\r",
+              "const max = 11000;\r",
+              "\r",
+              "// random integer inclusive\r",
+              "const randomInt = Math.floor(Math.random() * (max - min + 1)) + min;\r",
+              "\r",
+              "console.log(\"cashValue (env) =\", randomInt);\r",
+              "\r",
+              "pm.collectionVariables.set(\"cashValue\", randomInt);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "{{api_key}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"organizationMember\": {\r\n        \"transactionId\": \"{{transactionId}}\",\r\n        \"referenceNo\": \"{{referenceNo}}\",\r\n        \"transactionType\": \"lifespace-ps-withdrawal\",\r\n        \"totalMember\": \"1\",\r\n        \"totalPage\": \"1\",\r\n        \"page\": 1,\r\n        \"totalInPage\": \"1\",\r\n        \"listOfMember\": [\r\n            {\r\n                \"memberId\": \"\",\r\n                \"memberReferenceNo\": \"{{policyNumber}}\",\r\n                \"memberReferenceType\": \"POLICY_NO\",\r\n                \"productCode\": \"{{productCode}}\",\r\n                \"planCode\": \"{{planCode}}\",\r\n                \"taskName\": \"\",\r\n                \"taskStatus\": \"\",\r\n                \"details\": {\r\n                    \"CERTIFICATE_NO\": \"{{certificateNumber}}\",\r\n                    \"POLICY_NO\": \"{{policyNumber}}\",\r\n                    \"POLICY_ID\": \"{{policyId}}\",\r\n                    \"CASH_VALUE\": \"{{$randomInt}}{{$randomInt}}\",\r\n                    //  \"CASH_VALUE\": \"1500000001\",\r\n                    \"DECISION\": {\r\n                        \"DECISION_POS_STATUS\": \"\",\r\n                        \"DECISION_POS_REMARKS\": \"\",\r\n                        \"DECISION_POS_REASON\": \"\"\r\n                    },\r\n                    \"DOB\": \"{{dob}}\",\r\n                    \"ID_CARD\": \"{{idCardNo}}\",\r\n                    \"PERSON_CIF\": \"{{cif}}\",\r\n                    \"PLAN_CODE\": \"{{planCode}}\",\r\n                    \"PRODUCT_CODE\" : \"{{productCode}}\",\r\n                    \"NAME\": \"{{$randomFullName}} {{$randomLastName}}\",\r\n                    \"BANK_NAME\": \"BRI\",\r\n                    \"BANK_SWIFT_CODE\": \"BRINIDJA\",\r\n                    \"BANK_ACCOUNT_NAME\": \"QA TESTING\",\r\n                    \"BENEFICIARY_NAME\": \"PAULUS SIAHAAN\",\r\n                    \"BANK_ACCOUNT_NUMBER\": \"{{$randomInt}}{{$randomInt}}{{$randomInt}}{{$randomInt}}\"\r\n                }\r\n            }\r\n        ]\r\n    }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v2/ao-workflow-claim/general/transaction/member",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v2",
+            "ao-workflow-claim",
+            "general",
+            "transaction",
+            "member"
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'https://api-automation-uat.ifg-life.id/api/v2/ao-workflow-claim/general/transaction/member' \\\r\n--header 'Content-Type: application/json' \\\r\n--header 'accept: application/json' \\\r\n--header 'apiKey: E97baCBt8SxmDcYNyd3KwbEA0giw8ElF' \\\r\n--data '{\r\n    \"organizationMember\": {\r\n        \"transactionId\": \"7ae0636b-9c4f-4c73-9144-2b964935927b\",\r\n        \"referenceNo\": \"b876cc32-73f6-465b-8fd9-08d8732ea4ab\",\r\n        \"transactionType\": \"lifespace-ps-remove-member\",\r\n        \"totalMember\": \"1\",\r\n        \"totalPage\": \"1\",\r\n        \"page\": 1,\r\n        \"totalInPage\": \"1\",\r\n        \"listOfMember\": [\r\n            {\r\n                \"memberId\": \"DGA0000088327\",\r\n                \"memberReferenceNo\": \"910425000049000\",\r\n                \"memberReferenceType\": \"CERTIFICATE_NO\",\r\n                \"taskName\": \"\",\r\n                \"taskStatus\": \"\",\r\n                \"details\": {\r\n                    \"PAYLOAD_SUBMISSION\": {\r\n                        \"id\": \"\",\r\n                        \"result\": \"\",\r\n                        \"status\": \"\",\r\n                        \"message\": \"\",\r\n                        \"certificateNo\": \"91042585700000008\",\r\n                        \"policyDetail\": {\r\n                            \"cif\": \"6b5f23b5-cfa5-4a93-b6e7-f4fd238841b7\",\r\n                            \"dob\": \"1997-04-10\",\r\n                            \"nik\": \"1430639798421630\",\r\n                            \"address\": \"JAKARTA\",\r\n                            \"statusName\": \"INFORCE\",\r\n                            \"customerName\": \"DUMMY NAME 8\",\r\n                            \"policyNumber\": \"910425000049000\",\r\n                            \"policyId\":\"b31dd154-898a-437f-9f81-73e0f1ad21e9\", \r\n                            \"organizationId\":\"a712bcc1-f546-45ce-ab56-4f7bee3d2409\" \r\n                        },\r\n                        \"listVariable\": [\r\n                            {\r\n                                \"code\": \"PLAN_CODE\",\r\n                                \"value\": \"01\"\r\n                            },\r\n                            {\r\n                                \"code\": \"PRODUCT_CODE\",\r\n                                \"value\": \"104\"\r\n                            },\r\n                            {\r\n                                \"code\": \"CARD_NUMBER\",\r\n                                \"value\": \"DGA0000088327\"\r\n                            },\r\n                            {\r\n                                \"code\": \"INCIDENT_DATE\",\r\n                                \"value\": \"2025-04-04 11:03:00\"\r\n                            },\r\n                            {\r\n                                \"code\": \"CASH_VALUE\",\r\n                                \"value\": \"0\"\r\n                            },\r\n                            {\r\n                                \"code\": \"RISK_CODE\",\r\n                                \"value\": \"MATURITY\"\r\n                            },\r\n                            {\r\n                                \"code\": \"MUTATION_TYPE\",\r\n                                \"value\": \"MATURITY\" \r\n                            },\r\n                            {\r\n                                \"code\": \"REASON\",\r\n                                \"value\": \"TERMINATION\" \r\n                            },\r\n                            {\r\n                                \"code\": \"BANK_NAME\",\r\n                                \"value\": \"Mandiri\"\r\n                            },\r\n                            {\r\n                                \"code\": \"BANK_SWIFT_CODE\",\r\n                                \"value\": \"CENAIDJA\"\r\n                            },\r\n                            {\r\n                                \"code\": \"BANK_ACCOUNT_NAME\",\r\n                                \"value\": \"DUMMY NAME 8\"\r\n                            },\r\n                            {\r\n                                \"code\": \"BENEFICIARY_NAME\",\r\n                                \"value\": \"DUMMY NAME 8\"\r\n                            },\r\n                            {\r\n                                \"code\": \"BANK_ACCOUNT_NUMBER\",\r\n                                \"value\": \"1301164250\"\r\n                            },\r\n                            {\r\n                                \"code\": \"RELATION\",\r\n                                \"value\": \"Diri Sendiri\"\r\n                            }\r\n                        ]\r\n                    },\r\n                    \"DECISION\": {}\r\n                }\r\n            }\r\n        ]\r\n    }\r\n}'"
+      },
+      "response": []
+    },
+    {
+      "name": "Postman delay 20 seconds",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://postman-echo.com/delay/20",
+          "protocol": "https",
+          "host": [
+            "postman-echo",
+            "com"
+          ],
+          "path": [
+            "delay",
+            "20"
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'https://api-automation-v2-dev.ifg-life.id/lifehub/public/api/v1/general-transaction/transaction-member/list' \\\r\n--header 'apiKey: YfPCr603s4OyM4pMUAuHvaWIl1kmmkWq' \\\r\n--header 'Content-Type: application/json' \\\r\n--data '{\r\n    \"page\": 1,\r\n    \"limit\": 10,\r\n    \"transactionId\": \"2d0c5cf1-cd3f-44d5-8db2-6387f2e52db8\",\r\n    \"filter\": [],\r\n    \"codes\": []\r\n}'"
+      },
+      "response": []
+    },
+    {
+      "name": "8 - GET Member Penampung",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// Parse the response JSON\r",
+              "let response = pm.response.json();\r",
+              "\r",
+              "// Configuration\r",
+              "const maxRetries = 5;  // how many times to retry\r",
+              "const retryDelay = 3000; // milliseconds between retries\r",
+              "\r",
+              "// Use pm.collectionVariables to persist retry count between runs\r",
+              "let retryCount = pm.collectionVariables.get(\"retryCount\") || 0;\r",
+              "\r",
+              "if (response.data && Array.isArray(response.data) && response.data.length === 0) {\r",
+              "    if (retryCount < maxRetries) {\r",
+              "        retryCount++;\r",
+              "        console.log(`⚠️ Data empty. Retrying... Attempt ${retryCount}/${maxRetries}`);\r",
+              "\r",
+              "        // Save updated retry count\r",
+              "        pm.collectionVariables.set(\"retryCount\", retryCount);\r",
+              "\r",
+              "        // Schedule a retry\r",
+              "        setTimeout(() => {\r",
+              "            postman.setNextRequest(pm.info.requestName);\r",
+              "        }, retryDelay);\r",
+              "    } else {\r",
+              "        console.log(\"🚫 Max retries reached. Stopping further requests.\");\r",
+              "        pm.collectionVariables.unset(\"retryCount\");\r",
+              "    }\r",
+              "} else {\r",
+              "    console.log(\"✅ Non-empty data received. Test successful!\");\r",
+              "    // Reset retry count since data is valid\r",
+              "    pm.collectionVariables.unset(\"retryCount\");\r",
+              "}\r",
+              "\r",
+              "\r",
+              "if (pm.response.code === 200) {\r",
+              "    const response = pm.response.json();\r",
+              "    let page = response.page;\r",
+              "\r",
+              "    if (page === response.totalPages) {\r",
+              "        page = 0;\r",
+              "    }\r",
+              "\r",
+              "    pm.collectionVariables.set(\"nextPage\", page + 1);\r",
+              "    // Set applicationSubRefId if data[0].id exists\r",
+              "    const data = response.data[0];\r",
+              "\r",
+              "    if (response.data.length > 0) {\r",
+              "        const applicationSubRefId = data.id;\r",
+              "        const applicationRefId = data.transactionId;\r",
+              "        pm.collectionVariables.set(\"applicationRefId\", applicationRefId);\r",
+              "        pm.collectionVariables.set(\"applicationSubRefId\", applicationSubRefId);\r",
+              "\r",
+              "        const transactionMemberDetailList = data.transactionMemberDetailList;\r",
+              "\r",
+              "        let disbAmount = \"0\";\r",
+              "\r",
+              "        for (let i = 0; i < transactionMemberDetailList.length; i++) {\r",
+              "            const item = transactionMemberDetailList[i];\r",
+              "            const isNotEmpty = item.value !== null && item.value !== undefined && item.value !== \"\";\r",
+              "\r",
+              "            if (item.code === \"WITHDRAWAL_AMOUNT\" && isNotEmpty) {\r",
+              "                disbAmount = item.value;\r",
+              "                console.info(\"WITHDRAWAL_AMOUNT => \" + disbAmount);\r",
+              "                break;\r",
+              "            }\r",
+              "        }\r",
+              "\r",
+              "        pm.collectionVariables.set(\"disbAmount\", disbAmount);\r",
+              "        pm.collectionVariables.set(\"totalRows\", response.totalRows);\r",
+              "    }\r",
+              "}\r",
+              "\r",
+              "\r",
+              "\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "{{api_key}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"page\": \"{{nextPage}}\",//{nextPage}},\r\n    \"limit\": 100,\r\n    \"transactionId\": \"{{transactionId}}\"//,\r\n    // \"codes\": [\r\n    //     \"WITHDRAWAL_AMOUNT\",\r\n    //     \"WITHDRAWAL_FEE\",\r\n    //     \"WITHDRAWAL_ALLOWED_AFTER\",\r\n    //     \"MINIMUM_BALANCE\",\r\n    //     \"DOB\",\r\n    //     \"NAME\",\r\n    //     \"ID_CARD\",\r\n    //     // \"INSURED_JOB\",\r\n    //     \"INSURED_COVERAGE_AREA\",\r\n    //     // \"SCREENING_AML_STATUS\",\r\n    //     \"TYPE_OF_INSURANCE\",\r\n    //     \"PAYMENT_METHOD\",\r\n    //     \"CASH_VALUE\"\r\n    // ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/lifehub/public/api/v1/general-transaction/transaction-member/list",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "lifehub",
+            "public",
+            "api",
+            "v1",
+            "general-transaction",
+            "transaction-member",
+            "list"
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'https://api-automation-dev.ifg-life.id/api/v1/general-transaction/transaction-member/list' \\\r\n--header 'apiKey: E97baCBt8SxmDcYNyd3KwbEA0giw8ElF' \\\r\n--header 'Content-Type: application/json' \\\r\n--data '{\r\n    \"page\": 1,\r\n    \"limit\": 100,\r\n    \"transactionId\": \"e712c884-43b9-4360-835c-93766b902c6b\",\r\n    \"filter\": [\r\n        \r\n        \r\n        \r\n        \r\n    ],\r\n    \"codes\": []\r\n}'"
+      },
+      "response": []
+    },
+    {
+      "name": "9 - Submit Withdrawal",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "{{api_key}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"transactionId\": \"{{transactionId}}\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/v1/ao-workflow-policy-corporate/withdrawal",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v1",
+            "ao-workflow-policy-corporate",
+            "withdrawal"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "9 - Callback Disbursement",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"data\": [\r\n        {\r\n            \"amount\": \"{{disbAmount}}\",\r\n            \"status\": \"success\", // status dari member nya\r\n            \"returnAt\": \"1900-01-01 00:00:00\",\r\n            \"disburseAt\": \"{{formattedDate}}\",\r\n            \"failReason\": \"\",\r\n            \"sourceBank\": {\r\n                \"bankCode\": \"BNINIDJA\",\r\n                \"accountNo\": \"***7789\"\r\n            },\r\n            \"transferType\": \"manual\",\r\n            \"disbursementId\": \"{{$randomInt}}{{$randomInt}}\",\r\n            \"applicationSubRefId\": \"{{applicationSubRefId}}\"\r\n        }\r\n    ],\r\n    \"status\": \"success\", // status dari disbursement nya\r\n    \"applicationRefId\": \"{{transactionId}}\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "wrapperps:8091/v1/ao-workflow-policy-corporate/withdrawal/callback-disbursement",
+          "host": [
+            "wrapperps"
+          ],
+          "port": "8091",
+          "path": [
+            "v1",
+            "ao-workflow-policy-corporate",
+            "withdrawal",
+            "callback-disbursement"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "10-Resubmission Withdrawal",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "{{api_key}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"transactionId\": \"ea6efd7b-44ee-4912-8dae-b88621cff082\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/v1/ao-workflow-policy-corporate/withdrawal/resubmit",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v1",
+            "ao-workflow-policy-corporate",
+            "withdrawal",
+            "resubmit"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Manual disbursement withdrawal",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apiKey",
+            "value": "hU4PcqkykYz2uJRXPgtbWZNnQg80WX8J"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"data\": [\n        {\n            \"amount\": \"0\",\n            \"status\": \"success\",\n            \"returnAt\": \"1900-01-01 00:00:00\",\n            \"disburseAt\": \"2026-03-06 00:00:00\",\n            \"failReason\": \"\",\n            \"sourceBank\": {\n                \"bankCode\": \"BNINIDJA\",\n                \"accountNo\": \"***5001\",\n                \"accountCode\": \"00945001\"\n            },\n            \"transferType\": \"manual\",\n            \"disbursementId\": \"ea6efd7b-44ee-4912-8dae-b88621cff082\",\n            \"applicationSubRefId\": \"\"\n        }\n    ],\n    \"status\": \"success\",\n    \"applicationRefId\": \"f32e6661-c35d-478a-9bdf-726e429b3878\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api-automation-v2-uat.ifg-life.id/v1/ao-workflow-policy-corporate/withdrawal/callback-disbursement",
+          "protocol": "https",
+          "host": [
+            "api-automation-v2-uat",
+            "ifg-life",
+            "id"
+          ],
+          "path": [
+            "v1",
+            "ao-workflow-policy-corporate",
+            "withdrawal",
+            "callback-disbursement"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "transactionId",
+      "value": "d3d950d9-018d-4652-ba74-0c551240e2a2"
+    },
+    {
+      "key": "policy_number",
+      "value": ""
+    },
+    {
+      "key": "certificateNumber",
+      "value": "910625000138724"
+    },
+    {
+      "key": "policyNo",
+      "value": "910625000138724"
+    },
+    {
+      "key": "productCode",
+      "value": "106"
+    },
+    {
+      "key": "organizationId",
+      "value": "792028fb-1293-4c1e-bde4-48f78b23ceb5"
+    },
+    {
+      "key": "organizationPolicyNumber",
+      "value": "9106252051"
+    },
+    {
+      "key": "policyId",
+      "value": "0abf2788-1c2d-4c37-b2dd-7622358429af"
+    },
+    {
+      "key": "cif",
+      "value": "3a669585-3e89-4a4d-9f13-187ae9c0c227"
+    },
+    {
+      "key": "policyNumber",
+      "value": "910625000138724"
+    },
+    {
+      "key": "policyStatus",
+      "value": "INFORCE"
+    },
+    {
+      "key": "formattedDate",
+      "value": "2026-02-02 14:00:21"
+    },
+    {
+      "key": "referenceNo",
+      "value": "kang2026-janu-4154-5600-WITHDRAW02140021"
+    },
+    {
+      "key": "today",
+      "value": "2026-02-02"
+    },
+    {
+      "key": "instanceId",
+      "value": ""
+    },
+    {
+      "key": "name",
+      "value": "DUMMY HILMI SILALAHI"
+    },
+    {
+      "key": "idCardNo",
+      "value": "3271062011011542"
+    },
+    {
+      "key": "address",
+      "value": "PERUM MEKARSARI AIR MANCUR NO 33"
+    },
+    {
+      "key": "dob",
+      "value": "1998-06-15"
+    },
+    {
+      "key": "cashValue",
+      "value": "10210"
+    },
+    {
+      "key": "nextPage",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "applicationRefId",
+      "value": ""
+    },
+    {
+      "key": "applicationSubRefId",
+      "value": ""
+    },
+    {
+      "key": "disbAmount",
+      "value": ""
+    },
+    {
+      "key": "totalRows",
+      "value": ""
+    },
+    {
+      "key": "planCode",
+      "value": ""
+    },
+    {
+      "key": "randomPolicyNumber",
+      "value": ""
+    }
+  ]
+}
