@@ -1,0 +1,451 @@
+{
+    "code": "2000",
+    "error": false,
+    "message": "success",
+    "data": {
+        "id": "1b5b9c85-9dcf-4af4-b352-1b7569edbc8f",
+        "processName": "remove_member_corporate",
+        "processId": "remove_member_corporate",
+        "businessKey": "ao-workflow-policy-remove-member-corporate",
+        "variables": {
+            "transactionId": "9e3cd832-fb82-46f6-9a49-678155619a12",
+            "isWithdrawaled": true,
+            "isNewSubmission": true,
+            "isCoverageUpdated": true,
+            "removeMemberWorkflowData": {
+                "isNext": false,
+                "reason": "",
+                "remark": "TVT REMOVE MEMBER 23/08/2025",
+                "result": "no Route matched with those values",
+                "pending": false,
+                "approval": {
+                    "history": [
+                        {
+                            "name": "Verificator",
+                            "role": "VT",
+                            "email": "jane.angel@ifg-life.id",
+                            "isNext": false,
+                            "reasons": [
+                                ""
+                            ],
+                            "decision": "APPROVED",
+                            "isMandatory": true,
+                            "incorrectDocuments": []
+                        },
+                        {
+                            "name": "APPROVER_1",
+                            "role": "A1",
+                            "email": "jane.angel@ifg-life.id",
+                            "isNext": true,
+                            "reasons": [
+                                ""
+                            ],
+                            "decision": "APPROVED",
+                            "isMandatory": true,
+                            "incorrectDocuments": []
+                        }
+                    ],
+                    "lastDecision": "APPROVED",
+                    "lastApprovalName": "",
+                    "lastApprovalEmail": "",
+                    "lastApprovalProcess": "APPROVER_1"
+                },
+                "errorMsg": null,
+                "lastTask": null,
+                "planCode": "01",
+                "planName": null,
+                "fundValue": 0,
+                "isResubmit": null,
+                "resultCode": null,
+                "benefitType": null,
+                "isRetrigger": null,
+                "productCode": "106",
+                "productName": null,
+                "totalMember": 1,
+                "verificator": false,
+                "approvalName": "",
+                "maxFundValue": 4911215.322581,
+                "movementType": "MATURITY",
+                "needRevision": null,
+                "approvalEmail": "",
+                "caseManagement": {
+                    "reason": null,
+                    "productInfo": {
+                        "productDesc": [
+                            {
+                                "code": "productCode",
+                                "value": "106"
+                            },
+                            {
+                                "code": "currency",
+                                "value": ""
+                            },
+                            {
+                                "code": "productName",
+                                "value": "IFG Dana Hari Tua"
+                            },
+                            {
+                                "code": "fundValue",
+                                "value": ""
+                            },
+                            {
+                                "code": "fundingType",
+                                "value": "INDIVIDUAL_ACCOUNT"
+                            },
+                            {
+                                "code": "lastUpdate",
+                                "value": ""
+                            }
+                        ]
+                    },
+                    "decisionInfo": {
+                        "remark": null,
+                        "isPending": false,
+                        "taskActor": "jane.angel@ifg-life.id",
+                        "pendingType": "",
+                        "incorrectDocuments": []
+                    },
+                    "corpoMemberDetail": {
+                        "code": [
+                            "CERTIFICATE_NO",
+                            "NAME",
+                            "CLAIM_TYPE",
+                            "SCREENING_AML_STATUS",
+                            "STATUS",
+                            "REASON",
+                            "IS_ELIGIBLE"
+                        ],
+                        "filter": [
+                            "CERTIFICATE_NO",
+                            "NAME",
+                            "IS_ELIGIBLE"
+                        ],
+                        "transactionId": "9e3cd832-fb82-46f6-9a49-678155619a12"
+                    },
+                    "policyInformation": {
+                        "companyIdentity": [
+                            {
+                                "code": "companyCode",
+                                "value": ""
+                            },
+                            {
+                                "code": "npwp",
+                                "value": "015778038048876"
+                            },
+                            {
+                                "code": "companyAddress",
+                                "value": "JALAN A. YANI NO.97 TAMBARANGAN, KECAMATAN TAPIN SELATAN CIDENG GAMBIR KOTA ADM. JAKARTA PUSAT DKI JAKARTA"
+                            },
+                            {
+                                "code": "businessSector",
+                                "value": "ANEKA USAHA"
+                            }
+                        ],
+                        "contactInformation": [
+                            {
+                                "code": "namePic",
+                                "value": "julius caesar"
+                            },
+                            {
+                                "code": "emailPic",
+                                "value": "arnaldo.julius@gmail.com"
+                            },
+                            {
+                                "code": "phonePic",
+                                "value": ""
+                            },
+                            {
+                                "code": "positionPic",
+                                "value": "Manager"
+                            }
+                        ]
+                    },
+                    "transactionNumber": "2025-08-23-000000002466",
+                    "transactionReference": {
+                        "noSuratReferensi": "RMV001",
+                        "tanggalSuratReferensi": "2024-01-01 00:00:00"
+                    },
+                    "parentProcessInstanceId": "b4dd2733-aa97-44be-9397-2959f601f7c5"
+                },
+                "organizationId": "ba6f4ecc-b81e-4a1a-8954-618cef6a23f2",
+                "submissionDate": "2025-08-23 14:21:38",
+                "isNewSubmission": null,
+                "isPremiumRefund": null,
+                "isNeedWithdrawal": true,
+                "organizationName": "TVT INDONESIA FINANCIAL GROUP",
+                "processInstanceId": "b4dd2733-aa97-44be-9397-2959f601f7c5",
+                "eventTransactionId": null,
+                "generalReferenceNo": "d1451245-f3e7-4e8e-a299-ecda96ecf1a2",
+                "generalTransactionId": "9e3cd832-fb82-46f6-9a49-678155619a12",
+                "eventTransactionNumber": "2025-08-23-000000002466",
+                "organizationPolicyNumber": "910625121",
+                "removeMemberTransactionHeader": {
+                    "entityId": "ba6f4ecc-b81e-4a1a-8954-618cef6a23f2",
+                    "createdBy": "AO-PS",
+                    "reference": "RMV001",
+                    "isScheduler": null,
+                    "entityTypeId": "c6f80355-0d13-4217-a9bd-e2be87f7ee99",
+                    "referenceDate": "2024-01-01 00:00:00",
+                    "masterStatusId": "cb1f4ded-8c52-4b98-8627-950f724e9070",
+                    "referenceTypeId": "1e8f73e4-b05a-4f7f-9286-a0a1d63438b1",
+                    "transactionEvent": {
+                        "eventCode": "SUBMISSION",
+                        "listVariable": [
+                            {
+                                "value": "910625121"
+                            },
+                            {
+                                "value": "d1451245-f3e7-4e8e-a299-ecda96ecf1a2"
+                            },
+                            {
+                                "value": "2025-08-23 14:21:38"
+                            },
+                            {
+                                "value": "RMV001"
+                            },
+                            {
+                                "value": "2024-01-01"
+                            },
+                            {
+                                "value": "julius caesar"
+                            },
+                            {
+                                "value": "arnaldo.julius@gmail.com"
+                            },
+                            {
+                                "value": ""
+                            },
+                            {
+                                "value": "Manager"
+                            }
+                        ]
+                    },
+                    "transactionTypeId": "70262943-8001-4217-9727-7c74a58b1ce5",
+                    "referenceDescription": "PENGURANGAN PESERTA"
+                }
+            }
+        },
+        "state": "ERROR",
+        "start": "2025-08-23T07:22:30.788Z",
+        "lastUpdate": "2025-08-23T07:48:23.942Z",
+        "end": null,
+        "error": {
+            "nodeDefinitionId": "_53EC36B4-BA96-4E5F-8AD6-6AE657754DC3",
+            "message": "org.apache.kafka.common.security.oauthbearer.internals.secured.ValidateException - FAILED_PROCESS_DISBURSEMENT_REMOVE_MEMBER"
+        },
+        "nodes": [
+            {
+                "definitionId": "_AD7AB702-6B6A-4346-9019-4BE376D49FBF",
+                "name": "Start",
+                "enter": "2025-08-23T07:22:30.788Z",
+                "exit": "2025-08-23T07:22:30.788Z",
+                "error": null
+            },
+            {
+                "definitionId": "_429EE45A-B75B-4B88-A6AB-92880E2603FD",
+                "name": "Submit transaction",
+                "enter": "2025-08-23T07:22:30.788Z",
+                "exit": "2025-08-23T07:22:31.004Z",
+                "error": null
+            },
+            {
+                "definitionId": "_A56A4839-284C-4EEF-B630-D3CCFE798344",
+                "name": "Callback Transaction Submit",
+                "enter": "2025-08-23T07:22:31.004Z",
+                "exit": "2025-08-23T07:22:36.451Z",
+                "error": null
+            },
+            {
+                "definitionId": "_3AFD715C-0DC9-445B-8230-732D441A58F2",
+                "name": "Is submission succress?",
+                "enter": "2025-08-23T07:22:36.451Z",
+                "exit": "2025-08-23T07:22:36.451Z",
+                "error": null
+            },
+            {
+                "definitionId": "_CCFD492A-262E-437F-8551-AE599A7DD60E",
+                "name": "Generate Email Submission",
+                "enter": "2025-08-23T07:22:36.451Z",
+                "exit": "2025-08-23T07:22:36.662Z",
+                "error": null
+            },
+            {
+                "definitionId": "_2CD2F107-99EF-4DC4-98DD-6328095D7BF9",
+                "name": "submit bulk customer screening",
+                "enter": "2025-08-23T07:22:36.662Z",
+                "exit": "2025-08-23T07:22:37.273Z",
+                "error": null
+            },
+            {
+                "definitionId": "_EE8EF677-8A7B-4760-9CF1-7EDDB2DE380F",
+                "name": "Callback Customer Screening",
+                "enter": "2025-08-23T07:22:37.273Z",
+                "exit": "2025-08-23T07:22:37.423Z",
+                "error": null
+            },
+            {
+                "definitionId": "_7E29DF66-E632-4A90-ACB9-E850F42F9E45",
+                "name": "Event Update Status customer screening",
+                "enter": "2025-08-23T07:22:37.423Z",
+                "exit": "2025-08-23T07:22:37.439Z",
+                "error": null
+            },
+            {
+                "definitionId": "_B320EBCE-6348-4922-8F32-F43DFE79584B",
+                "name": "IsRefundPremium?",
+                "enter": "2025-08-23T07:22:37.439Z",
+                "exit": "2025-08-23T07:22:37.439Z",
+                "error": null
+            },
+            {
+                "definitionId": "_C1F9EEEC-4A08-4867-880E-187A91E8E440",
+                "name": "Join",
+                "enter": "2025-08-23T07:22:37.439Z",
+                "exit": "2025-08-23T07:22:37.439Z",
+                "error": null
+            },
+            {
+                "definitionId": "_06324BC8-F9C5-49CD-A1BA-0DBB2F930B1B",
+                "name": "Generate Acceptance Letter",
+                "enter": "2025-08-23T07:22:37.439Z",
+                "exit": "2025-08-23T07:22:37.641Z",
+                "error": null
+            },
+            {
+                "definitionId": "_34CD85CE-A97A-4F2A-8EFE-5ED4453095FC",
+                "name": "Join",
+                "enter": "2025-08-23T07:22:37.641Z",
+                "exit": "2025-08-23T07:22:37.641Z",
+                "error": null
+            },
+            {
+                "definitionId": "_A509B6A8-AFC0-4966-A795-60399B883F9F",
+                "name": "Remove Member Analysis",
+                "enter": "2025-08-23T07:22:37.641Z",
+                "exit": "2025-08-23T07:48:21.676Z",
+                "error": null
+            },
+            {
+                "definitionId": "_79113C30-9495-473F-A998-759F0498B363",
+                "name": "pending?",
+                "enter": "2025-08-23T07:48:21.676Z",
+                "exit": "2025-08-23T07:48:21.677Z",
+                "error": null
+            },
+            {
+                "definitionId": "_9E0298EE-A015-4A90-A342-45FAE99B1DC0",
+                "name": "decision?",
+                "enter": "2025-08-23T07:48:21.677Z",
+                "exit": "2025-08-23T07:48:21.677Z",
+                "error": null
+            },
+            {
+                "definitionId": "_693AB793-6A87-4ED7-8DB0-F704F742A183",
+                "name": "Submit claim checking",
+                "enter": "2025-08-23T07:48:21.677Z",
+                "exit": "2025-08-23T07:48:21.691Z",
+                "error": null
+            },
+            {
+                "definitionId": "_AC8FDF99-14B2-4794-9BEB-241A3244921B",
+                "name": "Update Certificate member",
+                "enter": "2025-08-23T07:48:21.691Z",
+                "exit": "2025-08-23T07:48:21.701Z",
+                "error": null
+            },
+            {
+                "definitionId": "_A60C0716-ADCF-4B41-AEBA-CDE000079CCA",
+                "name": "Callback Update Certificate",
+                "enter": "2025-08-23T07:48:21.702Z",
+                "exit": "2025-08-23T07:48:21.936Z",
+                "error": null
+            },
+            {
+                "definitionId": "_5A278CB9-4DDD-4466-97EA-943A77C3F99C",
+                "name": "Split",
+                "enter": "2025-08-23T07:48:21.936Z",
+                "exit": "2025-08-23T07:48:21.936Z",
+                "error": null
+            },
+            {
+                "definitionId": "_F9133C80-A409-48F5-96BA-905F16E1DC24",
+                "name": "Need Withdrawal?",
+                "enter": "2025-08-23T07:48:21.936Z",
+                "exit": "2025-08-23T07:48:21.936Z",
+                "error": null
+            },
+            {
+                "definitionId": "_F0AAFAD7-0265-4E99-B569-A996D329D7BF",
+                "name": "Update transaction event",
+                "enter": "2025-08-23T07:48:21.936Z",
+                "exit": "2025-08-23T07:48:22Z",
+                "error": null
+            },
+            {
+                "definitionId": "_5232B1FE-42DC-41FC-BF26-401B6EF0D635",
+                "name": "Callback Withdrawal",
+                "enter": "2025-08-23T07:48:22.008Z",
+                "exit": "2025-08-23T07:48:23.819Z",
+                "error": null
+            },
+            {
+                "definitionId": "_7A739B07-D969-4347-8B03-C03F18A2E020",
+                "name": "Process Withdrawal Cash Value",
+                "enter": "2025-08-23T07:48:22Z",
+                "exit": "2025-08-23T07:48:22.008Z",
+                "error": null
+            },
+            {
+                "definitionId": "_487DADC7-ED78-4372-951F-0B9D2EFEDFBE",
+                "name": "Success Withdrawal?",
+                "enter": "2025-08-23T07:48:23.819Z",
+                "exit": "2025-08-23T07:48:23.82Z",
+                "error": null
+            },
+            {
+                "definitionId": "_1C10BD8C-21BB-4FA6-B94A-8DDF6A01CC4B",
+                "name": "Join",
+                "enter": "2025-08-23T07:48:23.82Z",
+                "exit": "2025-08-23T07:48:23.82Z",
+                "error": null
+            },
+            {
+                "definitionId": "_447B3948-B2C5-490E-935F-B81E24C7528B",
+                "name": "Update transaction event status",
+                "enter": "2025-08-23T07:48:23.82Z",
+                "exit": "2025-08-23T07:48:23.862Z",
+                "error": null
+            },
+            {
+                "definitionId": "_9552B01A-ACCA-4AD1-9326-0830DF7D49CC",
+                "name": "Update Certificate Status",
+                "enter": "2025-08-23T07:48:23.862Z",
+                "exit": "2025-08-23T07:48:23.872Z",
+                "error": null
+            },
+            {
+                "definitionId": "_A87A23FB-F17C-4AB6-86F6-96E3812E4B64",
+                "name": "Update transaction event status",
+                "enter": "2025-08-23T07:48:23.872Z",
+                "exit": "2025-08-23T07:48:23.924Z",
+                "error": null
+            },
+            {
+                "definitionId": "_53EC36B4-BA96-4E5F-8AD6-6AE657754DC3",
+                "name": "Submit Disbursement Queue",
+                "enter": "2025-08-23T07:48:23.924Z",
+                "exit": null,
+                "error": "org.apache.kafka.common.security.oauthbearer.internals.secured.ValidateException - FAILED_PROCESS_DISBURSEMENT_REMOVE_MEMBER"
+            }
+        ],
+        "childProcessInstances": [
+            {
+                "id": "b4dd2733-aa97-44be-9397-2959f601f7c5",
+                "businessKey": null,
+                "processName": "remove_member_analysis",
+                "state": "COMPLETED"
+            }
+        ],
+        "parentProcessInstance": null
+    }
+}
